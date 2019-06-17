@@ -8,55 +8,22 @@ Harvested Random Seeds after Generation of the Random Numbers:
   K1: '169290450'
   K2: '0'
 Hub-Height Simulated Turbulence Statistical Summary:
-  Type of Wind:
-    Horizontal (U&V):
-      Max (m/s): '17.24'
-      Mean (m/s): '12.11'
-      Min (m/s): '6.88'
-      Sigma (m/s): '1.648'
-      TI (%): '13.611'
-    Lateral (v):
-      Max (m/s): '5.35'
-      Mean (m/s): '0.00'
-      Min (m/s): '-5.79'
-      Sigma (m/s): '1.599'
-      TI (%): '13.325'
-    Longitudinal (u):
-      Max (m/s): '17.23'
-      Mean (m/s): '12.00'
-      Min (m/s): '6.72'
-      Sigma (m/s): '1.662'
-      TI (%): '13.850'
-    Total:
-      Max (m/s): '17.26'
-      Mean (m/s): '12.15'
-      Min (m/s): '6.92'
-      Sigma (m/s): '1.647'
-      TI (%): '13.553'
-    U component:
-      Max (m/s): '17.23'
-      Mean (m/s): '12.00'
-      Min (m/s): '6.72'
-      Sigma (m/s): '1.662'
-      TI (%): '13.850'
-    V component:
-      Max (m/s): '5.35'
-      Mean (m/s): '0.00'
-      Min (m/s): '-5.79'
-      Sigma (m/s): '1.599'
-      TI (%): '13.325'
-    Vertical (w):
-      Max (m/s): '3.40'
-      Mean (m/s): '0.00'
-      Min (m/s): '-3.54'
-      Sigma (m/s): '0.999'
-      TI (%): '8.325'
-    W component:
-      Max (m/s): '3.40'
-      Mean (m/s): '0.00'
-      Min (m/s): '-3.54'
-      Sigma (m/s): '0.999'
-      TI (%): '8.325'
+  Product:
+    u'v':
+      Correlation Coefficient: '0.156'
+      Max Reynolds Stress (m/s)^2: '20.375'
+      Mean Reynolds Stress (m/s)^2: '0.414'
+      Min Reynolds Stress (m/s)^2: '-14.212'
+    u'w':
+      Correlation Coefficient: '0.085'
+      Max Reynolds Stress (m/s)^2: '9.761'
+      Mean Reynolds Stress (m/s)^2: '0.142'
+      Min Reynolds Stress (m/s)^2: '-9.537'
+    v'w':
+      Correlation Coefficient: '0.145'
+      Max Reynolds Stress (m/s)^2: '14.521'
+      Mean Reynolds Stress (m/s)^2: '0.232'
+      Min Reynolds Stress (m/s)^2: '-8.399'
 Mean Flow Angles:
   Horizontal: 0.0 degrees
   Vertical: 0.0 degrees

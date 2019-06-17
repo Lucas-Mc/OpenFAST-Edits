@@ -29,6 +29,14 @@ output_file = open(output_filename,'w')
 output_file.write('---\n')
 output_file.write('# Input information for: '+output_filename.replace('.yml','')+'\n')
 
+def split_line(current_line):
+    # Take the line and split by whitespace while conserving spaces in categories
+    temp_value_list = current_line.split('  ')
+    temp_value_list = [i.replace('\n','').strip() for i in temp_value_list]
+    temp_value_list = list(filter(None, temp_value_list))
+    
+    return temp_value_list
+
 if (input_file_type == 0):
 
     new_dict = {}
@@ -152,9 +160,7 @@ elif (input_file_type == 2):
 
             if (line_num == 82):
 
-                temp_value_list = line.split('  ')
-                temp_value_list = [i.replace('\n','').strip() for i in temp_value_list]
-                temp_value_list = list(filter(None, temp_value_list))
+                temp_value_list = split_line(line)
 
             elif (line_num == 83):
 
@@ -186,17 +192,13 @@ elif (input_file_type == 2):
 
             if (line_num == 129):
 
-                temp_value_list = line.split('  ')
-                temp_value_list = [i.replace('\n','').strip() for i in temp_value_list]
-                temp_value_list = list(filter(None, temp_value_list))
+                temp_value_list = split_line(line)
                 temp_temp_dict = {}
 
             elif ((line_num >= 131) and (line_num <= 138)):
 
+                temp_line_vals = split_line(line)
                 temp_temp_temp_dict = {}
-                temp_line_vals = line.split('  ')
-                temp_line_vals = [j.replace('\n','').strip() for j in temp_line_vals]
-                temp_line_vals = list(filter(None, temp_line_vals))
 
                 for k,tv in enumerate(temp_value_list[1:]):
 
@@ -207,23 +209,30 @@ elif (input_file_type == 2):
 
             elif (line_num == 140):
 
-                temp_value_list = line.split('  ')
-                temp_value_list = [i.replace('\n','').strip() for i in temp_value_list]
-                temp_value_list = list(filter(None, temp_value_list))
+                temp_value_list = split_line(line)
 
             elif (line_num == 141): 
 
-                temp_value_list2 = line.split('  ')
-                temp_value_list2 = [i.replace('\n','').strip() for i in temp_value_list2]
-                temp_value_list2 = list(filter(None, temp_value_list2))
+                temp_value_list2 = split_line(line)
 
                 for i,tlv in enumerate(temp_value_list):
 
                     temp_value_list[i] = tlv + ' ' + temp_value_list2[i+1]
 
                 temp_value_list.insert(0,temp_value_list2[0])
-                print(temp_value_list)
+                temp_temp_dict2 = {}
 
+            elif ((line_num >= 143) and (line_num <= 145)):
+
+                temp_line_vals = split_line(line)
+                temp_temp_temp_dict = {}
+
+                for k,tv in enumerate(temp_value_list[1:]):
+
+                    temp_temp_temp_dict[tv] = temp_line_vals[k+1]
+
+                temp_temp_dict2[temp_line_vals[0]] = temp_temp_temp_dict
+                temp_dict[temp_value_list[0]] = temp_temp_dict2
 
         elif ((len(line.split()) == 0) and (line_num != 64) and (line_num != 71)):
 
