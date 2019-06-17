@@ -4,33 +4,204 @@
 Generated File: &id001
   File name: 90m_12mps.bts
   File type: AeroDyn/TurbSim full-field wind file
+Grid Point Variance Summary:
+  Mean standard deviation across all grid points:
+    u component:
+      Unit: m/s
+      Value: '1.866'
+    v component:
+      Unit: m/s
+      Value: '1.599'
+    w component:
+      Unit: m/s
+      Value: '0.999'
 Harvested Random Seeds after Generation of the Random Numbers:
   K1: '169290450'
   K2: '0'
 Hub-Height Simulated Turbulence Statistical Summary:
+  Friction Velocity (Ustar):
+    Unit: m/s
+    Value: '0.376'
+  Maximum Instantaneous CTKE:
+    Unit: (m/s)^2
+    Value: '10.699'
+  Maximum Instantaneous TKE:
+    Unit: (m/s)^2
+    Value: '22.827'
   Product:
     u'v':
       Correlation Coefficient: '0.156'
-      Max Reynolds Stress (m/s)^2: '20.375'
-      Mean Reynolds Stress (m/s)^2: '0.414'
-      Min Reynolds Stress (m/s)^2: '-14.212'
+      Max Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '20.375'
+      Mean Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '0.414'
+      Min Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '-14.212'
     u'w':
       Correlation Coefficient: '0.085'
-      Max Reynolds Stress (m/s)^2: '9.761'
-      Mean Reynolds Stress (m/s)^2: '0.142'
-      Min Reynolds Stress (m/s)^2: '-9.537'
+      Max Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '9.761'
+      Mean Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '0.142'
+      Min Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '-9.537'
     v'w':
       Correlation Coefficient: '0.145'
-      Max Reynolds Stress (m/s)^2: '14.521'
-      Mean Reynolds Stress (m/s)^2: '0.232'
-      Min Reynolds Stress (m/s)^2: '-8.399'
+      Max Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '14.521'
+      Mean Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '0.232'
+      Min Reynolds Stress:
+        Unit: (m/s)^2
+        Value: '-8.399'
+  Type of Wind:
+    Horizontal (U&V):
+      Max:
+        Unit: m/s
+        Value: '17.24'
+      Mean:
+        Unit: m/s
+        Value: '12.11'
+      Min:
+        Unit: m/s
+        Value: '6.88'
+      Sigma:
+        Unit: m/s
+        Value: '1.648'
+      TI:
+        Unit: '%'
+        Value: '13.611'
+    Lateral (v):
+      Max:
+        Unit: m/s
+        Value: '5.35'
+      Mean:
+        Unit: m/s
+        Value: '0.00'
+      Min:
+        Unit: m/s
+        Value: '-5.79'
+      Sigma:
+        Unit: m/s
+        Value: '1.599'
+      TI:
+        Unit: '%'
+        Value: '13.325'
+    Longitudinal (u):
+      Max:
+        Unit: m/s
+        Value: '17.23'
+      Mean:
+        Unit: m/s
+        Value: '12.00'
+      Min:
+        Unit: m/s
+        Value: '6.72'
+      Sigma:
+        Unit: m/s
+        Value: '1.662'
+      TI:
+        Unit: '%'
+        Value: '13.850'
+    Total:
+      Max:
+        Unit: m/s
+        Value: '17.26'
+      Mean:
+        Unit: m/s
+        Value: '12.15'
+      Min:
+        Unit: m/s
+        Value: '6.92'
+      Sigma:
+        Unit: m/s
+        Value: '1.647'
+      TI:
+        Unit: '%'
+        Value: '13.553'
+    U component:
+      Max:
+        Unit: m/s
+        Value: '17.23'
+      Mean:
+        Unit: m/s
+        Value: '12.00'
+      Min:
+        Unit: m/s
+        Value: '6.72'
+      Sigma:
+        Unit: m/s
+        Value: '1.662'
+      TI:
+        Unit: '%'
+        Value: '13.850'
+    V component:
+      Max:
+        Unit: m/s
+        Value: '5.35'
+      Mean:
+        Unit: m/s
+        Value: '0.00'
+      Min:
+        Unit: m/s
+        Value: '-5.79'
+      Sigma:
+        Unit: m/s
+        Value: '1.599'
+      TI:
+        Unit: '%'
+        Value: '13.325'
+    Vertical (w):
+      Max:
+        Unit: m/s
+        Value: '3.40'
+      Mean:
+        Unit: m/s
+        Value: '0.00'
+      Min:
+        Unit: m/s
+        Value: '-3.54'
+      Sigma:
+        Unit: m/s
+        Value: '0.999'
+      TI:
+        Unit: '%'
+        Value: '8.325'
+    W component:
+      Max:
+        Unit: m/s
+        Value: '3.40'
+      Mean:
+        Unit: m/s
+        Value: '0.00'
+      Min:
+        Unit: m/s
+        Value: '-3.54'
+      Sigma:
+        Unit: m/s
+        Value: '0.999'
+      TI:
+        Unit: '%'
+        Value: '8.325'
 Mean Flow Angles:
-  Horizontal: 0.0 degrees
-  Vertical: 0.0 degrees
+  Horizontal:
+    Unit: degrees
+    Value: '0.0'
+  Vertical:
+    Unit: degrees
+    Value: '0.0'
 Mean Wind Speed Profile:
   Height:
-    Units: m
-    Values:
+    Unit: m
+    Value:
     - '162.5'
     - '157.7'
     - '152.8'
@@ -66,8 +237,8 @@ Mean Wind Speed Profile:
     - '7.8'
     - '3.0'
   Horizontal Angle:
-    Units: degrees
-    Values:
+    Unit: degrees
+    Value:
     - '0.00'
     - '0.00'
     - '0.00'
@@ -103,8 +274,8 @@ Mean Wind Speed Profile:
     - '0.00'
     - '0.00'
   U-comp (X):
-    Units: m/s
-    Values:
+    Unit: m/s
+    Value:
     - '13.51'
     - '13.42'
     - '13.34'
@@ -140,8 +311,8 @@ Mean Wind Speed Profile:
     - '7.36'
     - '6.08'
   V-comp (Y):
-    Units: m/s
-    Values:
+    Unit: m/s
+    Value:
     - '0.00'
     - '0.00'
     - '0.00'
@@ -177,8 +348,8 @@ Mean Wind Speed Profile:
     - '0.00'
     - '0.00'
   W-comp (Z):
-    Units: m/s
-    Values:
+    Unit: m/s
+    Value:
     - '0.00'
     - '0.00'
     - '0.00'
@@ -214,8 +385,8 @@ Mean Wind Speed Profile:
     - '0.00'
     - '0.00'
   Wind Speed:
-    Units: m/s
-    Values:
+    Unit: m/s
+    Value:
     - '13.51'
     - '13.42'
     - '13.34'
@@ -251,16 +422,26 @@ Mean Wind Speed Profile:
     - '7.36'
     - '6.08'
 Meteorological Boundary Conditions:
-  IEC Extreme Turbulence Model (ETM) "c" parameter [m/s]: N/A
+  IEC Extreme Turbulence Model (ETM) "c" parameter:
+    Unit: m/s
+    Value: N/A
   IEC Kaimal spectral model: IECKAI
   IEC Normal Turbulence Model: NTM
   'IEC standard: IEC 61400-1 Ed. 3: 2005': '1'
   IEC turbulence characteristic: B
-  Jet height [m]: N/A
+  Jet height:
+    Unit: m
+    Value: N/A
   Power law exponent: '0.200'
-  Reference height [m]: '90.000'
-  Reference wind speed [m/s]: '12.000'
-  Surface roughness length [m]: '0.030'
+  Reference height:
+    Unit: m
+    Value: '90.000'
+  Reference wind speed:
+    Unit: m/s
+    Value: '12.000'
+  Surface roughness length:
+    Unit: m
+    Value: '0.030'
   Wind profile type: PL
 Runtime Options:
   Clockwise rotation when looking downwind?: T
@@ -276,15 +457,31 @@ Runtime Options:
   'Random seed #1': '13428'
   Type of random number generator: RANLUX
 Turbine/Model Specifications:
-  Analysis time [seconds]: '630.000'
-  Grid height [m]: '145.000'
-  Grid width [m]: '145.000'
-  Horizontal flow angle [degrees]: '0.000'
+  Analysis time:
+    Unit: seconds
+    Value: '630.000'
+  Grid height:
+    Unit: m
+    Value: '145.000'
+  Grid width:
+    Unit: m
+    Value: '145.000'
+  Horizontal flow angle:
+    Unit: degrees
+    Value: '0.000'
   Horizontal grid-point matrix dimension: '31'
-  Hub height [m]: '90.000'
-  Time step [seconds]: '0.050'
-  Usable output time [seconds]: '60.000'
-  Vertical flow angle [degrees]: '0.000'
+  Hub height:
+    Unit: m
+    Value: '90.000'
+  Time step:
+    Unit: seconds
+    Value: '0.050'
+  Usable output time:
+    Unit: seconds
+    Value: '60.000'
+  Vertical flow angle:
+    Unit: degrees
+    Value: '0.000'
   Vertical grid-point matrix dimension: '31'
 Turbulence Simulation Scaling Parameter Summary:
   Number of time steps in the FFT: '12600'
