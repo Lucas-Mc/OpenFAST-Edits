@@ -4,109 +4,9 @@
 # June 14, 2019
 import sys
 import yaml
+from fileclass import File
 
 # All required functions
-def is_float(s):
-    '''
-    Determines if a string (s) can be converted to a float
-    '''
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
-
-def is_int(s):
-    '''
-    Determines if a string (s) can be converted to an integer
-    '''
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
-
-def convert_value(s):
-    '''
-    Determines and converts a string (s) to either int, float, or string
-    '''
-    if (is_int(s)):
-        return int(s)
-    elif (is_float(s)):
-        return float(s)
-    else:
-        return s
-
-def combine_text(s_list,sep):
-    '''
-    s_list: list of strings ready and in order to be merged
-    sep: the character used to join the list of strings (s_list)
-    '''
-    new_string = sep.join(s_list)
-    return new_string
-
-def combine_text_spaces(s_list):
-    '''
-    Combines a list of strings (s_list) with the default seperator as a space character
-    '''
-    return combine_text(s_list, sep=' ')
-
-def remove_char(s,c_list):
-    '''
-    Remove all the characters in a string (s) based on a list (c_list)
-    '''
-    new_s = s
-    for c in c_list:
-        new_s = new_s.replace(c,'')
-    return new_s
-
-def remove_parens(s):
-    '''
-    Remove parentheses from a string (s)
-    '''
-    return remove_char(s,['(',')'])
-
-def remove_brackets(s):
-    '''
-    Remove brackets from a string (s)
-    '''
-    return remove_char(s,['[',']'])
-
-def split_line(current_line, delimiter='  '):
-    '''
-    Take the line and split by whitespace while conserving spaces in categories
-    '''
-    temp_value_list = current_line.split(delimiter)
-    temp_value_list = [remove_char(i,['\n']).strip() for i in temp_value_list]
-    temp_value_list = list(filter(None, temp_value_list))
-    
-    return temp_value_list
-
-def split_line_spaces(current_line):
-    '''
-    Splits a line by the default delimiter of double spaces to conserve titles
-    '''
-    return split_line(current_line, delimiter='  ')
-
-def sep_string(s,sep):
-    '''
-    Takes an input sting and divides it into two by a chosen character
-    s: the input string
-    sep: the character that will split the string
-    '''
-    value1 = s.split(sep)[0].strip()
-    value2 = s.split(sep)[1].strip()
-    return value1,value2
-
-def sep_string_double(s,c1,c2):
-    '''
-    s: input string
-    c1: first character after splitting
-    c2: second character after splitting
-    '''
-    val1,val2 = sep_string(s,c1)
-    val2,val3 = sep_string(val2,c2)
-    return val1,val2,val3
 
 input_file_type = 2
 # 0: Input file (Main folder / FAST)
@@ -121,6 +21,10 @@ elif (input_file_type == 2):
     file_name = '/Users/lmccullu/openfast/build/reg_tests/glue-codes/openfast/5MW_Baseline/Wind/90m_12mps_twr.sum'
 else:
     pass
+
+turbsim_file = File('/Users/lmccullu/openfast/build/reg_tests/glue-codes/openfast/5MW_Baseline/Wind/90m_12mps_twr.inp')
+turbsim_file.read()
+turbsim_file.export()
 
 new_file = open(file_name)
 data = new_file.readlines()
