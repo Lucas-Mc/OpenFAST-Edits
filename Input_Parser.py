@@ -181,7 +181,7 @@ elif (input_file_type == 2):
                 seperator = ' '
                 temp_key = seperator.join(temp_var[0:(len(temp_var)-1)])
                 if (temp_value != 'N/A'):
-                    temp_dict[temp_key] = {'Unit':temp_unit,'Value':float(temp_value)}
+                    temp_dict[temp_key] = {'Unit':temp_unit,'Value':convert_value(temp_value)}
                 else:
                     temp_dict[temp_key] = {'Unit':temp_unit,'Value':temp_value}
             else: 
@@ -219,7 +219,7 @@ elif (input_file_type == 2):
             temp_value = line.split('=')[1].strip()
             temp_unit = temp_value.split()[1]
             temp_value = temp_value.split()[0]
-            temp_dict[temp_key] = {'Unit':temp_unit,'Value':float(temp_value)}            
+            temp_dict[temp_key] = {'Unit':temp_unit,'Value':convert_value(temp_value)}            
 
         elif ((new_header.split()[0] == 'Mean') and (new_header.split()[1] == 'Wind') and (len(line.split()) > 0)):
 
@@ -243,7 +243,7 @@ elif (input_file_type == 2):
 
                     for j in range(len(temp_2d_array)):
 
-                        temp_list.append(float(temp_2d_array[j][i]))
+                        temp_list.append(convert_value(temp_2d_array[j][i]))
 
                     temp_dict[tv] = {'Unit':temp_unit_list[i],'Value':temp_list}
 
@@ -251,7 +251,7 @@ elif (input_file_type == 2):
 
             temp_value = line.split()[0]
             temp_key = line.split()[1]
-            temp_dict[temp_key] = int(temp_value)
+            temp_dict[temp_key] = convert_value(temp_value)
 
         elif ((new_header.split()[0] == 'Hub-Height') and (len(line.split()) > 0)):
 
@@ -272,7 +272,7 @@ elif (input_file_type == 2):
                     seperator = ' '
                     temp_title = seperator.join(temp_unit[0:(len(temp_unit)-1)])
                     temp_unit = temp_unit[len(temp_unit)-1].replace('(','').replace(')','')
-                    temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':float(temp_line_vals[k+1])}
+                    temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':convert_value(temp_line_vals[k+1])}
 
                 temp_temp_dict[temp_line_vals[0]] = temp_temp_temp_dict
                 temp_dict[temp_value_list[0]] = temp_temp_dict
@@ -303,13 +303,13 @@ elif (input_file_type == 2):
 
                     if (tv.split()[0] == 'Correlation'):
                         temp_title = temp_var
-                        temp_temp_temp_dict[temp_title] = float(temp_line_vals[k+1])
+                        temp_temp_temp_dict[temp_title] = convert_value(temp_line_vals[k+1])
                     else:
                         temp_unit = tv.split()
                         seperator = ' '
                         temp_title = seperator.join(temp_unit[0:(len(temp_unit)-1)])
                         temp_unit = temp_unit[len(temp_unit)-1]
-                        temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':float(temp_line_vals[k+1])}
+                        temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':convert_value(temp_line_vals[k+1])}
 
                 temp_temp_dict2[temp_line_vals[0]] = temp_temp_temp_dict
                 temp_dict[temp_value_list[0]] = temp_temp_dict2
@@ -317,10 +317,10 @@ elif (input_file_type == 2):
             elif ((line_num >= 148) and (line_num <= 150)):
 
                 temp_key = line.split('=')[0].strip()
-                temp_value = float(line.split('=')[1].split()[0])
+                temp_value = line.split('=')[1].split()[0]
                 temp_unit = line.split('=')[1].split()[1]
 
-                temp_dict[temp_key] = {'Value':temp_value,'Unit':temp_unit}
+                temp_dict[temp_key] = {'Value':convert_value(temp_value),'Unit':temp_unit}
 
         elif ((new_header.split()[0] == 'Grid') and (len(line.split()) > 0)):
 
@@ -331,20 +331,14 @@ elif (input_file_type == 2):
 
             elif (line.split()[0] == 'Height'):
 
-                if ('u' in line.split()):
-                    current_comp = 'u'
+                current_title = line.split()[1:]
+                seperator = ' '
+                current_title = seperator.join(current_title).replace(':','')
+                ch = 0
+                #temp_temp_dict = {}
+                temp_temp_temp_dict = {}
 
-                if ('v' in line.split()):
-                    current_comp = 'v'
-
-                if ('w' in line.split()):
-                    current_comp = 'w'
-
-            else:
-
-                pass
-
-            if ((line_num >= 256) and (line_num <= 259)):
+            elif ((line_num >= 256) and (line_num <= 259)):
                 
                 if (line.split()[0] == 'Mean'):
                     temp_key = line.replace(':','').strip()
@@ -352,16 +346,29 @@ elif (input_file_type == 2):
 
                 else:
                     temp_temp_key = line.split(':')[0].strip()
-                    temp_var = float(line.split(':')[1].split()[0])
+                    temp_var = line.split(':')[1].split()[0]
                     temp_unit = line.split(':')[1].split()[1]
-                    temp_temp_temp_dict[temp_temp_key] = {'Unit':temp_unit,'Value':temp_var}
+                    temp_temp_temp_dict[temp_temp_key] = {'Unit':temp_unit,'Value':convert_value(temp_var)}
                 
                     temp_temp_dict[temp_key] = temp_temp_temp_dict
 
                 temp_dict = temp_temp_dict
 
             else:
-                pass
+
+                for i,current_y in enumerate(y_coord_list):
+                    
+                    current_height = line.split()[0]
+                    current_value = line.split()[i+1]
+
+                    current_GP = 'GP' + '_' + str(ch) + '_' + str(i)
+                    temp_temp_temp_dict[current_GP] = {'Height':current_height,'Y-coord':current_y,'Value':current_value}
+                    temp_temp_dict[current_title] = temp_temp_temp_dict
+                #temp_temp_temp_dict[current_title] = temp_temp_dict
+                temp_dict = temp_temp_dict
+                ch += 1
+                #print('---')
+                #print(temp_dict)
 
         elif ((new_header.split()[0] == 'U-component') and (len(line.split()) > 0)):
 
@@ -374,6 +381,7 @@ elif (input_file_type == 2):
 
             if (len(temp_dict.keys()) > 0):
 
+                print(temp_dict)
                 new_dict[new_header] = temp_dict
 
             temp_dict = {}
