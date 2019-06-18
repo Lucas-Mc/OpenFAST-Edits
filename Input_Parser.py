@@ -335,7 +335,6 @@ elif (input_file_type == 2):
                 seperator = ' '
                 current_title = seperator.join(current_title).replace(':','')
                 ch = 0
-                #temp_temp_dict = {}
                 temp_temp_temp_dict = {}
 
             elif ((line_num >= 256) and (line_num <= 259)):
@@ -362,13 +361,11 @@ elif (input_file_type == 2):
                     current_value = line.split()[i+1]
 
                     current_GP = 'GP' + '_' + str(ch) + '_' + str(i)
-                    temp_temp_temp_dict[current_GP] = {'Height':current_height,'Y-coord':current_y,'Value':current_value}
+                    temp_temp_temp_dict[current_GP] = {'Height':convert_value(current_height),'Y-coord':convert_value(current_y),'Value':convert_value(current_value)}
                     temp_temp_dict[current_title] = temp_temp_temp_dict
-                #temp_temp_temp_dict[current_title] = temp_temp_dict
+
                 temp_dict = temp_temp_dict
                 ch += 1
-                #print('---')
-                #print(temp_dict)
 
         elif ((new_header.split()[0] == 'U-component') and (len(line.split()) > 0)):
 
@@ -381,7 +378,6 @@ elif (input_file_type == 2):
 
             if (len(temp_dict.keys()) > 0):
 
-                print(temp_dict)
                 new_dict[new_header] = temp_dict
 
             temp_dict = {}
