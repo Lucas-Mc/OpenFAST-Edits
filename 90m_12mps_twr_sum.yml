@@ -8,441 +8,447 @@ Grid Point Variance Summary:
   Mean standard deviation across all grid points:
     u component:
       Unit: m/s
-      Value: '1.866'
+      Value: 1.866
     v component:
       Unit: m/s
-      Value: '1.599'
+      Value: 1.599
     w component:
       Unit: m/s
-      Value: '0.999'
+      Value: 0.999
 Harvested Random Seeds after Generation of the Random Numbers:
-  K1: '169290450'
-  K2: '0'
+  K1: 169290450
+  K2: 0
 Hub-Height Simulated Turbulence Statistical Summary:
   Friction Velocity (Ustar):
     Unit: m/s
-    Value: '0.376'
+    Value: 0.376
   Maximum Instantaneous CTKE:
     Unit: (m/s)^2
-    Value: '10.699'
+    Value: 10.699
   Maximum Instantaneous TKE:
     Unit: (m/s)^2
-    Value: '22.827'
+    Value: 22.827
   Product:
     u'v':
-      Correlation Coefficient: '0.156'
+      Correlation Coefficient: 0.156
       Max Reynolds Stress:
         Unit: (m/s)^2
-        Value: '20.375'
+        Value: 20.375
       Mean Reynolds Stress:
         Unit: (m/s)^2
-        Value: '0.414'
+        Value: 0.414
       Min Reynolds Stress:
         Unit: (m/s)^2
-        Value: '-14.212'
+        Value: -14.212
     u'w':
-      Correlation Coefficient: '0.085'
+      Correlation Coefficient: 0.085
       Max Reynolds Stress:
         Unit: (m/s)^2
-        Value: '9.761'
+        Value: 9.761
       Mean Reynolds Stress:
         Unit: (m/s)^2
-        Value: '0.142'
+        Value: 0.142
       Min Reynolds Stress:
         Unit: (m/s)^2
-        Value: '-9.537'
+        Value: -9.537
     v'w':
-      Correlation Coefficient: '0.145'
+      Correlation Coefficient: 0.145
       Max Reynolds Stress:
         Unit: (m/s)^2
-        Value: '14.521'
+        Value: 14.521
       Mean Reynolds Stress:
         Unit: (m/s)^2
-        Value: '0.232'
+        Value: 0.232
       Min Reynolds Stress:
         Unit: (m/s)^2
-        Value: '-8.399'
+        Value: -8.399
   Type of Wind:
     Horizontal (U&V):
       Max:
         Unit: m/s
-        Value: '17.24'
+        Value: 17.24
       Mean:
         Unit: m/s
-        Value: '12.11'
+        Value: 12.11
       Min:
         Unit: m/s
-        Value: '6.88'
+        Value: 6.88
       Sigma:
         Unit: m/s
-        Value: '1.648'
+        Value: 1.648
       TI:
         Unit: '%'
-        Value: '13.611'
+        Value: 13.611
     Lateral (v):
       Max:
         Unit: m/s
-        Value: '5.35'
+        Value: 5.35
       Mean:
         Unit: m/s
-        Value: '0.00'
+        Value: 0.0
       Min:
         Unit: m/s
-        Value: '-5.79'
+        Value: -5.79
       Sigma:
         Unit: m/s
-        Value: '1.599'
+        Value: 1.599
       TI:
         Unit: '%'
-        Value: '13.325'
+        Value: 13.325
     Longitudinal (u):
       Max:
         Unit: m/s
-        Value: '17.23'
+        Value: 17.23
       Mean:
         Unit: m/s
-        Value: '12.00'
+        Value: 12.0
       Min:
         Unit: m/s
-        Value: '6.72'
+        Value: 6.72
       Sigma:
         Unit: m/s
-        Value: '1.662'
+        Value: 1.662
       TI:
         Unit: '%'
-        Value: '13.850'
+        Value: 13.85
     Total:
       Max:
         Unit: m/s
-        Value: '17.26'
+        Value: 17.26
       Mean:
         Unit: m/s
-        Value: '12.15'
+        Value: 12.15
       Min:
         Unit: m/s
-        Value: '6.92'
+        Value: 6.92
       Sigma:
         Unit: m/s
-        Value: '1.647'
+        Value: 1.647
       TI:
         Unit: '%'
-        Value: '13.553'
+        Value: 13.553
     U component:
       Max:
         Unit: m/s
-        Value: '17.23'
+        Value: 17.23
       Mean:
         Unit: m/s
-        Value: '12.00'
+        Value: 12.0
       Min:
         Unit: m/s
-        Value: '6.72'
+        Value: 6.72
       Sigma:
         Unit: m/s
-        Value: '1.662'
+        Value: 1.662
       TI:
         Unit: '%'
-        Value: '13.850'
+        Value: 13.85
     V component:
       Max:
         Unit: m/s
-        Value: '5.35'
+        Value: 5.35
       Mean:
         Unit: m/s
-        Value: '0.00'
+        Value: 0.0
       Min:
         Unit: m/s
-        Value: '-5.79'
+        Value: -5.79
       Sigma:
         Unit: m/s
-        Value: '1.599'
+        Value: 1.599
       TI:
         Unit: '%'
-        Value: '13.325'
+        Value: 13.325
     Vertical (w):
       Max:
         Unit: m/s
-        Value: '3.40'
+        Value: 3.4
       Mean:
         Unit: m/s
-        Value: '0.00'
+        Value: 0.0
       Min:
         Unit: m/s
-        Value: '-3.54'
+        Value: -3.54
       Sigma:
         Unit: m/s
-        Value: '0.999'
+        Value: 0.999
       TI:
         Unit: '%'
-        Value: '8.325'
+        Value: 8.325
     W component:
       Max:
         Unit: m/s
-        Value: '3.40'
+        Value: 3.4
       Mean:
         Unit: m/s
-        Value: '0.00'
+        Value: 0.0
       Min:
         Unit: m/s
-        Value: '-3.54'
+        Value: -3.54
       Sigma:
         Unit: m/s
-        Value: '0.999'
+        Value: 0.999
       TI:
         Unit: '%'
-        Value: '8.325'
+        Value: 8.325
 Mean Flow Angles:
   Horizontal:
     Unit: degrees
-    Value: '0.0'
+    Value: 0.0
   Vertical:
     Unit: degrees
-    Value: '0.0'
+    Value: 0.0
 Mean Wind Speed Profile:
   Height:
     Unit: m
     Value:
-    - '162.5'
-    - '157.7'
-    - '152.8'
-    - '148.0'
-    - '143.2'
-    - '138.3'
-    - '133.5'
-    - '128.7'
-    - '123.8'
-    - '119.0'
-    - '114.2'
-    - '109.3'
-    - '104.5'
-    - '99.7'
-    - '94.8'
-    - '90.0'
-    - '85.2'
-    - '80.3'
-    - '75.5'
-    - '70.7'
-    - '65.8'
-    - '61.0'
-    - '56.2'
-    - '51.3'
-    - '46.5'
-    - '41.7'
-    - '36.8'
-    - '32.0'
-    - '27.2'
-    - '22.3'
-    - '17.5'
-    - '12.7'
-    - '7.8'
-    - '3.0'
+    - 162.5
+    - 157.7
+    - 152.8
+    - 148.0
+    - 143.2
+    - 138.3
+    - 133.5
+    - 128.7
+    - 123.8
+    - 119.0
+    - 114.2
+    - 109.3
+    - 104.5
+    - 99.7
+    - 94.8
+    - 90.0
+    - 85.2
+    - 80.3
+    - 75.5
+    - 70.7
+    - 65.8
+    - 61.0
+    - 56.2
+    - 51.3
+    - 46.5
+    - 41.7
+    - 36.8
+    - 32.0
+    - 27.2
+    - 22.3
+    - 17.5
+    - 12.7
+    - 7.8
+    - 3.0
   Horizontal Angle:
     Unit: degrees
     Value:
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
   U-comp (X):
     Unit: m/s
     Value:
-    - '13.51'
-    - '13.42'
-    - '13.34'
-    - '13.26'
-    - '13.17'
-    - '13.08'
-    - '12.98'
-    - '12.89'
-    - '12.79'
-    - '12.69'
-    - '12.58'
-    - '12.48'
-    - '12.36'
-    - '12.25'
-    - '12.13'
-    - '12.00'
-    - '11.87'
-    - '11.73'
-    - '11.59'
-    - '11.43'
-    - '11.27'
-    - '11.10'
-    - '10.92'
-    - '10.73'
-    - '10.52'
-    - '10.29'
-    - '10.04'
-    - '9.76'
-    - '9.44'
-    - '9.08'
-    - '8.65'
-    - '8.11'
-    - '7.36'
-    - '6.08'
+    - 13.51
+    - 13.42
+    - 13.34
+    - 13.26
+    - 13.17
+    - 13.08
+    - 12.98
+    - 12.89
+    - 12.79
+    - 12.69
+    - 12.58
+    - 12.48
+    - 12.36
+    - 12.25
+    - 12.13
+    - 12.0
+    - 11.87
+    - 11.73
+    - 11.59
+    - 11.43
+    - 11.27
+    - 11.1
+    - 10.92
+    - 10.73
+    - 10.52
+    - 10.29
+    - 10.04
+    - 9.76
+    - 9.44
+    - 9.08
+    - 8.65
+    - 8.11
+    - 7.36
+    - 6.08
   V-comp (Y):
     Unit: m/s
     Value:
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
   W-comp (Z):
     Unit: m/s
     Value:
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
-    - '0.00'
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
   Wind Speed:
     Unit: m/s
     Value:
-    - '13.51'
-    - '13.42'
-    - '13.34'
-    - '13.26'
-    - '13.17'
-    - '13.08'
-    - '12.98'
-    - '12.89'
-    - '12.79'
-    - '12.69'
-    - '12.58'
-    - '12.48'
-    - '12.36'
-    - '12.25'
-    - '12.13'
-    - '12.00'
-    - '11.87'
-    - '11.73'
-    - '11.59'
-    - '11.43'
-    - '11.27'
-    - '11.10'
-    - '10.92'
-    - '10.73'
-    - '10.52'
-    - '10.29'
-    - '10.04'
-    - '9.76'
-    - '9.44'
-    - '9.08'
-    - '8.65'
-    - '8.11'
-    - '7.36'
-    - '6.08'
+    - 13.51
+    - 13.42
+    - 13.34
+    - 13.26
+    - 13.17
+    - 13.08
+    - 12.98
+    - 12.89
+    - 12.79
+    - 12.69
+    - 12.58
+    - 12.48
+    - 12.36
+    - 12.25
+    - 12.13
+    - 12.0
+    - 11.87
+    - 11.73
+    - 11.59
+    - 11.43
+    - 11.27
+    - 11.1
+    - 10.92
+    - 10.73
+    - 10.52
+    - 10.29
+    - 10.04
+    - 9.76
+    - 9.44
+    - 9.08
+    - 8.65
+    - 8.11
+    - 7.36
+    - 6.08
 Meteorological Boundary Conditions:
   IEC Extreme Turbulence Model (ETM) "c" parameter:
     Unit: m/s
     Value: N/A
   IEC Kaimal spectral model: IECKAI
   IEC Normal Turbulence Model: NTM
-  'IEC standard: IEC 61400-1 Ed. 3: 2005': '1'
+  'IEC standard: IEC 61400-1 Ed. 3: 2005': 1
   IEC turbulence characteristic: B
   Jet height:
     Unit: m
     Value: N/A
-  Power law exponent: '0.200'
+  Power law exponent: 0.2
   Reference height:
     Unit: m
-    Value: '90.000'
+    Value: 90.0
   Reference wind speed:
     Unit: m/s
-    Value: '12.000'
+    Value: 12.0
   Surface roughness length:
     Unit: m
-    Value: '0.030'
+    Value: 0.03
   Wind profile type: PL
+Nyquist frequency of turbulent wind field:
+  Unit: Hz
+  Value: 10.0
+Processing Time:
+  Unit: CPU seconds
+  Value: 220.15
 Runtime Options:
   Clockwise rotation when looking downwind?: T
   IEC turbulence models scaled to exact specified standard deviation: 0 -  NONE
@@ -454,36 +460,80 @@ Runtime Options:
   Output formatted FF files?: F
   Output formatted turbulence parameters?: F
   Output tower data?: T
-  'Random seed #1': '13428'
+  'Random seed #1': 13428
   Type of random number generator: RANLUX
 Turbine/Model Specifications:
   Analysis time:
     Unit: seconds
-    Value: '630.000'
+    Value: 630.0
   Grid height:
     Unit: m
-    Value: '145.000'
+    Value: 145.0
   Grid width:
     Unit: m
-    Value: '145.000'
+    Value: 145.0
   Horizontal flow angle:
     Unit: degrees
-    Value: '0.000'
-  Horizontal grid-point matrix dimension: '31'
+    Value: 0.0
+  Horizontal grid-point matrix dimension: 31
   Hub height:
     Unit: m
-    Value: '90.000'
+    Value: 90.0
   Time step:
     Unit: seconds
-    Value: '0.050'
+    Value: 0.05
   Usable output time:
     Unit: seconds
-    Value: '60.000'
+    Value: 60.0
   Vertical flow angle:
     Unit: degrees
-    Value: '0.000'
-  Vertical grid-point matrix dimension: '31'
+    Value: 0.0
+  Vertical grid-point matrix dimension: 31
 Turbulence Simulation Scaling Parameter Summary:
-  Number of time steps in the FFT: '12600'
-  Number of time steps output: '1442'
+  Assumed rotor diameter:
+    Unit: m
+    Value: 145.0
+  Characteristic value of hub turbulence intensity:
+    Unit: '%'
+    Value: 17.033
+  Characteristic value of standard deviation:
+    Unit: m/s
+    Value: 2.044
+  Coherency scale:
+    Unit: m
+    Value: 340.2
+  Expected value of turbulence intensity at 15 m/s:
+    Unit: '%'
+    Value: 14.0
+  Gradient Richardson number: 0.0
+  IEC standard: 'IEC 61400-1 Ed. 3: 2005'
+  IEC turbulence type: Normal Turbulence Model
+  Mean shear across rotor disk:
+    Unit: (m/s)/m
+    Value: 0.033
+  Mean wind speed at hub height:
+    Unit: m/s
+    Value: 12.0
+  Number of time steps in the FFT: 12600
+  Number of time steps output: 1442
+  Power law exponent: 0.2
+  Surface roughness length:
+    Unit: m
+    Value: 0.03
+  Turbulence characteristic: B
+  Turbulence model used: IEC Kaimal
+  Turbulence scale:
+    Unit: m
+    Value: 42.0
+  Wind profile type: Power law
+  u-component integral scale:
+    Unit: m
+    Value: 340.2
+U-component (X) statistics from the hub grid point:
+  Mean:
+    Unit: m/s
+    Value: 12.0
+  TI:
+    Unit: '%'
+    Value: 13.85
 You have requested that the following file(s) be generated: *id001

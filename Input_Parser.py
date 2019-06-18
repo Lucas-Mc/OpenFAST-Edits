@@ -29,13 +29,38 @@ output_file = open(output_filename,'w')
 output_file.write('---\n')
 output_file.write('# Input information for: '+output_filename.replace('.yml','')+'\n')
 
-def split_line(current_line):
+def split_line(current_line, delimiter='  '):
     # Take the line and split by whitespace while conserving spaces in categories
-    temp_value_list = current_line.split('  ')
+    temp_value_list = current_line.split(delimiter)
     temp_value_list = [i.replace('\n','').strip() for i in temp_value_list]
     temp_value_list = list(filter(None, temp_value_list))
     
     return temp_value_list
+
+def split_line_spaces(current_line):
+    return split_line(current_line, delimiter='  ')
+
+def is_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
+def convert_value(s):
+    if (is_int(s)):
+        return int(s)
+    elif (is_float(s)):
+        return float(s)
+    else:
+        return s
 
 if (input_file_type == 0):
 
@@ -118,6 +143,23 @@ elif (input_file_type == 2):
 
             new_header = line.replace(':','').replace('\n','')
 
+            if (new_header.split()[0] == 'Nyquist'):
+
+                new_header = line.split('=')[0].strip()
+                temp_value = line.split('=')[1].split()[0]
+                temp_unit = line.split('=')[1].split()[1]
+                temp_dict = {'Unit':temp_unit,'Value':convert_value(temp_value)} 
+
+            elif (new_header.split()[0] == 'Processing'):
+
+                new_header = 'Processing Time'
+                temp_key = line.split()
+                seperator = ' '
+                temp_unit = seperator.join(temp_key[3:-1]).replace('.','')
+                temp_value = temp_key[2]
+                temp_dict = {'Unit':temp_unit,'Value':convert_value(temp_value)}
+                new_dict[new_header] = temp_dict
+
         elif (((new_header.split()[0] == 'Runtime') or (new_header.split()[0] == 'Turbine/Model') or (new_header.split()[0] == 'Meteorological')) and (len(line.split()) > 0)):
 
             temp_value = line.split()[0]
@@ -138,9 +180,12 @@ elif (input_file_type == 2):
                 temp_unit = temp_var[len(temp_var)-1].replace('[','').replace(']','')
                 seperator = ' '
                 temp_key = seperator.join(temp_var[0:(len(temp_var)-1)])
-                temp_dict[temp_key] = {'Unit':temp_unit,'Value':temp_value}
+                if (temp_value != 'N/A'):
+                    temp_dict[temp_key] = {'Unit':temp_unit,'Value':float(temp_value)}
+                else:
+                    temp_dict[temp_key] = {'Unit':temp_unit,'Value':temp_value}
             else: 
-                temp_dict[temp_key] = temp_value
+                temp_dict[temp_key] = convert_value(temp_value)
 
         elif (line_num == 47):
 
@@ -151,11 +196,22 @@ elif (input_file_type == 2):
             temp_dict['File type'] = seperator.join(temp_line[1:]).replace('(','').replace(')','')
             new_dict['Generated File'] = temp_dict
 
-        elif ((new_header.split()[0] == 'Turbulence') and (line_num < 74) and (len(line.split()) > 0)):
+        elif ((new_header.split()[0] == 'Turbulence') and (len(line.split()) > 0)):
 
             temp_key = line.split('=')[0].strip()
             temp_value = line.split('=')[1].strip()
-            temp_dict[temp_key] = temp_value
+
+            if ((len(temp_value.split()) > 1) and (is_int(temp_value.split()[0]) or is_float(temp_value.split()[0]))):
+                temp_var = temp_value.split()[0]
+                temp_unit = temp_value.split()[1]
+                temp_dict[temp_key] = {'Unit':temp_unit,'Value':convert_value(temp_var)}
+            else:
+                if ('%' in temp_value):
+                    temp_var = temp_value[:-1]
+                    temp_unit = '%'
+                    temp_dict[temp_key] = {'Unit':temp_unit,'Value':convert_value(temp_var)}
+                else:
+                    temp_dict[temp_key] = convert_value(temp_value)
 
         elif ((new_header.split()[0] == 'Mean') and (new_header.split()[1] == 'Flow') and (len(line.split()) > 0)):
 
@@ -163,7 +219,7 @@ elif (input_file_type == 2):
             temp_value = line.split('=')[1].strip()
             temp_unit = temp_value.split()[1]
             temp_value = temp_value.split()[0]
-            temp_dict[temp_key] = {'Unit':temp_unit,'Value':temp_value}            
+            temp_dict[temp_key] = {'Unit':temp_unit,'Value':float(temp_value)}            
 
         elif ((new_header.split()[0] == 'Mean') and (new_header.split()[1] == 'Wind') and (len(line.split()) > 0)):
 
@@ -187,7 +243,7 @@ elif (input_file_type == 2):
 
                     for j in range(len(temp_2d_array)):
 
-                        temp_list.append(temp_2d_array[j][i])
+                        temp_list.append(float(temp_2d_array[j][i]))
 
                     temp_dict[tv] = {'Unit':temp_unit_list[i],'Value':temp_list}
 
@@ -195,7 +251,7 @@ elif (input_file_type == 2):
 
             temp_value = line.split()[0]
             temp_key = line.split()[1]
-            temp_dict[temp_key] = temp_value
+            temp_dict[temp_key] = int(temp_value)
 
         elif ((new_header.split()[0] == 'Hub-Height') and (len(line.split()) > 0)):
 
@@ -216,7 +272,7 @@ elif (input_file_type == 2):
                     seperator = ' '
                     temp_title = seperator.join(temp_unit[0:(len(temp_unit)-1)])
                     temp_unit = temp_unit[len(temp_unit)-1].replace('(','').replace(')','')
-                    temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':temp_line_vals[k+1]}
+                    temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':float(temp_line_vals[k+1])}
 
                 temp_temp_dict[temp_line_vals[0]] = temp_temp_temp_dict
                 temp_dict[temp_value_list[0]] = temp_temp_dict
@@ -247,14 +303,13 @@ elif (input_file_type == 2):
 
                     if (tv.split()[0] == 'Correlation'):
                         temp_title = temp_var
-                        #temp_unit = 'N/A'
-                        temp_temp_temp_dict[temp_title] = temp_line_vals[k+1]
+                        temp_temp_temp_dict[temp_title] = float(temp_line_vals[k+1])
                     else:
                         temp_unit = tv.split()
                         seperator = ' '
                         temp_title = seperator.join(temp_unit[0:(len(temp_unit)-1)])
                         temp_unit = temp_unit[len(temp_unit)-1]
-                        temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':temp_line_vals[k+1]}
+                        temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':float(temp_line_vals[k+1])}
 
                 temp_temp_dict2[temp_line_vals[0]] = temp_temp_temp_dict
                 temp_dict[temp_value_list[0]] = temp_temp_dict2
@@ -262,7 +317,7 @@ elif (input_file_type == 2):
             elif ((line_num >= 148) and (line_num <= 150)):
 
                 temp_key = line.split('=')[0].strip()
-                temp_value = line.split('=')[1].split()[0]
+                temp_value = float(line.split('=')[1].split()[0])
                 temp_unit = line.split('=')[1].split()[1]
 
                 temp_dict[temp_key] = {'Value':temp_value,'Unit':temp_unit}
@@ -287,9 +342,9 @@ elif (input_file_type == 2):
 
             else:
 
-                
+                pass
 
-            elif ((line_num >= 256) and (line_num <= 259)):
+            if ((line_num >= 256) and (line_num <= 259)):
                 
                 if (line.split()[0] == 'Mean'):
                     temp_key = line.replace(':','').strip()
@@ -297,7 +352,7 @@ elif (input_file_type == 2):
 
                 else:
                     temp_temp_key = line.split(':')[0].strip()
-                    temp_var = line.split(':')[1].split()[0]
+                    temp_var = float(line.split(':')[1].split()[0])
                     temp_unit = line.split(':')[1].split()[1]
                     temp_temp_temp_dict[temp_temp_key] = {'Unit':temp_unit,'Value':temp_var}
                 
@@ -305,10 +360,17 @@ elif (input_file_type == 2):
 
                 temp_dict = temp_temp_dict
 
-            else (True):
+            else:
                 pass
 
-        elif ((len(line.split()) == 0) and (line_num != 64) and (line_num != 71) and (line_num != 139)and (line_num != 146)and (line_num != 147)):
+        elif ((new_header.split()[0] == 'U-component') and (len(line.split()) > 0)):
+
+            temp_key = line.split('=')[0].strip()
+            temp_value = line.split('=')[1].split()[0]
+            temp_unit = line.split('=')[1].split()[1]
+            temp_dict[temp_key] = {'Unit':temp_unit,'Value':convert_value(temp_value)} 
+
+        elif ((len(line.split()) == 0) and (line_num != 64) and (line_num != 70) and (line_num != 139)and (line_num != 146)and (line_num != 147)):
 
             if (len(temp_dict.keys()) > 0):
 
@@ -316,9 +378,13 @@ elif (input_file_type == 2):
 
             temp_dict = {}
 
+        else:
+
+            pass
+
     # Write the saved dictionary to a YAML output file
     with open(output_filename, 'w') as outfile:
-        yaml.safe_dump(new_dict, output_file)
+        yaml.safe_dump(new_dict, output_file, default_style=False)
 
 else: 
 
