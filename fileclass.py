@@ -1,4 +1,24 @@
+import yaml
+
 class File():
+
+    def __init__(self,filename):
+        self.filename = filename
+        new_file = open(filename)
+        self.data = new_file.readlines()
+
+    def init_output_file(self,output_filename):
+
+        self.output_file = open(output_filename,'w') 
+        self.output_file.write('---\n')
+        self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
+
+    def to_yaml(self,new_dict):
+        #self.output_filename = output_filename
+        self.new_dict = new_dict
+
+        yaml.safe_dump(new_dict, self.output_file)
+        self.output_file.close()
 
     def is_float(self, s):
         '''

@@ -1,8 +1,5 @@
 ---
 # Input information for: 90m_12mps_twr
-# Double quotes (") are replaced with single quotes (') for easy parsing
-
-# TurbSim Input File. Valid for TurbSim v1.50; 17-May-2010; Example file that can be used with simulations for the NREL 5MW Baseline Turbine; note that UsableTime has been decreased in this file so that the file distributed with the FAST CertTest isn't as large
 Coherent Turbulence Scaling Parameters:
   CTEventFile:
     Description: Type of event files ('random', 'les' or 'dns')
