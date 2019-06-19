@@ -110,10 +110,17 @@ class Beamdyn_file(File):
           temp_desc = self.combine_text_spaces(temp_vals[-2:])[2:].strip()
           temp_dict[temp_key] = {'Nodes':node_list,'Description':temp_desc}
 
-        #elif (len())
+        elif (line.count(',') == 2):
+
+          print(line)
+        
         else:
 
-          pass
+          temp_vals = list(filter(None, line.split('  ')))
+          temp_value = temp_vals[0].strip()
+          temp_desc = temp_vals[2][2:].strip()
+          temp_key = temp_vals[1].strip()
+          temp_dict[temp_key] = {'Value':self.convert_value(temp_value),'Description':temp_desc}
 
       new_dict[new_header] = temp_dict
 

@@ -11553,15 +11553,6 @@ Harvested Random Seeds after Generation of the Random Numbers:
   K1: 169290450
   K2: 0
 Hub-Height Simulated Turbulence Statistical Summary:
-  Friction Velocity (Ustar):
-    Unit: m/s
-    Value: 0.376
-  Maximum Instantaneous CTKE:
-    Unit: (m/s)^2
-    Value: 10.699
-  Maximum Instantaneous TKE:
-    Unit: (m/s)^2
-    Value: 22.827
   Product:
     u'v':
       Correlation Coefficient: 0.156
