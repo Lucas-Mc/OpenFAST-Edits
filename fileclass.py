@@ -3,6 +3,7 @@ import yaml
 class File():
 
     def __init__(self,filename):
+
         self.filename = filename
         new_file = open(filename)
         self.data = new_file.readlines()
@@ -14,9 +15,8 @@ class File():
         self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
 
     def to_yaml(self,new_dict):
-        #self.output_filename = output_filename
-        self.new_dict = new_dict
 
+        self.new_dict = new_dict
         yaml.safe_dump(new_dict, self.output_file)
         self.output_file.close()
 
@@ -30,7 +30,6 @@ class File():
         except ValueError:
             return False
 
-
     def is_int(self, s):
         '''
         Determines if a string (s) can be converted to an integer
@@ -40,7 +39,6 @@ class File():
             return True
         except ValueError:
             return False
-
 
     def convert_value(self, s):
         '''
@@ -53,7 +51,6 @@ class File():
         else:
             return s
 
-
     def combine_text(self, s_list, sep):
         '''
         s_list: list of strings ready and in order to be merged
@@ -62,13 +59,11 @@ class File():
         new_string = sep.join(s_list)
         return new_string
 
-
     def combine_text_spaces(self, s_list):
         '''
         Combines a list of strings (s_list) with the default seperator as a space character
         '''
         return self.combine_text(s_list, sep=' ')
-
 
     def remove_char(self, s, c_list):
         '''
@@ -79,20 +74,17 @@ class File():
             new_s = new_s.replace(c, '')
         return new_s
 
-
     def remove_parens(self, s):
         '''
         Remove parentheses from a string (s)
         '''
         return self.remove_char(s, ['(', ')'])
 
-
     def remove_brackets(self, s):
         '''
         Remove brackets from a string (s)
         '''
         return self.remove_char(s, ['[', ']'])
-
 
     def split_line(self, current_line, delimiter='  '):
         '''
@@ -104,13 +96,11 @@ class File():
 
         return temp_value_list
 
-
     def split_line_spaces(self, current_line):
         '''
         Splits a line by the default delimiter of double spaces to conserve titles
         '''
         return self.split_line(current_line, delimiter='  ')
-
 
     def sep_string(self, s, sep):
         '''
@@ -118,10 +108,11 @@ class File():
         s: the input string
         sep: the character that will split the string
         '''
-        value1 = s.split(sep)[0].strip()
-        value2 = s.split(sep)[1].strip()
+        tl = s.split(sep)
+        tl = list(filter(None, tl))
+        value1 = tl[0].strip()
+        value2 = tl[1].strip()
         return value1, value2
-
 
     def sep_string_double(self, s, c1, c2):
         '''

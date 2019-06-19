@@ -1,0 +1,19 @@
+---
+# Input information for: NRELOffshrBsline5MW_Monopile_IEC_Crushing_sum.inp
+General_ice_property_inputs:
+  iceDirection: ''
+  iceThickness: ''
+  iceVelocity: ''
+  refIceStrength: ''
+Inputs_for_lock-in_crushing:
+  contactFactor_k2: ''
+  iceType: ''
+  shapeFactor_k1: ''
+Model_selection_and_general_inputs:
+  duration: ''
+  randomSeed: ''
+  timeStep: ''
+Tower_configuration_inputs:
+  numLegs: ''
+  towerDiameter: ''
+  towerFrequency: ''
