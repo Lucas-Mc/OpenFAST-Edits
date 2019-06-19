@@ -7,7 +7,7 @@ import yaml
 from turbsim_inp_file import TurbsimInpFile
 from turbsim_sum_file import TurbsimSumFile
 from crushing_inp_file import CrushingInpFile
-from beamdyn_files import BeamdynFile, BeamdynBladeFile
+from beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile
 
 input_file_type = 4
 # 0: Input file (Main folder / FAST / Crushing)
@@ -60,7 +60,7 @@ elif (input_file_type == 2):
 
 elif (input_file_type == 3):
     
-  beamdyn_file = BeamdynFile(file_name)
+  beamdyn_file = BeamdynPrimaryFile(file_name)
   new_dict = beamdyn_file.read()
   beamdyn_file.to_yaml(new_dict)
 
