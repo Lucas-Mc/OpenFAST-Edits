@@ -2,19 +2,19 @@ import yaml
 
 class File():
 
-    def __init__(self,filename):
+    def __init__(self, filename):
 
         self.filename = filename
         new_file = open(filename)
         self.data = new_file.readlines()
 
-    def init_output_file(self,output_filename):
+    def init_output_file(self, output_filename):
 
         self.output_file = open(output_filename,'w') 
         self.output_file.write('---\n')
         self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
 
-    def to_yaml(self,new_dict):
+    def to_yaml(self, new_dict):
 
         self.new_dict = new_dict
         yaml.safe_dump(new_dict, self.output_file)
@@ -123,3 +123,10 @@ class File():
         val1, val2 = self.sep_string(s, c1)
         val2, val3 = self.sep_string(val2, c2)
         return val1, val2, val3
+
+    def capitalize_list(self, s_list):
+        '''
+        CONTROL --> Control
+        s_list: list of strings to be capitalized
+        '''
+        return [s.capitalize() for s in s_list]
