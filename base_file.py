@@ -131,4 +131,20 @@ class BaseFile():
     '''
     return [s.capitalize() for s in s_list]
 
-    
+  def remove_whitespace(self, s):
+    '''
+    s: input string
+    '''
+    return list(filter(None, s.split('  ')))
+
+  def parse_type1(self, s):
+    '''
+    VAL   KEY   - DESC
+    s: input string
+    '''
+    temp_vals = self.remove_whitespace(s)
+    temp_value = temp_vals[0].strip()
+    temp_key = temp_vals[1].strip()
+    temp_desc = temp_vals[2][2:].strip()
+    parsed_dict = {'Value':self.convert_value(temp_value),'Description':temp_desc}
+    return temp_key,parsed_dict
