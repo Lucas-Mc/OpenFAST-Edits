@@ -5,7 +5,7 @@
 import sys
 import yaml
 from fileclass import File
-from turbsim_input__file import Turbsim_input_file
+from turbsim_input_file import Turbsim_input_file
 
 # All required functions
 
@@ -59,11 +59,7 @@ elif (input_file_type == 1):
 
     turbsim_file = Turbsim_input_file(file_name)
     new_dict = turbsim_file.read()
-    print(new_dict)
     turbsim_file.to_yaml(new_dict)
-    #turbsim_input_file.export()
-
-    #File.to_yaml(output_filename,new_dict)
 
 # elif (input_file_type == 2):
     
