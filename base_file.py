@@ -1,6 +1,6 @@
 import yaml
 
-class File():
+class BaseFile():
 
   def __init__(self, filename):
 

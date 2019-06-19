@@ -2,9 +2,10 @@
 # Rafael Mudafort
 # NWTC
 # June 19, 2019
-from fileclass import File
+from base_file import BaseFile
 
-class Crushing_inp_file(File):
+
+class CrushingInpFile(BaseFile):
 
   def __init__(self,filename):
 

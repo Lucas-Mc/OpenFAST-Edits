@@ -1,6 +1,7 @@
-from fileclass import File
+from base_file import BaseFile
 
-class Turbsim_input_file(File):
+
+class TurbsimInputFile(BaseFile):
 
     def __init__(self,filename):
         super().__init__(filename)

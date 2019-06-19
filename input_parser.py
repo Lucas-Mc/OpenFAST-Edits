@@ -4,11 +4,10 @@
 # June 14, 2019
 import sys
 import yaml
-from fileclass import File
-from turbsim_inp_file import Turbsim_inp_file
-from turbsim_sum_file import Turbsim_sum_file
-from crushing_inp_file import Crushing_inp_file
-from beamdyn_file import Beamdyn_file
+from turbsim_inp_file import TurbsimInpFile
+from turbsim_sum_file import TurbsimSumFile
+from crushing_inp_file import CrushingInpFile
+from beamdyn_files import BeamdynFile
 
 input_file_type = 2
 # 0: Input file (Main folder / FAST / Crushing)
@@ -38,25 +37,25 @@ else:
 
 if (input_file_type == 0):
 
-  crushing_file = Crushing_inp_file(file_name)
+  crushing_file = CrushingInpFile(file_name)
   new_dict = crushing_file.read()
   crushing_file.to_yaml(new_dict)
 
 elif (input_file_type == 1):
 
-  turbsim_file = Turbsim_inp_file(file_name)
+  turbsim_file = TurbsimInpFile(file_name)
   new_dict = turbsim_file.read()
   turbsim_file.to_yaml(new_dict)
 
 elif (input_file_type == 2):
     
-  turbsim_file = Turbsim_sum_file(file_name)
+  turbsim_file = TurbsimSumFile(file_name)
   new_dict = turbsim_file.read()
   turbsim_file.to_yaml(new_dict)
 
 elif (input_file_type == 3):
     
-  beamdyn_file = Beamdyn_file(file_name)
+  beamdyn_file = BeamdynFile(file_name)
   new_dict = beamdyn_file.read()
   beamdyn_file.to_yaml(new_dict)
 

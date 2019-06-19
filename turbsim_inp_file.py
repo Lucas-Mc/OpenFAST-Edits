@@ -2,9 +2,10 @@
 # Rafael Mudafort
 # NWTC
 # June 18, 2019
-from fileclass import File
+from base_file import BaseFile
 
-class Turbsim_inp_file(File):
+
+class TurbsimInpFile(BaseFile):
 
   def __init__(self,filename):
 

@@ -1,9 +1,10 @@
 # Rafael Mudafort
 # NWTC
 # June 19, 2019
-from fileclass import File
+from base_file import BaseFile
 
-class Beamdyn_file(File):
+
+class BeamdynFile(BaseFile):
 
   def __init__(self,filename):
 
