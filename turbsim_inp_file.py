@@ -10,7 +10,7 @@ class TurbsimInpFile(BaseFile):
   def __init__(self,filename):
 
     super().__init__(filename)
-    output_filename = filename.split('/')[len(filename.split('/'))-1].replace('.inp','.yml').replace('.','_inp.')
+    output_filename = self.parse_filename(filename,'.inp','.yml') 
     self.init_output_file(output_filename)
 
   def read(self):

@@ -148,3 +148,22 @@ class BaseFile():
     temp_desc = temp_vals[2][2:].strip()
     parsed_dict = {'Value':self.convert_value(temp_value),'Description':temp_desc}
     return temp_key,parsed_dict
+
+  def parse_filename(self, s, in_type, out_type):
+    '''
+    s: input string
+    in_type: file extension of input file
+    out_type:file extension of output file
+    '''
+    parsed_filename = s.split('/')[-1].replace(in_type,out_type)
+    
+    if (in_type == '.inp'):
+    
+      parsed_filename = s.split('/')[-1].replace(in_type,out_type).replace('.','_inp.')
+    
+    if (in_type == '.sum'):
+    
+      parsed_filename = s.split('/')[-1].replace(in_type,out_type).replace('.','_sum.')
+    
+    return parsed_filename
+

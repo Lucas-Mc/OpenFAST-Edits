@@ -10,7 +10,7 @@ class TurbsimSumFile(BaseFile):
   def __init__(self,filename):
 
     super().__init__(filename)
-    output_filename = filename.split('/')[len(filename.split('/'))-1].replace('.sum','.yml').replace('.','_sum.')
+    output_filename = self.parse_filename(filename,'.sum','.yml')
     self.init_output_file(output_filename)
 
   def read(self):
