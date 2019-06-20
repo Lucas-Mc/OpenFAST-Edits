@@ -1,6 +1,8 @@
+# Lucas McCullum
 # Rafael Mudafort
 # NWTC
 # June 19, 2019
+
 from base_file import BaseFile
 
 
@@ -8,20 +10,20 @@ class BeamdynFile(BaseFile):
   """
   Super class for all BeamDyn-related files.
   """
-
   def __init__(self, filename):
+
     super().__init__(filename)
-    output_filename = filename.split(
-        '/')[len(filename.split('/'))-1].replace('.dat', '.yml')
+    output_filename = self.parse_filename(filename,'.dat','.yml')
     self.init_output_file(output_filename)
 
 
 class BeamdynPrimaryFile(BeamdynFile):
+  """
+  Primary input file for BeamDyn.
+  """
 
   def __init__(self, filename):
-    """
-    Primary input file for BeamDyn.
-    """
+
     super().__init__(filename)
 
   def read(self):
@@ -163,6 +165,7 @@ class BeamdynBladeFile(BeamdynFile):
   """
 
   def __init__(self, filename):
+
     super().__init__(filename)
 
   def read(self):

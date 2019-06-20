@@ -1,8 +1,5 @@
 ---
 # Input information for: 90m_12mps_twr_sum
-Generated File: &id001
-  File name: 90m_12mps.bts
-  File type: AeroDyn/TurbSim full-field wind file
 Grid Point Variance Summary:
   Mean standard deviation across all grid points:
     u component:
@@ -11553,6 +11550,15 @@ Harvested Random Seeds after Generation of the Random Numbers:
   K1: 169290450
   K2: 0
 Hub-Height Simulated Turbulence Statistical Summary:
+  Friction Velocity (Ustar):
+    Unit: m/s
+    Value: 0.376
+  Maximum Instantaneous CTKE:
+    Unit: (m/s)^2
+    Value: 10.699
+  Maximum Instantaneous TKE:
+    Unit: (m/s)^2
+    Value: 22.827
   Product:
     u'v':
       Correlation Coefficient: 0.156
@@ -12061,4 +12067,6 @@ U-component (X) statistics from the hub grid point:
   TI:
     Unit: '%'
     Value: 13.85
-You have requested that the following file(s) be generated: *id001
+You have requested that the following file(s) be generated:
+  File name: 90m_12mps.bts
+  File type: AeroDyn/TurbSim full-field wind file

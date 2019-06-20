@@ -1,3 +1,8 @@
+# Lucas McCullum
+# Rafael Mudafort
+# NWTC
+# June 18, 2019
+
 import yaml
 
 class BaseFile():

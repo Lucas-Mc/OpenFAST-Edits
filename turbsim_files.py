@@ -4,10 +4,68 @@
 # June 19, 2019
 from base_file import BaseFile
 
+# Maybe use this in the future.. need some help deciding
+# class TurbsimFile(BaseFile):
+#   """
+#   Super class for all Turbsim-related files.
+#   """
 
-class TurbsimSumFile(BaseFile):
+#   def __init__(self, filename):
 
-  def __init__(self,filename):
+#     super().__init__(filename)
+#     # output_filename = self.parse_filename(filename)
+#     # output_filename = self.parse_filename(filename,'.dat','.yml')
+#     # self.init_output_file(output_filename)
+
+
+class TurbsimInputFile(BaseFile): # (TurbsimFile):
+  """
+  Primary input file for Turbsim.
+  """
+
+  def __init__(self, filename):
+
+    super().__init__(filename)
+    output_filename = self.parse_filename(filename,'.inp','.yml')
+    self.init_output_file(output_filename)
+
+  def read(self):
+
+    new_dict = {}
+    temp_dict = {}
+    # output_file.write('# '+data[0])
+        
+    for line in self.data[2:]:
+
+      if (line[0] == '-'):
+
+        new_header = self.remove_char(line,['-','\n'])
+          
+      elif ((len(line.split()) > 0) and (line[0] != '=')):
+          
+        new_line = line.split()
+        temp_value = new_line[0]
+        temp_key = new_line[1]
+        description = self.combine_text_spaces(new_line[3:]).replace('"','\'')
+        temp_dict[temp_key] = {'Value':self.convert_value(temp_value),'Description':description}
+
+      elif (len(line.split()) == 0):
+
+        new_dict[new_header] = temp_dict
+        temp_dict = {}
+
+      else: 
+          
+        pass
+        
+    return new_dict
+
+class TurbsimSummaryFile(BaseFile): # (TurbsimFile):
+  """
+  Primary summary file for Turbsim.
+  """
+
+  def __init__(self, filename):
 
     super().__init__(filename)
     output_filename = self.parse_filename(filename,'.sum','.yml')
@@ -20,13 +78,14 @@ class TurbsimSumFile(BaseFile):
     temp_2d_array = []
     # output_file.write('# '+data[1])
 
-    for line_num,line in enumerate(self.data[4:]):
+    for line in self.data[4:]:
 
       fl = line[0]
       
       if (fl.isalnum()):
 
-        new_header = self.remove_char(line,[':','\n']) 
+        new_header = self.remove_char(line,[':','\n'])
+        temp_dict = {} 
 
         if (new_header.split()[0] == 'Nyquist'):
 
@@ -75,13 +134,12 @@ class TurbsimSumFile(BaseFile):
 
           temp_dict[temp_key] = self.convert_value(temp_value)
 
-      elif (line_num == 47):
+      elif ((new_header.split()[0] == 'You') and (len(line.split()) > 0)):
 
         temp_dict = {}
         temp_line = line.split()
         temp_dict['File name'] = temp_line[0]
         temp_dict['File type'] = self.remove_parens(self.combine_text_spaces(temp_line[1:]))
-        new_dict['Generated File'] = temp_dict
 
       elif ((new_header.split()[0] == 'Turbulence') and (len(line.split()) > 0)):
 
@@ -111,16 +169,16 @@ class TurbsimSumFile(BaseFile):
 
       elif ((new_header.split()[0] == 'Mean') and (new_header.split()[1] == 'Wind') and (len(line.split()) > 0)):
 
-        if (line_num == 82):
+        if (line.split()[0] == 'Height'):
 
           temp_value_list = self.split_line(line)
 
-        elif (line_num == 83):
+        elif (line.split()[0] == '(m)'):
 
           temp_unit_list = line.split()
           temp_unit_list = [self.remove_parens(i) for i in temp_unit_list]           
 
-        elif ((line_num >= 85)):
+        elif (line.count('-') == 0):
 
           temp_vals = line.split()
           temp_2d_array.append(temp_vals)
@@ -140,72 +198,73 @@ class TurbsimSumFile(BaseFile):
         temp_value,temp_key = self.sep_string(line,' ')
         temp_dict[temp_key] = self.convert_value(temp_value)
 
-      elif ((new_header.split()[0] == 'Hub-Height') and (len(line.split()) > 0)):
+      elif ((new_header.split()[0] == 'Hub-Height') and (len(line.split()) > 0) and (line.count('-') < 6)):
 
-          if (line_num == 129):
+        if (line.split()[0] == 'Type'):
 
-              temp_value_list = self.split_line(line)
-              temp_temp_dict = {}
+            temp_value_list = self.split_line(line)
+            temp_temp_dict = {}
 
-          elif ((line_num >= 131) and (line_num <= 139)):
+        elif (line.split()[0] == 'Min'):
 
-              temp_line_vals = self.split_line(line)
-              temp_temp_temp_dict = {}
+            temp_value_list = self.split_line(line)
 
-              for k,tv in enumerate(temp_value_list[1:]):
+        elif (line.split()[0] == 'Product'): 
 
-                  temp_var = tv
-                  temp_unit = tv.split()
-                  temp_title = self.combine_text_spaces(temp_unit[0:(len(temp_unit)-1)])
-                  temp_unit = self.remove_parens(temp_unit[len(temp_unit)-1]) 
-                  temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':self.convert_value(temp_line_vals[k+1])}
+            temp_value_list2 = self.split_line(line)
 
-              temp_temp_dict[temp_line_vals[0]] = temp_temp_temp_dict
-              temp_dict[temp_value_list[0]] = temp_temp_dict
+            for i,tlv in enumerate(temp_value_list):
 
-          elif (line_num == 140):
+                temp_value_list[i] = tlv + ' ' + temp_value_list2[i+1]
 
-              temp_value_list = self.split_line(line)
+            temp_value_list.insert(0,temp_value_list2[0])
+            temp_temp_dict2 = {}
 
-          elif (line_num == 141): 
+        elif (line.count("'") == 2):
 
-              temp_value_list2 = self.split_line(line)
+          temp_line_vals = self.split_line(line)
+          temp_temp_temp_dict = {}
 
-              for i,tlv in enumerate(temp_value_list):
+          for k,tv in enumerate(temp_value_list[1:]):
 
-                  temp_value_list[i] = tlv + ' ' + temp_value_list2[i+1]
+            temp_var = tv
 
-              temp_value_list.insert(0,temp_value_list2[0])
-              temp_temp_dict2 = {}
+            if (tv.split()[0] == 'Correlation'):
 
-          elif ((line_num >= 143) and (line_num <= 145)):
+              temp_title = temp_var
+              temp_temp_temp_dict[temp_title] = self.convert_value(temp_line_vals[k+1])
+            
+            else:
+
+              temp_unit = tv.split()
+              temp_title = self.combine_text_spaces(temp_unit[0:(len(temp_unit)-1)])
+              temp_unit = temp_unit[len(temp_unit)-1]
+              temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':self.convert_value(temp_line_vals[k+1])}
+
+          temp_temp_dict2[temp_line_vals[0]] = temp_temp_temp_dict
+          temp_dict[temp_value_list[0]] = temp_temp_dict2
+
+        elif (line.count('=') == 1):
+
+          temp_key,temp_value,temp_unit = self.sep_string_double(line,'=',' ')
+          temp_dict[temp_key] = {'Value':self.convert_value(temp_value),'Unit':temp_unit}
+
+        else: 
 
             temp_line_vals = self.split_line(line)
             temp_temp_temp_dict = {}
 
             for k,tv in enumerate(temp_value_list[1:]):
 
-              temp_var = tv
-
-              if (tv.split()[0] == 'Correlation'):
-
-                temp_title = temp_var
-                temp_temp_temp_dict[temp_title] = self.convert_value(temp_line_vals[k+1])
-              
-              else:
-
+                temp_var = tv
                 temp_unit = tv.split()
                 temp_title = self.combine_text_spaces(temp_unit[0:(len(temp_unit)-1)])
-                temp_unit = temp_unit[len(temp_unit)-1]
+                temp_unit = self.remove_parens(temp_unit[len(temp_unit)-1]) 
                 temp_temp_temp_dict[temp_title] = {'Unit':temp_unit,'Value':self.convert_value(temp_line_vals[k+1])}
 
-            temp_temp_dict2[temp_line_vals[0]] = temp_temp_temp_dict
-            temp_dict[temp_value_list[0]] = temp_temp_dict2
+            temp_temp_dict[temp_line_vals[0]] = temp_temp_temp_dict
+            temp_dict[temp_value_list[0]] = temp_temp_dict
 
-      elif ((line_num >= 148) and (line_num <= 150)):
-
-        temp_key,temp_value,temp_unit = self.sep_string_double(line,'=',' ')
-        temp_dict[temp_key] = {'Value':self.convert_value(temp_value),'Unit':temp_unit}
 
       elif ((new_header.split()[0] == 'Grid') and (len(line.split()) > 0)):
 
@@ -220,23 +279,13 @@ class TurbsimSumFile(BaseFile):
           current_title = self.remove_char(self.combine_text_spaces(current_title),[':'])
           ch = 0
           temp_temp_temp_dict = {}
-
-        elif ((line_num >= 256) and (line_num <= 259)):
             
-          if (line.split()[0] == 'Mean'):
+        elif (line.split()[0] == 'Mean'):
 
-            temp_key = self.remove_char(line,[':']).strip()
-            temp_temp_temp_dict = {}
+          temp_key = self.remove_char(line,[':']).strip()
+          temp_temp_temp_dict = {}
 
-          else:
-
-            temp_temp_key,temp_var,temp_unit = self.sep_string_double(line,':',' ')
-            temp_temp_temp_dict[temp_temp_key] = {'Unit':temp_unit,'Value':self.convert_value(temp_var)}
-            temp_temp_dict[temp_key] = temp_temp_temp_dict
-
-          temp_dict = temp_temp_dict
-
-        else:
+        elif ((line.count('.') > 1) and ('Y-coord' not in line)):
 
           for i,current_y in enumerate(y_coord_list):
               
@@ -250,18 +299,24 @@ class TurbsimSumFile(BaseFile):
           temp_dict = temp_temp_dict
           ch += 1
 
+        else:
+
+          temp_temp_key,temp_var,temp_unit = self.sep_string_double(line,':',' ')
+          temp_temp_temp_dict[temp_temp_key] = {'Unit':temp_unit,'Value':self.convert_value(temp_var)}
+          temp_temp_dict[temp_key] = temp_temp_temp_dict
+
+        temp_dict = temp_temp_dict
+
       elif ((new_header.split()[0] == 'U-component') and (len(line.split()) > 0)):
 
         temp_key,temp_value,temp_unit = self.sep_string_double(line,'=',' ')
         temp_dict[temp_key] = {'Unit':temp_unit,'Value':self.convert_value(temp_value)} 
 
-      elif ((len(line.split()) == 0) and (line_num != 64) and (line_num != 70) and (line_num != 139)and (line_num != 146)and (line_num != 147)):
+      elif ((len(line.split()) == 0)):
 
         if (len(temp_dict.keys()) > 0):
 
           new_dict[new_header] = temp_dict
-
-        temp_dict = {}
   
     return new_dict
 

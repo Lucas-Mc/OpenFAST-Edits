@@ -4,12 +4,13 @@
 # June 14, 2019
 import sys
 import yaml
-from turbsim_inp_file import TurbsimInpFile
-from turbsim_sum_file import TurbsimSumFile
+# from turbsim_inp_file import TurbsimInpFile
+# from turbsim_sum_file import TurbsimSumFile
 from crushing_inp_file import CrushingInpFile
 from beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile
+from turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
-input_file_type = 4
+input_file_type = 2
 # 0: Input file (Main folder / FAST / Crushing)
 # 1: Input file (Wind folder / TurbSim / Inp)
 # 2: Summary file (Wind folder / TurbSim / Sum)
@@ -48,13 +49,13 @@ if (input_file_type == 0):
 
 elif (input_file_type == 1):
 
-  turbsim_file = TurbsimInpFile(file_name)
+  turbsim_file = TurbsimInputFile(file_name)
   new_dict = turbsim_file.read()
   turbsim_file.to_yaml(new_dict)
 
 elif (input_file_type == 2):
     
-  turbsim_file = TurbsimSumFile(file_name)
+  turbsim_file = TurbsimSummaryFile(file_name)
   new_dict = turbsim_file.read()
   turbsim_file.to_yaml(new_dict)
 
