@@ -51,7 +51,7 @@ class BeamdynDriver():
 if __name__ == "__main__":
     # build the case
     current_dir = '/Users/lmccullu/openfast/build/reg_tests/modules-local/beamdyn/bd_static_cantilever_beam'
-    inp_file = 'bd_driver'
+    inp_file = 'bd_driver.inp'
     case = Case(current_dir, inp_file)
 
     # build the driver
