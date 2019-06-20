@@ -1,14 +1,29 @@
 
 import subprocess
+import os
 
 class Case():
     def __init__(self, case_directory, input_file):
         self.case_directory = case_directory
+
         # TODO: check that this directory exists
+        if (os.path.isdir(case_directory)):
+          print('Directory does exist')
+        else:
+          print('Directory does not exist')
+          # Maybe should also do more to prevent further errors?
+
+        # Input file is simply the template so 'bd_driver' not 'bd_driver.inp'
         self.input_file = input_file
 
         # TODO: derive log file from input file or case directory
-        self.log_file = input_file + ".log"
+        self.log_file = input_file + '.log'
+
+        if (os.path.exists(os.path.join(case_directory,self.log_file))):
+          print('Log file does exist')
+        else:
+          print('Log file does not exist')
+          # Maybe should also do more to prevent further errors?          
 
 
 class BeamdynDriver():
@@ -26,6 +41,9 @@ class BeamdynDriver():
 
 
 if __name__=="__main__":
-    case = Case()
-    bd_driver = BeamdynDriver()
-    bd_driver.run_case()
+
+  current_dir = '/Users/lmccullu/openfast/build/reg_tests/modules-local/beamdyn/bd_static_cantilever_beam'
+  inp_file = 'bd_driver'
+  case = Case(current_dir,inp_file)
+  bd_driver = BeamdynDriver()
+  bd_driver.run_case()
