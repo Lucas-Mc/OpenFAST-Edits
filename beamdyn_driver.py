@@ -24,3 +24,8 @@ class BeamdynDriver():
         command = "{} {} > {}".format(self.executable, case.input_file, case.log_file)
         return subprocess.call(command, stdout=stdout, shell=True)
 
+
+if __name__=="__main__":
+    case = Case()
+    bd_driver = BeamdynDriver()
+    bd_driver.run_case()
