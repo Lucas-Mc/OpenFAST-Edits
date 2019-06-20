@@ -191,3 +191,24 @@ class BaseFile():
     
     return parsed_filename
 
+  def parse_filetype_dash(self, contents, key_list, sec_start_list, length_list):
+    '''
+    
+    '''
+    new_dict = {}
+    current_sec_ind = 0
+    current_line_ind = 0
+
+    for i,k in enumerate(key_list):
+
+      current_line = sec_start_list[current_sec_ind] + current_line_ind
+      new_dict[k] = contents[current_line].split()[0]
+      current_line_ind += 1
+
+      if (i >= sum(length_list[:(current_sec_ind+1)])):
+
+        current_sec_ind += 1
+        current_line_ind = 0
+
+    return new_dict
+

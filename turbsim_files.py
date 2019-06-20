@@ -97,83 +97,9 @@ class TurbsimInputFile(BaseFile): # (TurbsimFile):
 
     sec_start_list = [3,17,29,42,55]
     length_list = [11,10,11,11,7]
-    current_sec_ind = 0
-    current_line_ind = 0
-
-    for i,k in enumerate(key_list):
-
-      current_line = sec_start_list[current_sec_ind] + current_line_ind
-      new_dict[k] = self.data[current_line].split()[0]
-      current_line_ind += 1
-
-      if (i >= sum(length_list[:(current_sec_ind+1)])):
-
-        current_sec_ind += 1
-        current_line_ind = 0
-
-    # sec_start = 3
-    # new_dict['RandSeed1'] = self.data[sec_start].split()[0]
-    # new_dict['RandSeed2'] = self.data[sec_start+1].split()[0]
-    # new_dict['WrBHHTP'] = self.data[sec_start+2].split()[0]
-    # new_dict['WrFHHTP'] = self.data[sec_start+3].split()[0]
-    # new_dict['WrADHH'] = self.data[sec_start+4].split()[0]
-    # new_dict['WrADFF'] = self.data[sec_start+5].split()[0]
-    # new_dict['WrBLFF'] = self.data[sec_start+6].split()[0]
-    # new_dict['WrADTWR'] = self.data[sec_start+7].split()[0]
-    # new_dict['WrFMTFF'] = self.data[sec_start+8].split()[0]
-    # new_dict['WrACT'] = self.data[sec_start+9].split()[0]
-    # new_dict['Clockwise'] = self.data[sec_start+10].split()[0]
-    # new_dict['ScaleIEC'] = self.data[sec_start+11].split()[0]
-
-    # sec_start = 17
-    # new_dict['NumGrid_Z'] = self.data[sec_start].split()[0]
-    # new_dict['NumGrid_Y'] = self.data[sec_start+1].split()[0]
-    # new_dict['TimeStep'] = self.data[sec_start+2].split()[0]
-    # new_dict['AnalysisTime'] = self.data[sec_start+3].split()[0]
-    # new_dict['UsableTime'] = self.data[sec_start+4].split()[0]
-    # new_dict['HubHt'] = self.data[sec_start+5].split()[0]
-    # new_dict['GridHeight'] = self.data[sec_start+6].split()[0]
-    # new_dict['GridWidth'] = self.data[sec_start+7].split()[0]
-    # new_dict['VFlowAng'] = self.data[sec_start+8].split()[0]
-    # new_dict['HFlowAng'] = self.data[sec_start+9].split()[0]
-   
-    # sec_start = 29
-    # new_dict['TurbModel'] = self.data[sec_start].split()[0]
-    # new_dict['IECstandard'] = self.data[sec_start+1].split()[0]
-    # new_dict['IECturbc'] = self.data[sec_start+2].split()[0]
-    # new_dict['IEC_WindType'] = self.data[sec_start+3].split()[0]
-    # new_dict['ETMc'] = self.data[sec_start+4].split()[0]
-    # new_dict['WindProfileType'] = self.data[sec_start+5].split()[0]
-    # new_dict['RefHt'] = self.data[sec_start+6].split()[0]
-    # new_dict['URef'] = self.data[sec_start+7].split()[0]
-    # new_dict['ZJetMax'] = self.data[sec_start+8].split()[0]
-    # new_dict['PLExp'] = self.data[sec_start+9].split()[0]
-    # new_dict['Z0'] = self.data[sec_start+10].split()[0]
-
-    # sec_start = 42
-    # new_dict['Latitude'] = self.data[sec_start].split()[0]
-    # new_dict['RICH_NO'] = self.data[sec_start+1].split()[0]
-    # new_dict['UStar'] = self.data[sec_start+2].split()[0]
-    # new_dict['ZI'] = self.data[sec_start+3].split()[0]
-    # new_dict['PC_UW'] = self.data[sec_start+4].split()[0]
-    # new_dict['PC_UV'] = self.data[sec_start+5].split()[0]
-    # new_dict['PC_VW'] = self.data[sec_start+6].split()[0]
-    # new_dict['IncDec1'] = self.data[sec_start+7].split()[0]
-    # new_dict['IncDec2'] = self.data[sec_start+8].split()[0]
-    # new_dict['IncDec3'] = self.data[sec_start+9].split()[0]
-    # new_dict['CohExp'] = self.data[sec_start+10].split()[0]
-
-    # sec_start = 55
-    # new_dict['CTEventPath'] = self.data[sec_start].split()[0]
-    # new_dict['CTEventFile'] = self.data[sec_start+1].split()[0]
-    # new_dict['Randomize'] = self.data[sec_start+2].split()[0]
-    # new_dict['DistScl'] = self.data[sec_start+3].split()[0]
-    # new_dict['CTLy'] = self.data[sec_start+4].split()[0]
-    # new_dict['CTLz'] = self.data[sec_start+5].split()[0]
-    # new_dict['CTStartTime'] = self.data[sec_start+6].split()[0]
-
-
-
+    
+    new_dict = self.parse_filetype_dash(self.data,key_list,sec_start_list,length_list)
+    
     # new_dict = {}
     # temp_dict = {}
     # # output_file.write('# '+data[0])
