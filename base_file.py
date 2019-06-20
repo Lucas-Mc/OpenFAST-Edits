@@ -3,27 +3,46 @@
 # NWTC
 # June 18, 2019
 
+import sys
 import yaml
 
 class BaseFile():
 
   def __init__(self, filename):
 
-    self.filename = filename
-    new_file = open(filename)
-    self.data = new_file.readlines()
+    try:
+
+      self.filename = filename
+      new_file = open(filename)
+      self.data = new_file.readlines()
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
 
   def init_output_file(self, output_filename):
 
-    self.output_file = open(output_filename,'w') 
-    self.output_file.write('---\n')
-    self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
+    try:
+
+      self.output_file = open(output_filename,'w') 
+      self.output_file.write('---\n')
+      self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
 
   def to_yaml(self, new_dict):
 
-    self.new_dict = new_dict
-    yaml.safe_dump(new_dict, self.output_file)
-    self.output_file.close()
+    try:
+
+      self.new_dict = new_dict
+      yaml.safe_dump(new_dict, self.output_file)
+      self.output_file.close()
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
 
   def is_float(self, s):
     '''

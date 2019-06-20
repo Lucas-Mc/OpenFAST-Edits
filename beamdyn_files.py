@@ -3,8 +3,8 @@
 # NWTC
 # June 19, 2019
 
+import sys
 from base_file import BaseFile
-
 
 class BeamdynFile(BaseFile):
   """
@@ -12,10 +12,15 @@ class BeamdynFile(BaseFile):
   """
   def __init__(self, filename):
 
-    super().__init__(filename)
-    output_filename = self.parse_filename(filename,'.dat','.yml')
-    self.init_output_file(output_filename)
+    try:
 
+      super().__init__(filename)
+      output_filename = self.parse_filename(filename,'.dat','.yml')
+      self.init_output_file(output_filename)
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
 
 class BeamdynPrimaryFile(BeamdynFile):
   """
@@ -24,7 +29,13 @@ class BeamdynPrimaryFile(BeamdynFile):
 
   def __init__(self, filename):
 
-    super().__init__(filename)
+    try:
+
+      super().__init__(filename)
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
 
   def read(self):
 
@@ -166,7 +177,13 @@ class BeamdynBladeFile(BeamdynFile):
 
   def __init__(self, filename):
 
-    super().__init__(filename)
+    try: 
+    
+      super().__init__(filename)
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
 
   def read(self):
 

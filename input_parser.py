@@ -2,15 +2,14 @@
 # Rafael Mudafort
 # NWTC
 # June 14, 2019
+
 import sys
 import yaml
-# from turbsim_inp_file import TurbsimInpFile
-# from turbsim_sum_file import TurbsimSumFile
 from crushing_inp_file import CrushingInpFile
 from beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile
 from turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
-input_file_type = 2
+input_file_type = 1
 # 0: Input file (Main folder / FAST / Crushing)
 # 1: Input file (Wind folder / TurbSim / Inp)
 # 2: Summary file (Wind folder / TurbSim / Sum)
@@ -43,37 +42,67 @@ else:
 
 if (input_file_type == 0):
 
-  crushing_file = CrushingInpFile(file_name)
-  new_dict = crushing_file.read()
-  crushing_file.to_yaml(new_dict)
+  try:
+
+    crushing_file = CrushingInpFile(file_name)
+    new_dict = crushing_file.read()
+    crushing_file.to_yaml(new_dict)
+  
+  except:
+
+    print('Oops!',sys.exc_info(),'occured.')
 
 elif (input_file_type == 1):
 
-  turbsim_file = TurbsimInputFile(file_name)
-  new_dict = turbsim_file.read()
-  turbsim_file.to_yaml(new_dict)
+  try:
+
+    turbsim_file = TurbsimInputFile(file_name)
+    new_dict = turbsim_file.read()
+    turbsim_file.to_yaml(new_dict)
+
+  except:
+
+    print('Oops!',sys.exc_info(),'occured.')
 
 elif (input_file_type == 2):
     
-  turbsim_file = TurbsimSummaryFile(file_name)
-  new_dict = turbsim_file.read()
-  turbsim_file.to_yaml(new_dict)
+  try:
+
+    turbsim_file = TurbsimSummaryFile(file_name)
+    new_dict = turbsim_file.read()
+    turbsim_file.to_yaml(new_dict)
+  
+  except:
+
+    print('Oops!',sys.exc_info(),'occured.')
 
 elif (input_file_type == 3):
     
-  beamdyn_file = BeamdynPrimaryFile(file_name)
-  new_dict = beamdyn_file.read()
-  beamdyn_file.to_yaml(new_dict)
+  try:
+
+    beamdyn_file = BeamdynPrimaryFile(file_name)
+    new_dict = beamdyn_file.read()
+    beamdyn_file.to_yaml(new_dict)
+  
+  except:
+
+    print('Oops!',sys.exc_info(),'occured.')
 
 elif (input_file_type == 4):
     
-  beamdyn_blade_file = BeamdynBladeFile(file_name)
-  new_dict = beamdyn_blade_file.read()
-  beamdyn_blade_file.to_yaml(new_dict)
+  try:
+
+    beamdyn_blade_file = BeamdynBladeFile(file_name)
+    new_dict = beamdyn_blade_file.read()
+    beamdyn_blade_file.to_yaml(new_dict)
+  
+  except:
+
+    print('Oops!',sys.exc_info(),'occured.')
 
 else: 
 
-  pass
+  print('No valid file types were selected!')
 
 #new_file.close()
 #output_file.close()

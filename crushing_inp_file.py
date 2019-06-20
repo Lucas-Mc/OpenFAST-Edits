@@ -2,17 +2,24 @@
 # Rafael Mudafort
 # NWTC
 # June 19, 2019
-from base_file import BaseFile
 
+import sys
+from base_file import BaseFile
 
 class CrushingInpFile(BaseFile):
 
   def __init__(self,filename):
 
-    super().__init__(filename)
-    output_filename = self.parse_filename(filename,'.inp','.yml')
-    self.init_output_file(output_filename)
+    try: 
 
+      super().__init__(filename)
+      output_filename = self.parse_filename(filename,'.inp','.yml')
+      self.init_output_file(output_filename)
+
+    except:
+
+      print('Oops!',sys.exc_info()[0],"occured.")
+      
   def read(self):
 
     new_dict = {}
