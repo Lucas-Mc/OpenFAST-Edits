@@ -1,5 +1,9 @@
 
 import subprocess
+import os
+from stat import ST_MODE
+import sys
+
 
 class Case():
     def __init__(self, case_directory, input_file):
@@ -13,19 +17,29 @@ class Case():
 
 class BeamdynDriver():
     def __init__(self, executable_path):
-        self.executable_path = executable_path
-        # TODO:
-        # self.executable = 
+        # Verify that the executable exists
+        if not os.path.isfile(executable_path):
+            raise OSError(2, "Driver file does not exist", executable_path)
 
-        # TODO: check that this executable exists
-        # TODO: check that this executable can be executed
+        # Verify that the executable can be executed
+        permissionsMask = oct(os.stat(executable_path)[ST_MODE])[-1:]
+        if not int(permissionsMask) % 2 == 1:
+            raise OSError(1, "Driver file cannot be executed", executable_path)
+
+        self.executable_path = executable_path
 
     def run_case(self, case, stdout):
-        command = "{} {} > {}".format(self.executable, case.input_file, case.log_file)
+        os.chdir(case.case_directory)
+        command = "{} {} > {}".format(self.executable_path, case.input_file, case.log_file)
         return subprocess.call(command, stdout=stdout, shell=True)
 
 
-if __name__=="__main__":
-    case = Case()
-    bd_driver = BeamdynDriver()
-    bd_driver.run_case()
+if __name__ == "__main__":
+    stdout = sys.stdout # if verbose else open(os.devnull, 'w')
+    bd_driver = BeamdynDriver("/Users/rmudafor/Development/openfast/build/modules/beamdyn/beamdyn_driver")
+    case = BeamdynCase(
+        "/Users/rmudafor/Development/openfast/build/reg_tests/modules/beamdyn/bd_static_cantilever_beam",
+        "bd_primary.inp",
+        bd_driver
+    )
+    bd_driver.run_case(case, stdout)
