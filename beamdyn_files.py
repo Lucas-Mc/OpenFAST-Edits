@@ -42,131 +42,191 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     new_dict = {}
 
-    for line in self.data[2:]:
+    key_list = [
+      'Echo',
+      'QuasiStaticInit',
+      'rhoinf',
+      'quadrature',
+      'refine',
+      'n_fact',
+      'DTBeam',
+      'load_retries',
+      'NRMax',
+      'stop_tol',
+      'tngt_stf_fd',
+      'tngt_stf_comp',
+      'tngt_stf_pert',
+      'tngt_stf_difftol',
+      'RotStates',
+      'member_total',
+      'kp_total',    
+      # '49',             May need in the future          
+      'order_elem',
+      'BldFile',
+      'UsePitchAct',
+      'PitchJ',     
+      'PitchK',     
+      'PitchC',     
+      'SumPrint',   
+      'OutFmt',     
+      'NNodeOuts'  
+    ]
 
-      if ((line[0] == '-') and (' ' in line)):
+    data_length = self.convert_value(self.data[20].split()[0])
+    sec_start_list = [3,19,data_length+25,data_length+27,data_length+29,data_length+34]
+    length_list = [14,2,1,1,4,3]
+    
+    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    
+    temp_key_list = self.data[22].split()
+    temp_unit_list = self.remove_parens(self.data[23].split())
+    
+    temp_dict = {}
+    temp_temp_dict = {}
+    for tk in temp_key_list:
+      temp_temp_dict[tk] = []
 
-        new_header = self.remove_char(line, ['-']).split()
-        new_header = self.capitalize_list(new_header)
-        new_header = self.combine_text_spaces(new_header)
-        temp_dict = {}
-
-      elif (new_header.split()[0] == 'Simulation'):
-
-        temp_vals = self.remove_whitespace(line)
-        temp_value = temp_vals[0].strip()
-
-        try:
-
-          temp_desc = self.remove_char(temp_vals[2], ['-']).strip()
-          temp_key = temp_vals[1].strip()
-
-        except:
-
-          temp_key, temp_desc = self.sep_string(temp_vals[1], '-')
-          temp_desc = self.remove_char(temp_desc, ['-']).strip()
-          temp_key = temp_key.strip()
-
-        temp_dict[temp_key] = {'Value': self.convert_value(temp_value), 'Description': temp_desc}
-
-      elif (new_header.split()[0] == 'Geometry'):
-
-        if (type(self.convert_value(line.split()[3])) is str):
-
-          if (line.split()[0] == 'kp_xr'):
-
-            temp_key_list = line.split()
-
-            for tk in temp_key_list:
-
-              temp_temp_dict[tk] = []
-
-          elif ('(' in line.split()[0]):
-
-            temp_unit_list = [self.remove_parens(s) for s in line.split()]
-
-          else:
-
-            temp_temp_dict = {}
-            temp_key, parsed_dict = self.parse_type1(line)
-            temp_dict[temp_key] = parsed_dict
-
-        else:
-
-          for i, tk in enumerate(temp_key_list):
-
-            temp_value = line.split()[i]
-            temp_temp_dict[tk].append(self.convert_value(temp_value))
-            temp_dict[tk] = {
-              'Value': temp_temp_dict[tk],
-              'Unit': temp_unit_list[i]
-            }
-
-      elif ((new_header.split()[0] == 'Mesh') or (new_header.split()[0] == 'Material') or (new_header.split()[0] == 'Pitch')):
-
-        temp_vals = self.remove_whitespace(line)
-        temp_value = temp_vals[0].strip()
-
-        try:
-
-          if (new_header.split()[0] == 'Mesh'):
-
-            temp_desc = temp_vals[2][2:].strip()
-
-          else:
-
-            temp_desc = self.remove_char(temp_vals[2], ['-']).strip()
-
-          temp_key = temp_vals[1].strip()
-
-        except:
-
-          temp_key, temp_desc = self.sep_string(temp_vals[1], '-')
-          temp_desc = self.remove_char(temp_desc, ['-']).strip()
-          temp_key = temp_key.strip()
-
-        temp_dict[temp_key] = {
-          'Value': self.convert_value(temp_value),
-          'Description': temp_desc
+    for i in range(self.convert_value(new_dict['kp_total'])-1):
+      
+      for j, tk in enumerate(temp_key_list):
+      
+        temp_value = self.data[25+i].split()[j]
+        temp_temp_dict[tk].append(self.convert_value(temp_value))
+        temp_dict[tk] = {
+          'Value': temp_temp_dict[tk],
+          'Unit': temp_unit_list[j]
         }
 
-      elif (new_header.split()[0] == 'Outputs'):
+    new_dict['Matrix'] = temp_dict
 
-        if ('OutNd' in line):
+    # TODO: Convert to loop?
+    new_dict[self.data[sec_start_list[-1]+4].split()[0]] = [self.data[sec_start_list[-1]+5].strip(),self.data[sec_start_list[-1]+6].strip(),self.data[sec_start_list[-1]+7].strip(),self.data[sec_start_list[-1]+8].strip()]
 
-          temp_vals = self.remove_whitespace(line)
-          node_list = [self.convert_value(self.remove_char(s, [','])) for s in temp_vals[:-3]]
-          temp_key = temp_vals[-3]
-          temp_desc = self.combine_text_spaces(temp_vals[-2:])[2:].strip()
-          temp_dict[temp_key] = {'Nodes': node_list, 'Description': temp_desc}
+    # for line in self.data[2:]:
 
-        elif (line.split()[0] == 'OutList'):
+    #   if ((line[0] == '-') and (' ' in line)):
 
-          temp_key = line.split()[0].strip()
-          temp_desc = self.combine_text_spaces(line.split()[2:])
-          temp_val_list = []
+    #     new_header = self.remove_char(line, ['-']).split()
+    #     new_header = self.capitalize_list(new_header)
+    #     new_header = self.combine_text_spaces(new_header)
+    #     temp_dict = {}
 
-        elif (line.count(',') == 2):
+    #   elif (new_header.split()[0] == 'Simulation'):
 
-          temp_val_list.append(line.strip())
+    #     temp_vals = self.remove_whitespace(line)
+    #     temp_value = temp_vals[0].strip()
 
-        elif (line.split()[0] == 'END'):
+    #     try:
 
-          temp_dict[temp_key] = {
-            'Value': temp_val_list,
-            'Description': temp_desc
-          }
+    #       temp_desc = self.remove_char(temp_vals[2], ['-']).strip()
+    #       temp_key = temp_vals[1].strip()
 
-        elif (line[0] == '-'):
+    #     except:
 
-          pass
+    #       temp_key, temp_desc = self.sep_string(temp_vals[1], '-')
+    #       temp_desc = self.remove_char(temp_desc, ['-']).strip()
+    #       temp_key = temp_key.strip()
 
-        else:
+    #     temp_dict[temp_key] = {'Value': self.convert_value(temp_value), 'Description': temp_desc}
 
-          temp_key, parsed_dict = self.parse_type1(line)
-          temp_dict[temp_key] = parsed_dict
+    #   elif (new_header.split()[0] == 'Geometry'):
 
-      new_dict[new_header] = temp_dict
+    #     if (type(self.convert_value(line.split()[3])) is str):
+
+    #       if (line.split()[0] == 'kp_xr'):
+
+    #         temp_key_list = line.split()
+
+    #         for tk in temp_key_list:
+
+    #           temp_temp_dict[tk] = []
+
+    #       elif ('(' in line.split()[0]):
+
+    #         temp_unit_list = [self.remove_parens(s) for s in line.split()]
+
+    #       else:
+
+    #         temp_temp_dict = {}
+    #         temp_key, parsed_dict = self.parse_type1(line)
+    #         temp_dict[temp_key] = parsed_dict
+
+    #     else:
+
+    #       for i, tk in enumerate(temp_key_list):
+
+    #         temp_value = line.split()[i]
+    #         temp_temp_dict[tk].append(self.convert_value(temp_value))
+    #         temp_dict[tk] = {
+    #           'Value': temp_temp_dict[tk],
+    #           'Unit': temp_unit_list[i]
+    #         }
+
+    #   elif ((new_header.split()[0] == 'Mesh') or (new_header.split()[0] == 'Material') or (new_header.split()[0] == 'Pitch')):
+
+    #     temp_vals = self.remove_whitespace(line)
+    #     temp_value = temp_vals[0].strip()
+
+    #     try:
+
+    #       if (new_header.split()[0] == 'Mesh'):
+
+    #         temp_desc = temp_vals[2][2:].strip()
+
+    #       else:
+
+    #         temp_desc = self.remove_char(temp_vals[2], ['-']).strip()
+
+    #       temp_key = temp_vals[1].strip()
+
+    #     except:
+
+    #       temp_key, temp_desc = self.sep_string(temp_vals[1], '-')
+    #       temp_desc = self.remove_char(temp_desc, ['-']).strip()
+    #       temp_key = temp_key.strip()
+
+    #     temp_dict[temp_key] = {
+    #       'Value': self.convert_value(temp_value),
+    #       'Description': temp_desc
+    #     }
+
+    #   elif (new_header.split()[0] == 'Outputs'):
+
+    #     if ('OutNd' in line):
+
+    #       temp_vals = self.remove_whitespace(line)
+    #       node_list = [self.convert_value(self.remove_char(s, [','])) for s in temp_vals[:-3]]
+    #       temp_key = temp_vals[-3]
+    #       temp_desc = self.combine_text_spaces(temp_vals[-2:])[2:].strip()
+    #       temp_dict[temp_key] = {'Nodes': node_list, 'Description': temp_desc}
+
+    #     elif (line.split()[0] == 'OutList'):
+
+    #       temp_key = line.split()[0].strip()
+    #       temp_desc = self.combine_text_spaces(line.split()[2:])
+    #       temp_val_list = []
+
+    #     elif (line.count(',') == 2):
+
+    #       temp_val_list.append(line.strip())
+
+    #     elif (line.split()[0] == 'END'):
+
+    #       temp_dict[temp_key] = {
+    #         'Value': temp_val_list,
+    #         'Description': temp_desc
+    #       }
+
+    #     elif (line[0] == '-'):
+
+    #       pass
+
+    #     else:
+
+    #       temp_key, parsed_dict = self.parse_type1(line)
+    #       temp_dict[temp_key] = parsed_dict
+
+    #   new_dict[new_header] = temp_dict
 
     return new_dict
 
@@ -317,7 +377,7 @@ class BeamdynInputFile(BeamdynFile):
     sec_start_list = [3,8,12,20,22,26,42]
     length_list = [3,3,3,1,3,13,1]
     
-    new_dict = self.parse_filetype_dash(self.data,key_list,sec_start_list,length_list)
+    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     
     matrix_rows = self.convert_value(self.data[15].split('(')[1].split(',')[0])
     # matrix_cols = self.data[15].split('(')[1].split(',')[1][0]

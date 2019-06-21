@@ -66,22 +66,30 @@ class BaseFile():
 
   def convert_value(self, s_list):
     '''
-    Determines and converts a string (s) to either int, float, or string
+    Determines and converts a list of strings (s_list) to either int, float, or string
     '''
-    new_list = []
+    if (type(s_list) is not list):
 
-    for s in s_list:
-
-      if (self.is_int(s)):
-          new_list.append(int(s))
-      elif (self.is_float(s)):
-          new_list.append(float(s))
+      if (self.is_int(s_list)):
+          return int(s_list)
+      elif (self.is_float(s_list)):
+          return float(s_list)
       else:
-          new_list.append(s)
+          return s_list
 
-    if (len(new_list) == 1):
-      return new_list[0]
     else:
+
+      new_list = []
+
+      for s in s_list:
+
+        if (self.is_int(s)):
+            new_list.append(int(s))
+        elif (self.is_float(s)):
+            new_list.append(float(s))
+        else:
+            new_list.append(s)
+
       return new_list
 
   def combine_text(self, s_list, sep):
@@ -107,17 +115,33 @@ class BaseFile():
         new_s = new_s.replace(c, '')
     return new_s
 
-  def remove_parens(self, s):
+  def remove_parens(self, s_list):
     '''
-    Remove parentheses from a string (s)
+    Remove parentheses from a list of strings (s_list)
     '''
-    return self.remove_char(s, ['(', ')'])
+    new_list = []
 
-  def remove_brackets(self, s):
+    for s in s_list:  
+      new_list.append(self.remove_char(s, ['(', ')']))  
+    
+    if (len(new_list) == 1):
+      return new_list[0]
+    else:
+      return new_list
+
+  def remove_brackets(self, s_list):
     '''
-    Remove brackets from a string (s)
+    Remove brackets from a string (s_list)
     '''
-    return self.remove_char(s, ['[', ']'])
+    new_list = []
+
+    for s in s_list:  
+      new_list.append(self.remove_char(s, ['[', ']']))  
+    
+    if (len(new_list) == 1):
+      return new_list[0]
+    else:
+      return new_list
 
   def split_line(self, current_line, delimiter='  '):
     '''
@@ -200,9 +224,13 @@ class BaseFile():
     
     return parsed_filename
 
-  def parse_filetype_dash(self, contents, key_list, sec_start_list, length_list):
+  def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list):
     '''
-
+    VALUE   KEY   - DESC
+    contents: the contents of the data file
+    key_list: list of keys to be added to the dictionary
+    sec_start_list: list of starting line numbers for dictionary values
+    length_list: list of the lengths of each section
     '''
     new_dict = {}
     current_sec_ind = 0
@@ -211,7 +239,7 @@ class BaseFile():
     for i,k in enumerate(key_list):
 
       current_line = sec_start_list[current_sec_ind] + current_line_ind
-      new_dict[k] = contents[current_line].split()[0]
+      new_dict[k] = self.convert_value(contents[current_line].split()[0])
       current_line_ind += 1
 
       if (i >= sum(length_list[:(current_sec_ind+1)])):

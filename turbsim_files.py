@@ -97,8 +97,8 @@ class TurbsimInputFile(BaseFile): # (TurbsimFile):
 
     sec_start_list = [3,17,29,42,55]
     length_list = [11,10,11,11,7]
-    
-    new_dict = self.parse_filetype_dash(self.data,key_list,sec_start_list,length_list)
+
+    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     
     # new_dict = {}
     # temp_dict = {}

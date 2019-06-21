@@ -10,11 +10,11 @@ from crushing_inp_file import CrushingInpFile
 from beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile
 from turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
-input_file_type = 5
+input_file_type = 3
 # 0: Input file (Main folder / FAST / Crushing)
 # 1: Input file (Wind folder / TurbSim / Inp)
 # 2: Summary file (Wind folder / TurbSim / Sum)
-# 3: Summary file (Main folder / FAST / Beamdyn)
+# 3: Summary file (Main folder / FAST / Beamdyn (Primary))
 # 4: Summary file (Main folder / FAST / Beamdyn Blade)
 # 5: Input file (Main folder / FAST / Beamdyn Input)
 

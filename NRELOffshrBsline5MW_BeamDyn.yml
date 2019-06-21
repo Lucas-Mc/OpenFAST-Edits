@@ -1,13 +1,12 @@
 ---
 # Input information for: NRELOffshrBsline5MW_BeamDyn
-Geometry Parameter:
-  '49':
-    Description: Member number; Number of key points in this member
-    Value: 1
+BldFile: '"NRELOffshrBsline5MW_BeamDyn_Blade.dat"'
+DTBeam: DEFAULT
+Echo: 'False'
+Matrix:
   initial_twist:
     Unit: deg
     Value:
-    - 13.308
     - 13.308
     - 13.308
     - 13.308
@@ -56,13 +55,9 @@ Geometry Parameter:
     - 0.062
     - 0.023
     - 0.0
-  kp_total:
-    Description: Total number of key points (-) [must be at least 3]
-    Value: 49
   kp_xr:
     Unit: m
     Value:
-    - 0.0
     - 0.0
     - 0.0
     - 0.0
@@ -162,11 +157,9 @@ Geometry Parameter:
     - 0.0
     - 0.0
     - 0.0
-    - 0.0
   kp_zr:
     Unit: m
     Value:
-    - 0.0
     - 0.199875
     - 1.199865
     - 2.199855
@@ -215,105 +208,31 @@ Geometry Parameter:
     - 60.699885
     - 61.19988
     - 61.5
-  member_total:
-    Description: Total number of members (-)
-    Value: 1
-Material Parameter:
-  BldFile:
-    Description: Name of file containing properties for blade (quoted string)
-    Value: '"NRELOffshrBsline5MW_BeamDyn_Blade.dat"'
-Mesh Parameter:
-  order_elem:
-    Description: Order of interpolation (basis) function (-)
-    Value: 5
-Outputs:
-  NNodeOuts:
-    Description: Number of nodes to output to file [0 - 9] (-)
-    Value: 0
-  OutFmt:
-    Description: Format used for text tabular output, excluding the time channel.
-    Value: '"ES10.3E2"'
-  OutList:
-    Description: The next line(s) contains a list of output parameters. See OutListParameters.xlsx
-      for a listing of available output channels, (-)
-    Value:
-    - '"RootFxr, RootFyr, RootFzr"'
-    - '"RootMxr, RootMyr, RootMzr"'
-    - '"TipTDxr, TipTDyr, TipTDzr"'
-    - '"TipRDxr, TipRDyr, TipRDzr"'
-  OutNd:
-    Description: Nodes whose values will be output (-)
-    Nodes:
-    - 1
-    - 2
-    - 3
-    - 4
-    - 5
-    - 6
-  SumPrint:
-    Description: Print summary data to "<RootName>.sum" (flag)
-    Value: 'True'
-Pitch Actuator Parameters:
-  PitchC:
-    Description: Pitch actuator damping (kgm^2/s) [used only when UsePitchAct is true]
-    Value: 500000
-  PitchJ:
-    Description: Pitch actuator inertia (kgm^2) [used only when UsePitchAct is true]
-    Value: 200
-  PitchK:
-    Description: Pitch actuator stiffness (kgm^2/s^2) [used only when UsePitchAct
-      is true]
-    Value: 20000000.0
-  UsePitchAct:
-    Description: Whether a pitch actuator should be used (flag)
-    Value: 'False'
-Simulation Control:
-  DTBeam:
-    Description: Time step size (s).
-    Value: DEFAULT
-  Echo:
-    Description: Echo input data to "<RootName>.ech" (flag)
-    Value: 'False'
-  NRMax:
-    Description: Max number of iterations in NewtonRalphson algorithm (). DEFAULT
-      = 10
-    Value: DEFAULT
-  QuasiStaticInit:
-    Description: Use quasistatic pre
-    Value: 'True'
-  RotStates:
-    Description: Orient states in the rotating frame during linearization? (flag)
-      [used only when linearizing]
-    Value: 'True'
-  load_retries:
-    Description: Number of factored load retries before quitting the aimulation
-    Value: DEFAULT
-  n_fact:
-    Description: Factorization frequency (). DEFAULT = 5
-    Value: DEFAULT
-  quadrature:
-    Description: 'Quadrature method: 1=Gaussian; 2=Trapezoidal (switch)'
-    Value: 2
-  refine:
-    Description: Refinement factor for trapezoidal quadrature (). DEFAULT = 1 [used
-      only when quadrature=2]
-    Value: DEFAULT
-  rhoinf:
-    Description: Numerical damping parameter for generalizedalpha integrator
-    Value: 0
-  stop_tol:
-    Description: Tolerance for stopping criterion ()
-    Value: DEFAULT
-  tngt_stf_comp:
-    Description: Flag to compare analytical finite differenced tangent stiffness matrix
-    Value: DEFAULT
-  tngt_stf_difftol:
-    Description: Maximum allowable relative difference between analytical and fd tangent
-      stiffness (
-    Value: DEFAULT
-  tngt_stf_fd:
-    Description: Flag to use finite differenced tangent stiffness matrix ()
-    Value: DEFAULT
-  tngt_stf_pert:
-    Description: perturbation size for finite differencing ()
-    Value: DEFAULT
+NNodeOuts: 0
+NRMax: DEFAULT
+OutFmt: '"ES10.3E2"'
+OutList:
+- '"RootFxr, RootFyr, RootFzr"'
+- '"RootMxr, RootMyr, RootMzr"'
+- '"TipTDxr, TipTDyr, TipTDzr"'
+- '"TipRDxr, TipRDyr, TipRDzr"'
+PitchC: 500000
+PitchJ: 200
+PitchK: 20000000.0
+QuasiStaticInit: 'True'
+RotStates: 'True'
+SumPrint: 'True'
+UsePitchAct: 'False'
+kp_total: 49
+load_retries: DEFAULT
+member_total: 1
+n_fact: DEFAULT
+order_elem: 5
+quadrature: 2
+refine: DEFAULT
+rhoinf: 0
+stop_tol: DEFAULT
+tngt_stf_comp: DEFAULT
+tngt_stf_difftol: DEFAULT
+tngt_stf_fd: DEFAULT
+tngt_stf_pert: DEFAULT
