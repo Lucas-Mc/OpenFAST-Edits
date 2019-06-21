@@ -6,9 +6,9 @@
 import os
 import sys
 import yaml
-from crushing_inp_file import CrushingInpFile
-from beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile
-from turbsim_files import TurbsimInputFile, TurbsimSummaryFile
+from src.crushing_inp_file import CrushingInpFile
+from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile
+from src.turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
 input_file_type = 4
 # 0: Input file (Main folder / FAST / Crushing)             * NOT DONE
