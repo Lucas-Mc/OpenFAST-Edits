@@ -1,0 +1,43 @@
+---
+# Input information for: bd_driver_inp
+DistrLoad(1): '0'
+DistrLoad(2): '0'
+DistrLoad(3): '0'
+DistrLoad(4): '0'
+DistrLoad(5): '0'
+DistrLoad(6): '0'
+DynamicSolve: 'False'
+GlbPos(1): '0'
+GlbPos(2): '0'
+GlbPos(3): '0'
+GlbRotBladeT0: T
+Gx: '9.806'
+Gy: '0'
+Gz: '0'
+InputFile: '"bd_primary.inp"'
+Matrix:
+  Row_1:
+  - 1.0
+  - 0.0
+  - 0.0
+  Row_2:
+  - 0.0
+  - 1.0
+  - 0.0
+  Row_3:
+  - 0.0
+  - 0.0
+  - 1.0
+NumPointLoads: '0'
+RootVel(4): '0'
+RootVel(5): '0'
+RootVel(6): '0'
+TipLoad(1): '0'
+TipLoad(2): '0'
+TipLoad(3): '0'
+TipLoad(4): '0'
+TipLoad(5): '0'
+TipLoad(6): '0'
+dt: '0.002'
+t_final: '30'
+t_initial: '0'

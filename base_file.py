@@ -64,16 +64,25 @@ class BaseFile():
     except ValueError:
         return False
 
-  def convert_value(self, s):
+  def convert_value(self, s_list):
     '''
     Determines and converts a string (s) to either int, float, or string
     '''
-    if (self.is_int(s)):
-        return int(s)
-    elif (self.is_float(s)):
-        return float(s)
+    new_list = []
+
+    for s in s_list:
+
+      if (self.is_int(s)):
+          new_list.append(int(s))
+      elif (self.is_float(s)):
+          new_list.append(float(s))
+      else:
+          new_list.append(s)
+
+    if (len(new_list) == 1):
+      return new_list[0]
     else:
-        return s
+      return new_list
 
   def combine_text(self, s_list, sep):
     '''
@@ -193,7 +202,7 @@ class BaseFile():
 
   def parse_filetype_dash(self, contents, key_list, sec_start_list, length_list):
     '''
-    
+
     '''
     new_dict = {}
     current_sec_ind = 0

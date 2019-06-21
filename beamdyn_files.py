@@ -15,7 +15,8 @@ class BeamdynFile(BaseFile):
     try:
 
       super().__init__(filename)
-      output_filename = self.parse_filename(filename,'.dat','.yml')
+      file_ext = filename.split('.')[1]
+      output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
       self.init_output_file(output_filename)
 
     except:
@@ -259,5 +260,74 @@ class BeamdynBladeFile(BeamdynFile):
         pass
 
       new_dict[new_header] = temp_dict
+
+    return new_dict
+
+
+class BeamdynInputFile(BeamdynFile):
+  """
+  BeamDyn file decsribing the inputs.
+  """
+
+  def __init__(self, filename):
+
+    try: 
+    
+      super().__init__(filename)
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
+
+  def read(self):
+
+    new_dict = {}
+
+    key_list = [
+      'DynamicSolve',
+      't_initial',
+      't_final',
+      'dt',
+      'Gx',
+      'Gy',
+      'Gz',
+      'GlbPos(1)',
+      'GlbPos(2)',
+      'GlbPos(3)',
+      'GlbRotBladeT0',
+      'RootVel(4)',
+      'RootVel(5)',
+      'RootVel(6)',
+      'DistrLoad(1)',
+      'DistrLoad(2)',
+      'DistrLoad(3)',
+      'DistrLoad(4)',
+      'DistrLoad(5)',
+      'DistrLoad(6)',
+      'TipLoad(1)',
+      'TipLoad(2)',
+      'TipLoad(3)',
+      'TipLoad(4)',
+      'TipLoad(5)',
+      'TipLoad(6)',
+      'NumPointLoads',
+      'InputFile'
+    ]
+
+    sec_start_list = [3,8,12,20,22,26,42]
+    length_list = [3,3,3,1,3,13,1]
+    
+    new_dict = self.parse_filetype_dash(self.data,key_list,sec_start_list,length_list)
+    
+    matrix_rows = self.convert_value(self.data[15].split('(')[1].split(',')[0])
+    # matrix_cols = self.data[15].split('(')[1].split(',')[1][0]
+    temp_dict = {}
+    
+    for i,ln in enumerate(range(17,17+matrix_rows)):
+
+      matrix_vals = self.convert_value(self.data[ln].split())
+      temp_dict['Row_'+str(i+1)] = matrix_vals
+      
+    new_dict['Matrix'] = temp_dict
 
     return new_dict
