@@ -250,76 +250,132 @@ class BeamdynBladeFile(BeamdynFile):
 
     new_dict = {}
 
-    for line in self.data[2:]:
+    key_list = [
+      'station_total',
+      'damp_type'
+    ]
 
-      if ((line.count('-') > 6) and (' ' in line)):
+    sec_start_list = [3]
+    length_list = [1]
+    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict['Blade Parameters'] = temp_dict
+    
+    temp_key_list = self.data[6].split()
+    temp_quant_list = self.data[7].split()
+    temp_val_list = self.convert_value(self.data[8].split())
+    temp_dict = {}
 
-        new_header = self.remove_char(line, ['-']).split()
-        new_header = self.capitalize_list(new_header)
-        new_header = self.combine_text_spaces(new_header)
-        temp_dict = {}
-        temp_key_list = []
-        temp_val_list = []
+    for i, tk in enumerate(temp_key_list):
 
-      elif (new_header.split()[0] == 'Blade'):
+      temp_dict[tk+temp_quant_list[i]] = temp_val_list[i] 
 
-          temp_key, parsed_dict = self.parse_type1(line)
-          temp_dict[temp_key] = parsed_dict
+    new_dict['Damping Coefficient'] = temp_dict 
 
-      elif (new_header.split()[0] == 'Damping'):
+    line_start = 11
+    line_interval = 15
+    num_intervals = self.convert_value(new_dict['Blade Parameters']['station_total'])
+    temp_dict = {}
 
-        if ('mu1' in line.split()[0]):
+    for line_num in range(line_start-1,(line_start+line_interval*num_intervals)-1,line_interval):
+      
+      station_loc = self.convert_value(self.data[line_num].strip())
+      current_row = 1
+      temp_temp_dict = {}
+      temp_temp_dict['Stiffness Matrix'] = []
 
-          temp_key_list = line.split()
+      for j in range(1,7):
+        
+        current_mat = 'matrix1'
+        current_name = current_mat + '_row' + str(current_row)
+        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
+        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+        current_row += 1
 
-        elif ('(' in line):
+      current_row = 1
 
-          temp_quant_list = line.split()
+      for j in range(8,14):
+        
+        current_mat = 'matrix2'
+        current_name = current_mat + '_row' + str(current_row)
+        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
+        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+        current_row += 1   
 
-        else:
+      temp_dict[station_loc] = temp_temp_dict
 
-          temp_val_list = [self.convert_value(s) for s in line.split()]
+    new_dict['Distrubuted Properties'] = temp_dict
 
-          for i, tk in enumerate(temp_key_list):
+    # for line in self.data[2:]:
 
-            temp_dict[tk+temp_quant_list[i]] = temp_val_list[i]
+    #   if ((line.count('-') > 6) and (' ' in line)):
 
-      elif (new_header.split()[0] == 'Distributed'):
+    #     new_header = self.remove_char(line, ['-']).split()
+    #     new_header = self.capitalize_list(new_header)
+    #     new_header = self.combine_text_spaces(new_header)
+    #     temp_dict = {}
+    #     temp_key_list = []
+    #     temp_val_list = []
 
-        if (line.count('.') == 1):
+    #   elif (new_header.split()[0] == 'Blade'):
 
-          station_loc = self.convert_value(line.strip())
-          current_mat = 'matrix1'
-          current_row = 1
-          temp_temp_dict = {}
-          temp_temp_dict['Stiffness Matrix'] = []
+    #       temp_key, parsed_dict = self.parse_type1(line)
+    #       temp_dict[temp_key] = parsed_dict
 
-        elif (line.count('.') > 1):
+    #   elif (new_header.split()[0] == 'Damping'):
 
-          current_name = current_mat + '_row' + str(current_row)
-          temp_row_vals = line.split()
-          temp_row_vals = [self.convert_value(s) for s in temp_row_vals]
-          temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-          current_row += 1
+    #     if ('mu1' in line.split()[0]):
 
-        else:
+    #       temp_key_list = line.split()
 
-          current_row = 1
+    #     elif ('(' in line):
 
-          if (current_mat == 'matrix1'):
+    #       temp_quant_list = line.split()
 
-            current_mat = 'matrix2'
+    #     else:
 
-          else:
+    #       temp_val_list = [self.convert_value(s) for s in line.split()]
 
-            temp_dict[station_loc] = temp_temp_dict
-            current_mat = 'matrix1'
+    #       for i, tk in enumerate(temp_key_list):
 
-      else:
+    #         temp_dict[tk+temp_quant_list[i]] = temp_val_list[i]
 
-        pass
+    #   elif (new_header.split()[0] == 'Distributed'):
 
-      new_dict[new_header] = temp_dict
+    #     if (line.count('.') == 1):
+
+    #       station_loc = self.convert_value(line.strip())
+    #       current_mat = 'matrix1'
+    #       current_row = 1
+    #       temp_temp_dict = {}
+    #       temp_temp_dict['Stiffness Matrix'] = []
+
+    #     elif (line.count('.') > 1):
+
+    #       current_name = current_mat + '_row' + str(current_row)
+    #       temp_row_vals = line.split()
+    #       temp_row_vals = [self.convert_value(s) for s in temp_row_vals]
+    #       temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+    #       current_row += 1
+
+    #     else:
+
+    #       current_row = 1
+
+    #       if (current_mat == 'matrix1'):
+
+    #         current_mat = 'matrix2'
+
+    #       else:
+
+    #         temp_dict[station_loc] = temp_temp_dict
+    #         current_mat = 'matrix1'
+
+    #   else:
+
+    #     pass
+
+    #   new_dict[new_header] = temp_dict
 
     return new_dict
 

@@ -10,13 +10,13 @@ from crushing_inp_file import CrushingInpFile
 from beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile
 from turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
-input_file_type = 3
-# 0: Input file (Main folder / FAST / Crushing)
-# 1: Input file (Wind folder / TurbSim / Inp)
-# 2: Summary file (Wind folder / TurbSim / Sum)
-# 3: Summary file (Main folder / FAST / Beamdyn (Primary))
-# 4: Summary file (Main folder / FAST / Beamdyn Blade)
-# 5: Input file (Main folder / FAST / Beamdyn Input)
+input_file_type = 4
+# 0: Input file (Main folder / FAST / Crushing)             * NOT DONE
+# 1: Input file (Wind folder / TurbSim / Inp)               * DONE
+# 2: Summary file (Wind folder / TurbSim / Sum)             * NOT DONE
+# 3: Summary file (Main folder / FAST / Beamdyn (Primary))  * DONE
+# 4: Summary file (Main folder / FAST / Beamdyn Blade)      * NOT DONE
+# 5: Input file (Main folder / FAST / Beamdyn Input)        * DONE
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 

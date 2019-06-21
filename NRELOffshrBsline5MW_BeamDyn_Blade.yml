@@ -1,12 +1,8 @@
 ---
 # Input information for: NRELOffshrBsline5MW_BeamDyn_Blade
 Blade Parameters:
-  damp_type:
-    Description: 'Damping type: 0: no damping; 1: damped'
-    Value: 1
-  station_total:
-    Description: Number of blade input stations (-)
-    Value: 49
+  damp_type: 1
+  station_total: 49
 Damping Coefficient:
   mu1(-): 0.001
   mu2(-): 0.001
@@ -14,7 +10,7 @@ Damping Coefficient:
   mu4(-): 0.001
   mu5(-): 0.001
   mu6(-): 0.001
-Distributed Properties:
+Distrubuted Properties:
   0.0:
     Stiffness Matrix:
     - matrix1_row1:

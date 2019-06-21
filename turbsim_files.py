@@ -7,20 +7,20 @@ import sys
 from base_file import BaseFile
 
 # Maybe use this in the future.. need some help deciding
-# class TurbsimFile(BaseFile):
-#   """
-#   Super class for all Turbsim-related files.
-#   """
+class TurbsimFile(BaseFile):
+  """
+  Super class for all Turbsim-related files.
+  """
 
-#   def __init__(self, filename):
+  def __init__(self, filename):
 
-#     super().__init__(filename)
-#     # output_filename = self.parse_filename(filename)
-#     # output_filename = self.parse_filename(filename,'.dat','.yml')
-#     # self.init_output_file(output_filename)
+    super().__init__(filename)
+    file_ext = filename.split('.')[1]
+    output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
+    self.init_output_file(output_filename)
 
 
-class TurbsimInputFile(BaseFile): # (TurbsimFile):
+class TurbsimInputFile(TurbsimFile):
   """
   Primary input file for Turbsim.
   """
@@ -30,8 +30,6 @@ class TurbsimInputFile(BaseFile): # (TurbsimFile):
     try:
 
       super().__init__(filename)
-      output_filename = self.parse_filename(filename,'.inp','.yml')
-      self.init_output_file(output_filename)
 
     except:
 
@@ -129,7 +127,7 @@ class TurbsimInputFile(BaseFile): # (TurbsimFile):
         
     return new_dict
 
-class TurbsimSummaryFile(BaseFile): # (TurbsimFile):
+class TurbsimSummaryFile(TurbsimFile):
   """
   Primary summary file for Turbsim.
   """
@@ -139,8 +137,6 @@ class TurbsimSummaryFile(BaseFile): # (TurbsimFile):
     try:
 
       super().__init__(filename)
-      output_filename = self.parse_filename(filename,'.sum','.yml')
-      self.init_output_file(output_filename)
 
     except:
 
