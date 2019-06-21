@@ -7,18 +7,20 @@ import os
 import sys
 import yaml
 from src.crushing_inp_file import CrushingInpFile
-from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile
+from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
 from src.turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
-input_file_type = 4
-# 0: Input file (Main folder / FAST / Crushing)             * NOT DONE
-# 1: Input file (Wind folder / TurbSim / Inp)               * DONE
-# 2: Summary file (Wind folder / TurbSim / Sum)             * NOT DONE
-# 3: Summary file (Main folder / FAST / Beamdyn (Primary))  * DONE
-# 4: Summary file (Main folder / FAST / Beamdyn Blade)      * NOT DONE
-# 5: Input file (Main folder / FAST / Beamdyn Input)        * DONE
+input_file_type = 6
+# 0: Input file (Main folder / FAST / Crushing)               * NOT DONE
+# 1: Input file (Wind folder / TurbSim / Inp)                 * DONE
+# 2: Summary file (Wind folder / TurbSim / Sum)               * NOT DONE
+# 3: Summary file (Main folder / FAST / Beamdyn (Primary))    * DONE
+# 4: Summary file (Main folder / FAST / Beamdyn Blade)        * DONE
+# 5: Input file (Main folder / FAST / Beamdyn Input)          * DONE
+# 6: Input file (Main folder / FAST / Beamdyn Input Summary)  * NOT DONE
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
+folder_name = 'openfast_files'
 
 if (input_file_type == 0):
 
@@ -44,11 +46,15 @@ elif (input_file_type == 5):
     
   file_name = 'bd_driver.inp'
 
+elif (input_file_type == 6):
+    
+  file_name = 'bd_primary_inp.sum'
+
 else:
 
   pass
 
-file_path = os.path.join(current_dir, file_name)
+file_path = os.path.join(current_dir, folder_name, file_name)
 
 if (input_file_type == 0):
 
@@ -117,6 +123,18 @@ elif (input_file_type == 5):
     beamdyn_input_file = BeamdynInputFile(file_path)
     new_dict = beamdyn_input_file.read()
     beamdyn_input_file.to_yaml(new_dict)
+  
+  except:
+
+    print('Oops!',sys.exc_info(),'occured.')
+
+elif (input_file_type == 6):
+    
+  try:
+
+    beamdyn_input_sum_file = BeamdynInputSummaryFile(file_path)
+    new_dict = beamdyn_input_sum_file.read()
+    beamdyn_input_sum_file.to_yaml(new_dict)
   
   except:
 

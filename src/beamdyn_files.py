@@ -4,7 +4,7 @@
 # June 19, 2019
 
 import sys
-from base_file import BaseFile
+from src.base_file import BaseFile
 
 class BeamdynFile(BaseFile):
   """
@@ -445,5 +445,120 @@ class BeamdynInputFile(BeamdynFile):
       temp_dict['Row_'+str(i+1)] = matrix_vals
       
     new_dict['Matrix'] = temp_dict
+
+    return new_dict
+
+class BeamdynInputSummaryFile(BeamdynFile):
+  """
+  BeamDyn file decsribing the summary of the input file.
+  """
+
+  def __init__(self, filename):
+
+    try: 
+    
+      super().__init__(filename)
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
+
+  def read(self):
+
+    new_dict = {}
+
+    temp_key_list = [
+      'Blade center of mass (IEC coords)', 
+      'Blade mass moment of inertia', 
+      'Global position vector (IEC coords)',
+      'Global rotation tensor (IEC coords)',
+      'Initial blade orientation tensor (relative to global rotation tensor)',
+      'Global rotation WM parameters (IEC coords)',
+      'Gravity vector (m/s^2) (IEC coords)'
+    ]
+
+    line_start_list = [5,7,11,13,17,21,23]
+    temp_length_list = [1,3,1,3,3,1,1]
+
+    line_list = [2,3]
+
+    for ln in line_list:
+
+      temp_val = self.convert_value(self.data[ln].split('  ')[-1].strip())
+      temp_value_list = self.data[ln].split('  ')
+      temp_value_list = list(filter(None, temp_value_list))
+      temp_unit = self.remove_parens(temp_value_list[-2].strip())
+      new_dict[self.data[ln].split('  ')[0]] = {'Value':temp_val,'Unit':temp_unit}
+    
+    for i,tk in enumerate(temp_key_list):
+      
+      temp_dict = {}
+      
+      for j in range(temp_length_list[i]):
+      
+        current_row = 'Row' + str(j)
+        current_line = line_start_list[i] + j
+        temp_dict[current_row] = self.convert_value(self.data[current_line].strip().split())
+      
+      new_dict[tk] = temp_dict
+
+    temp_key_list = [
+      'Analysis type',                                          
+      'Numerical damping parameter',                            
+      'Time increment',                                         
+      'Maximum number of iterations in Newton-Raphson solution',
+      'Convergence parameter',                                  
+      'Factorization frequency in Newton-Raphson solution',     
+      'Quadrature method',                                      
+      'FE mesh refinement factor',                              
+      'Number of elements',                                     
+      'Number of nodes'
+    ]    
+
+    for i,tk in enumerate(temp_key_list):
+      new_dict[tk] = self.convert_value(self.data[24+i].split('  ')[-1].strip())                         
+
+    new_dict[self.data[35]] = {}
+    current_element = self.convert_value(self.data[36].split(':')[1].strip())
+    new_dict[self.data[35]] = {'Element Number':current_element,'Node Values':temp_dict}
+
+    # TODO: make 168 dynamic
+    line_start = 168
+    line_interval = 15
+    # TODO: make 49 dynamic
+    # num_intervals = self.convert_value(new_dict['Blade Parameters']['station_total'])
+    num_intervals = 49
+    temp_dict = {}
+    
+    for line_num in range(line_start-1,(line_start+line_interval*num_intervals)-1,line_interval):
+      
+      point_num = self.convert_value(self.data[line_num].split(':')[1].strip())
+      current_row = 1
+      temp_temp_dict = {}
+      temp_temp_dict['Stiffness Matrix'] = []
+
+      for j in range(1,7):
+        
+        current_mat = 'matrix1'
+        current_name = current_mat + '_row' + str(current_row)
+        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
+        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+        current_row += 1
+
+      current_row = 1
+
+      for j in range(8,14):
+        
+        current_mat = 'matrix2'
+        current_name = current_mat + '_row' + str(current_row)
+        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
+        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+        current_row += 1   
+
+      temp_dict[point_num] = temp_temp_dict
+
+    # TODO: make 166 dynamic
+    new_dict[self.data[165].strip()] = temp_dict
+
 
     return new_dict

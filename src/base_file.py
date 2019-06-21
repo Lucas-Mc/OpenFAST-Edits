@@ -3,6 +3,7 @@
 # NWTC
 # June 18, 2019
 
+import os
 import sys
 import yaml
 
@@ -37,6 +38,8 @@ class BaseFile():
     try:
 
       self.new_dict = new_dict
+      # new_folder = 'yaml_files'
+      # new_outfile = os.path.join(new_folder, self.output_file.name)
       yaml.safe_dump(new_dict, self.output_file)
       self.output_file.close()
 
@@ -119,29 +122,33 @@ class BaseFile():
     '''
     Remove parentheses from a list of strings (s_list)
     '''
-    new_list = []
+    if (type(s_list) is list):
+      new_list = []
 
-    for s in s_list:  
-      new_list.append(self.remove_char(s, ['(', ')']))  
+      for s in s_list:  
+        new_list.append(self.remove_char(s, ['(', ')']))
+
+      return new_list  
     
-    if (len(new_list) == 1):
-      return new_list[0]
     else:
-      return new_list
+
+      return self.remove_char(s_list, ['(', ')'])
 
   def remove_brackets(self, s_list):
     '''
     Remove brackets from a string (s_list)
     '''
-    new_list = []
+    if (type(s_list) is list):
+      new_list = []
 
-    for s in s_list:  
-      new_list.append(self.remove_char(s, ['[', ']']))  
+      for s in s_list:  
+        new_list.append(self.remove_char(s, ['[', ']']))
+
+      return new_list  
     
-    if (len(new_list) == 1):
-      return new_list[0]
     else:
-      return new_list
+
+      return self.remove_char(s_list, ['[', ']'])
 
   def split_line(self, current_line, delimiter='  '):
     '''

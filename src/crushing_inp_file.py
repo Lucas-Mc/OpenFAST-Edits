@@ -4,7 +4,7 @@
 # June 19, 2019
 
 import sys
-from base_file import BaseFile
+from src.base_file import BaseFile
 
 class CrushingInpFile(BaseFile):
 
