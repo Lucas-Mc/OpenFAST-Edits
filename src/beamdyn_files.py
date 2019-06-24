@@ -518,19 +518,72 @@ class BeamdynInputSummaryFile(BeamdynFile):
     for i,tk in enumerate(temp_key_list):
       new_dict[tk] = self.convert_value(self.data[24+i].split('  ')[-1].strip())                         
 
-    new_dict[self.data[35]] = {}
-    current_element = self.convert_value(self.data[36].split(':')[1].strip())
-    new_dict[self.data[35]] = {'Element Number':current_element,'Node Values':temp_dict}
+    node_section_start = 35
+    new_dict[self.data[node_section_start].strip()] = {}
+    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+    
+    temp_dict = {}
+    num_nodes = new_dict['Number of nodes']
+    for i in range(num_nodes):
+      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+      x_val = self.convert_value(cl_split[2].strip())
+      y_val = self.convert_value(cl_split[3].strip())
+      z_val = self.convert_value(cl_split[4].strip())
+      temp_dict['Node '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
 
-    # TODO: make 168 dynamic
-    line_start = 168
-    line_interval = 15
+    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
+
+    node_section_start = node_section_start+num_nodes+5
+    new_dict[self.data[node_section_start].strip()] = {}
+    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+    
+    temp_dict = {}
+    for i in range(num_nodes):
+      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+      x_val = self.convert_value(cl_split[2].strip())
+      y_val = self.convert_value(cl_split[3].strip())
+      z_val = self.convert_value(cl_split[4].strip())
+      temp_dict['Node '+str(i)] = {'WM_x':x_val,'WM_y':y_val,'WM_z':z_val}
+
+    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
+
+    node_section_start = node_section_start+num_nodes+5
+    new_dict[self.data[node_section_start].strip()] = {}
+    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+    
+    temp_dict = {}
     # TODO: make 49 dynamic
-    # num_intervals = self.convert_value(new_dict['Blade Parameters']['station_total'])
-    num_intervals = 49
+    num_elems = 49
+    for i in range(num_elems):
+      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+      x_val = self.convert_value(cl_split[2].strip())
+      y_val = self.convert_value(cl_split[3].strip())
+      z_val = self.convert_value(cl_split[4].strip())
+      temp_dict['QP '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+
+    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
+
+    node_section_start = node_section_start+num_elems+5
+    new_dict[self.data[node_section_start].strip()] = {}
+    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+    
+    temp_dict = {}
+    for i in range(num_elems):
+      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+      x_val = self.convert_value(cl_split[2].strip())
+      y_val = self.convert_value(cl_split[3].strip())
+      z_val = self.convert_value(cl_split[4].strip())
+      temp_dict['QP '+str(i)] = {'WM_x':x_val,'WM_y':y_val,'WM_z':z_val}
+
+    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
+
+    node_section_start = node_section_start+num_elems + 5
+    new_header = self.data[node_section_start].strip()
+    line_start = node_section_start + 3
+    line_interval = 15
     temp_dict = {}
     
-    for line_num in range(line_start-1,(line_start+line_interval*num_intervals)-1,line_interval):
+    for line_num in range(line_start-1,(line_start+line_interval*num_elems)-1,line_interval):
       
       point_num = self.convert_value(self.data[line_num].split(':')[1].strip())
       current_row = 1
@@ -557,8 +610,49 @@ class BeamdynInputSummaryFile(BeamdynFile):
 
       temp_dict[point_num] = temp_temp_dict
 
-    # TODO: make 166 dynamic
-    new_dict[self.data[165].strip()] = temp_dict
+    new_dict[new_header] = temp_dict
 
+    new_start = line_num + j + 2
+    for j in range(4):
+      node_section_start = new_start+(j*(num_nodes+2))
+      current_head = self.data[node_section_start].strip()
+      
+      temp_dict = {}
+      for i in range(num_nodes):
+        cl_split = self.remove_whitespace(self.data[node_section_start+1+i])
+        x_val = self.convert_value(cl_split[1].strip())
+        y_val = self.convert_value(cl_split[2].strip())
+        z_val = self.convert_value(cl_split[3].strip())
+        temp_dict['Node '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+
+      new_dict[current_head] = temp_dict
+    
+    node_section_start = node_section_start + 11
+    new_header = self.data[node_section_start].strip().replace(':','')
+    
+    temp_dict = {}
+    # TODO: make 19 dynamic
+    num_colp = 19
+    for i in range(num_colp):
+      cl_split = self.remove_whitespace(self.data[node_section_start+4+i]) 
+      temp_dict['Col '+str(i)] = {'Parameter':cl_split[1].strip(),'Unit':self.remove_parens(cl_split[2].strip())}
+    
+    new_dict[new_header] = temp_dict
+
+    num_row = 0
+    new_start = node_section_start+num_colp+3
+    for j in range(4):
+      node_section_start = new_start+(j*num_row)+((j+1)*2)
+      new_header = self.data[node_section_start]
+      num_row = self.convert_value(new_header.split(':')[1].split(' x ')[0].strip())
+      # num_col = self.convert_value(new_header.split(':')[1].split(' x ')[1].strip())
+      new_header = new_header.split(':')[0].strip()
+
+      temp_dict = {}
+      for i in range(num_row):
+        cl_split = self.convert_value(self.remove_whitespace_filter(self.data[node_section_start+1+i].split()))
+        temp_dict['Row '+str(i)] = cl_split
+
+      new_dict[new_header] = temp_dict
 
     return new_dict

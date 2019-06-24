@@ -201,6 +201,12 @@ class BaseFile():
     '''
     return list(filter(None, s.split('  ')))
 
+  def remove_whitespace_filter(self, s):
+    '''
+    s: input string
+    '''
+    return list(filter(None, s))
+
   def parse_type1(self, s):
     '''
     VAL   KEY   - DESC
