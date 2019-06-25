@@ -33,6 +33,8 @@ class Case():
 
 class BeamdynCase(Case):
   def __init__(self, openfast_directory, case_type):
+    self.openfast_directory = openfast_directory
+    self.case_type = case_type
     # Set a common home directory
     homedir = os.path.expanduser("~")
     # Each case uses the same driver
@@ -40,7 +42,7 @@ class BeamdynCase(Case):
     # Each case uses the same input file
     input_file = 'bd_driver.inp'
     # The location of the .log, .out, .ech, and .sum files
-    case_directory = openfast_directory + '/build/reg_tests/modules/beamdyn/' + case_type 
+    case_directory = self.openfast_directory + '/build/reg_tests/modules/beamdyn/' + self.case_type 
     super().__init__(driver, case_directory, input_file)
 
   # TODO: connect this with the beamdyn file classes
@@ -53,9 +55,9 @@ class BeamdynCase(Case):
 
   # Convert the outputted summary file to YAML
   def export_to_yaml(self):
-  
+    
     file_path = self.case_directory + '/bd_primary.inp.sum'
-    beamdyn_input_sum_file = BeamdynInputSummaryFile(file_path)
-    new_dict = beamdyn_input_sum_file.read()
-    beamdyn_input_sum_file.to_yaml(new_dict)
+    temp_file = BeamdynInputSummaryFile(file_path)
+    new_dict = temp_file.read()
+    temp_file.to_yaml(new_dict)
   

@@ -20,7 +20,10 @@ beamdyn_cases = [
 ]
 
 # Run each case
-for i,case in enumerate(beamdyn_cases):
-  case.run()
-  if (i == 0):
-    case.export_to_yaml()
+for i,case_num in enumerate(beamdyn_cases):
+  case_num.run()
+  # if (i == 0):
+  try:
+    case_num.export_to_yaml()
+  except:
+    print('FAILED: ' + case_num.case_type)

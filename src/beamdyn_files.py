@@ -4,6 +4,7 @@
 # June 19, 2019
 
 import sys
+import yaml
 from src.base_file import BaseFile
 
 class BeamdynFile(BaseFile):
@@ -557,9 +558,9 @@ class BeamdynInputSummaryFile(BeamdynFile):
     current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
     
     temp_dict = {}
-    # TODO: make 49 dynamic
-    # This can be taken from the `kp_total` value in the primary Beamdyn input file
-    num_elems = 49
+    in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_primary.yml'
+    in_dict = yaml.load(open(in_file))
+    num_elems = in_dict['kp_total']
 
     for i in range(num_elems):
 
@@ -646,32 +647,44 @@ class BeamdynInputSummaryFile(BeamdynFile):
     
     temp_dict = {}
 
-    for i in range(num_elems):
+    out_list = in_dict['OutList']
+    count_list = []
+    [count_list.append(len(ele.split(','))) for ele in out_list]
+    num_colp = sum(count_list)
+
+    for i in range(num_colp):
 
       cl_split = self.remove_whitespace(self.data[node_section_start+4+i]) 
       temp_dict['Col '+str(i)] = {'Parameter':cl_split[1].strip(),'Unit':self.remove_parens(cl_split[2].strip())}
-    
+
     new_dict[new_header] = temp_dict
 
-    num_row = 0
-    new_start = node_section_start+num_elems+3
+    # Some files have a matrix at the end and some don't
+    try:
 
-    for j in range(4):
+      num_row = 0
+      new_start = node_section_start+num_colp+3
 
-      node_section_start = new_start+(j*num_row)+((j+1)*2)
-      new_header = self.data[node_section_start]
-      num_row = self.convert_value(new_header.split(':')[1].split(' x ')[0].strip())
-      # num_col = self.convert_value(new_header.split(':')[1].split(' x ')[1].strip())
-      new_header = new_header.split(':')[0].strip()
+      for j in range(4):
 
-      temp_dict = {}
+        node_section_start = new_start+(j*num_row)+((j+1)*2)
+        new_header = self.data[node_section_start]
+        num_row = self.convert_value(new_header.split(':')[1].split(' x ')[0].strip())
+        # num_col = self.convert_value(new_header.split(':')[1].split(' x ')[1].strip())
+        new_header = new_header.split(':')[0].strip()
 
-      for i in range(num_row):
+        temp_dict = {}
 
-        cl_split = self.convert_value(self.remove_whitespace_filter(self.data[node_section_start+1+i].split()))
-        temp_dict['Row '+str(i)] = cl_split
+        for i in range(num_row):
 
-      new_dict[new_header] = temp_dict
+          cl_split = self.convert_value(self.remove_whitespace_filter(self.data[node_section_start+1+i].split()))
+          temp_dict['Row '+str(i)] = cl_split
+
+        new_dict[new_header] = temp_dict
+
+    except:
+
+      pass
 
     return new_dict
 
