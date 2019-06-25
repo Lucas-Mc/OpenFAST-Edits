@@ -226,15 +226,19 @@ class BaseFile():
     out_type:file extension of output file
     '''
     parsed_filename = s.split('/')[-1].replace(in_type,out_type)
-    
+
     if (in_type == '.inp'):
     
-      parsed_filename = s.split('/')[-1].replace(in_type,out_type).replace('.','_inp.')
+      parsed_filename = parsed_filename.replace('.','_inp.')
     
-    if (in_type == '.sum'):
+    elif (in_type == '.sum'):
     
-      parsed_filename = s.split('/')[-1].replace(in_type,out_type).replace('.','_sum.')
+      parsed_filename = parsed_filename.replace('.','_sum.')
+
+    elif (in_type == '.inp.sum'):
     
+      parsed_filename = parsed_filename.replace('.','_inpsum.')
+
     return parsed_filename
 
   def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list):

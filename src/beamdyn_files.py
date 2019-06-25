@@ -15,7 +15,7 @@ class BeamdynFile(BaseFile):
     try:
 
       super().__init__(filename)
-      file_ext = filename.split('.')[1]
+      file_ext = filename.split('.',1)[1]
       output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
       self.init_output_file(output_filename)
 
