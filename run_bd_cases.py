@@ -20,6 +20,7 @@ beamdyn_cases = [
 ]
 
 # Run each case
-for case in beamdyn_cases:
-    case.run()
-
+for i,case in enumerate(beamdyn_cases):
+  case.run()
+  if (i == 0):
+    case.export_to_yaml()

@@ -645,10 +645,8 @@ class BeamdynInputSummaryFile(BeamdynFile):
     new_header = self.data[node_section_start].strip().replace(':','')
     
     temp_dict = {}
-    # TODO: make 19 dynamic
-    num_colp = 19
 
-    for i in range(num_colp):
+    for i in range(num_elems):
 
       cl_split = self.remove_whitespace(self.data[node_section_start+4+i]) 
       temp_dict['Col '+str(i)] = {'Parameter':cl_split[1].strip(),'Unit':self.remove_parens(cl_split[2].strip())}
@@ -656,7 +654,7 @@ class BeamdynInputSummaryFile(BeamdynFile):
     new_dict[new_header] = temp_dict
 
     num_row = 0
-    new_start = node_section_start+num_colp+3
+    new_start = node_section_start+num_elems+3
 
     for j in range(4):
 

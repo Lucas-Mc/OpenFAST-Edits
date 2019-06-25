@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 from src.beamdyn_driver import BeamdynDriver
+from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
 
 class Case():
   def __init__(self, driver, case_directory, input_file):
@@ -20,7 +21,7 @@ class Case():
     if (os.path.exists(os.path.join(case_directory, self.log_file))):
       print('Log file does exist... ')
       print('\tThis file will be overwritten now: ' + self.log_file)
-      print('\tThis file is located in: ' + self.case_directory.split('/')[-1])
+      print('\tThis file is located in: ' + self.case_directory)
     else:
       print('Log file does not exist')
   
@@ -46,3 +47,15 @@ class BeamdynCase(Case):
   #  - input files should use the yaml interface
   #  - output files should ultimatley be exported in yaml
 
+  # @staticmethod
+  # def import_to_yaml():
+  #   pass
+
+  # Convert the outputted summary file to YAML
+  def export_to_yaml(self):
+  
+    file_path = self.case_directory + '/bd_primary.inp.sum'
+    beamdyn_input_sum_file = BeamdynInputSummaryFile(file_path)
+    new_dict = beamdyn_input_sum_file.read()
+    beamdyn_input_sum_file.to_yaml(new_dict)
+  
