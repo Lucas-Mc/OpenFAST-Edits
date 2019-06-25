@@ -143,6 +143,3 @@ elif (input_file_type == 6):
 else: 
 
   print('No valid file types were selected!')
-
-#new_file.close()
-#output_file.close()

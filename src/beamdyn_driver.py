@@ -1,7 +1,6 @@
 
 import os
 from stat import ST_MODE
-import sys
 
 class BeamdynDriver():
   def __init__(self, executable_path):
