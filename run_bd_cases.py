@@ -8,12 +8,18 @@ homedir = os.path.expanduser("~")
 # Keep a handle to the openfast directory
 openfast_directory = homedir + '/openfast'
 
-# Specific case to test
-case_type = 'bd_static_cantilever_beam'
+# Build the cases
+beamdyn_cases = [
+    BeamdynCase(openfast_directory, 'bd_5MW_dynamic'),
+    BeamdynCase(openfast_directory, 'bd_5MW_dynamic_gravity_Az00'),
+    BeamdynCase(openfast_directory, 'bd_5MW_dynamic_gravity_Az90'),
+    BeamdynCase(openfast_directory, 'bd_curved_beam'),
+    BeamdynCase(openfast_directory, 'bd_isotropic_rollup'),
+    BeamdynCase(openfast_directory, 'bd_static_cantilever_beam'),
+    BeamdynCase(openfast_directory, 'bd_static_twisted_with_k1')
+]
 
-# Build the case
-# driver = BeamdynDriver(homedir + '/openfast/build/modules/beamdyn/beamdyn_driver')
-# case_directory = '/Users/lmccullu/openfast/build/reg_tests/modules/beamdyn/bd_static_cantilever_beam'
-# input_file = 'bd_driver.inp'
-case = BeamdynCase(openfast_directory, case_type)
-case.run()
+# Run each case
+for case in beamdyn_cases:
+    case.run()
+

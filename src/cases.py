@@ -45,7 +45,6 @@ class BeamdynCase(Case):
   #  - driver (all use BeamDynDriver)
   #  - input file (all are bd_driver.inp)
 
-  
   # TODO: connect this with the beamdyn file classes
   #  - input files should use the yaml interface
   #  - output files should ultimatley be exported in yaml
