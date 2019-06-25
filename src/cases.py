@@ -1,7 +1,7 @@
-
 import os
 import sys
 import subprocess
+from src.beamdyn_driver import BeamdynDriver
 
 class Case():
   def __init__(self, driver, case_directory, input_file):
@@ -33,13 +33,19 @@ class Case():
     return subprocess.call(command, stdout=stdout, shell=True)
 
 class BeamdynCase(Case):
-    def __init__(self, driver, case_directory, input_file):
-        super().__init__(driver, case_directory, input_file)
+  def __init__(self, openfast_directory, case_type):
+    # Set a common home directory
+    homedir = os.path.expanduser("~")
+    driver = BeamdynDriver(homedir + '/openfast/build/modules/beamdyn/beamdyn_driver')
+    input_file = 'bd_driver.inp'
+    case_directory = openfast_directory + '/build/reg_tests/modules/beamdyn/' + case_type 
+    super().__init__(driver, case_directory, input_file)
 
-    # TODO: Fill out the defaults
-    #  - driver (all use BeamDynDriver)
-    #  - input file (all are bd_driver.inp)
-    
-    # TODO: connect this with the beamdyn file classes
-    #  - input files should use the yaml interface
-    #  - output files should ultimatley be exported in yaml
+  # TODO: Fill out the defaults
+  #  - driver (all use BeamDynDriver)
+  #  - input file (all are bd_driver.inp)
+
+  
+  # TODO: connect this with the beamdyn file classes
+  #  - input files should use the yaml interface
+  #  - output files should ultimatley be exported in yaml
