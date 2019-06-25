@@ -9,20 +9,18 @@ class Case():
     self.case_directory = case_directory
     self.input_file = input_file
 
-    # TODO: how should this error be handled?
-    #  - you could create the directory but then you also have to get all the case files from somewhere
-    #  - or just bail and leave that up to the user
     if not os.path.isdir(case_directory):
-      print('Directory does not exist')
+      print('Directory does not exist... Please setup the following: ' + case_directory)
 
     try:
       self.log_file = self.input_file.split('.')[0] + '.log'
     except:
       self.log_file = input_file + '.log'
 
-    # TODO: if it exists, maybe let the user know its being overwritten?
     if (os.path.exists(os.path.join(case_directory, self.log_file))):
-      print('Log file does exist')
+      print('Log file does exist... ')
+      print('\tThis file will be overwritten now: ' + self.log_file)
+      print('\tThis file is located in: ' + self.case_directory.split('/')[-1])
     else:
       print('Log file does not exist')
   
@@ -36,15 +34,15 @@ class BeamdynCase(Case):
   def __init__(self, openfast_directory, case_type):
     # Set a common home directory
     homedir = os.path.expanduser("~")
+    # Each case uses the same driver
     driver = BeamdynDriver(homedir + '/openfast/build/modules/beamdyn/beamdyn_driver')
+    # Each case uses the same input file
     input_file = 'bd_driver.inp'
+    # The location of the .log, .out, .ech, and .sum files
     case_directory = openfast_directory + '/build/reg_tests/modules/beamdyn/' + case_type 
     super().__init__(driver, case_directory, input_file)
-
-  # TODO: Fill out the defaults
-  #  - driver (all use BeamDynDriver)
-  #  - input file (all are bd_driver.inp)
 
   # TODO: connect this with the beamdyn file classes
   #  - input files should use the yaml interface
   #  - output files should ultimatley be exported in yaml
+
