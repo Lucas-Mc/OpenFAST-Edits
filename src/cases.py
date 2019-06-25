@@ -35,3 +35,11 @@ class Case():
 class BeamdynCase(Case):
     def __init__(self, driver, case_directory, input_file):
         super().__init__(driver, case_directory, input_file)
+
+    # TODO: Fill out the defaults
+    #  - driver (all use BeamDynDriver)
+    #  - input file (all are bd_driver.inp)
+    
+    # TODO: connect this with the beamdyn file classes
+    #  - input files should use the yaml interface
+    #  - output files should ultimatley be exported in yaml
