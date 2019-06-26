@@ -347,7 +347,8 @@ class BeamdynInputSummaryFile(BeamdynFile):
     current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
     
     num_nodes = new_dict['Number of nodes']
-    temp_dict = self.parse_xyz(self.data[node_section_start+4+i],num_nodes,'Node ')
+
+    temp_dict = self.parse_xyz(self.data,node_section_start+4,2,num_nodes,'Node ')
     new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
 
     node_section_start = node_section_start+num_nodes+5
@@ -375,27 +376,28 @@ class BeamdynInputSummaryFile(BeamdynFile):
 
     # TODO: How do I find the right value to use?
     num_elems = in_dict['kp_total']
+
     if (num_elems > num_nodes):
       
       try:
 
-        temp_dict = self.parse_xyz(self.data[node_section_start+4+i],num_elems,'QP ')
-
+        temp_dict = self.parse_xyz(self.data,node_section_start+4,2,num_elems,'QP ')
+      
       except:
 
         num_elems = num_nodes
-        temp_dict = self.parse_xyz(self.data[node_section_start+4+i],num_elems,'QP ')
+        temp_dict = self.parse_xyz(self.data,node_section_start+4,2,num_elems,'QP ')
 
     else:
 
       try:
 
         num_elems = num_nodes
-        temp_dict = self.parse_xyz(self.data[node_section_start+4+i],num_elems,'QP ')
+        temp_dict = self.parse_xyz(self.data,node_section_start+4,2,num_elems,'QP ')
       
       except:
 
-        temp_dict = self.parse_xyz(self.data[node_section_start+4+i],num_elems,'QP ')
+        temp_dict = self.parse_xyz(self.data,node_section_start+4,2,num_elems,'QP ')
 
     new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
 
@@ -456,7 +458,8 @@ class BeamdynInputSummaryFile(BeamdynFile):
 
       node_section_start = new_start+(j*(num_nodes+2))
       current_head = self.data[node_section_start].strip()
-      temp_dict = self.parse_xyz(self.data[node_section_start+1+i],num_nodes,'Node ')
+
+      temp_dict = self.parse_xyz(self.data,node_section_start+1,1,num_nodes,'Node ')
       new_dict[current_head] = temp_dict
     
     node_section_start = node_section_start + num_nodes + 5
