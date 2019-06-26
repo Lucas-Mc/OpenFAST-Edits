@@ -49,9 +49,11 @@ class BeamdynCase(Case):
   #  - input files should use the yaml interface
   #  - output files should ultimatley be exported in yaml
 
-  # @staticmethod
-  # def import_to_yaml():
-  #   pass
+  def import_to_yaml(self):
+    file_path = self.case_directory + '/bd_primary.inp'
+    temp_file = BeamdynPrimaryFile(file_path)
+    new_dict = temp_file.read()
+    temp_file.to_yaml(new_dict)
 
   # Convert the outputted summary file to YAML
   def export_to_yaml(self):

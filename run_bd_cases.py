@@ -22,8 +22,13 @@ beamdyn_cases = [
 # Run each case
 for i,case_num in enumerate(beamdyn_cases):
   case_num.run()
-  # if (i == 0):
+  try:
+    case_num.import_to_yaml()
+    print('SUCCESSFUL IMPORT: ' + case_num.case_type)
+  except:
+    print('FAILED IMPORT: ' + case_num.case_type)
   try:
     case_num.export_to_yaml()
+    print('SUCCESSFUL EXPORT: ' + case_num.case_type)
   except:
-    print('FAILED: ' + case_num.case_type)
+    print('FAILED EXPORT: ' + case_num.case_type)

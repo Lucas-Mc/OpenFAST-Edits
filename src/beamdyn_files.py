@@ -100,8 +100,23 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     new_dict['Matrix'] = temp_dict
 
-    # TODO: Convert to loop?
-    new_dict[self.data[sec_start_list[-1]+4].split()[0]] = [self.data[sec_start_list[-1]+5].strip(),self.data[sec_start_list[-1]+6].strip(),self.data[sec_start_list[-1]+7].strip(),self.data[sec_start_list[-1]+8].strip()]
+    ci = 5
+    outlist_param = []
+    while (self.data[sec_start_list[-1]+ci][0] == '"'):
+      outlist_param.append(self.data[sec_start_list[-1]+ci].strip())
+      ci += 1
+    
+    # Add values to the list
+    outlist_temp = []
+    [outlist_temp.append(ele.split(',')) for ele in outlist_param]
+    # Flatten list
+    outlist_temp = sum(outlist_temp, [])
+    
+    # Remove junk from each element in the list
+    outlist_final = []
+    [outlist_final.append(ele.strip().replace('"',''))  for ele in outlist_temp]
+    
+    new_dict['OutList'] = outlist_final 
 
     # for line in self.data[2:]:
 
@@ -516,11 +531,15 @@ class BeamdynInputSummaryFile(BeamdynFile):
       'Number of nodes'
     ]    
 
+    dev_count = 0
     for i,tk in enumerate(temp_key_list):
 
-      new_dict[tk] = self.convert_value(self.data[24+i].split('  ')[-1].strip())                         
+      if (tk in self.data[24+i-dev_count]):
+        new_dict[tk] = self.convert_value(self.data[24+i-dev_count].split('  ')[-1].strip())                         
+      else:
+        dev_count += 1
 
-    node_section_start = 35
+    node_section_start = 35-dev_count
     new_dict[self.data[node_section_start].strip()] = {}
     current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
     
@@ -558,17 +577,57 @@ class BeamdynInputSummaryFile(BeamdynFile):
     current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
     
     temp_dict = {}
-    in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_primary.yml'
+    in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_primary_inp.yml'
     in_dict = yaml.load(open(in_file))
+
+    # TODO: How do I find the right value to use?
     num_elems = in_dict['kp_total']
+    if (num_elems > num_nodes):
+      
+      try:
 
-    for i in range(num_elems):
+        for i in range(num_elems):
 
-      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
-      x_val = self.convert_value(cl_split[2].strip())
-      y_val = self.convert_value(cl_split[3].strip())
-      z_val = self.convert_value(cl_split[4].strip())
-      temp_dict['QP '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+          cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+          x_val = self.convert_value(cl_split[2].strip())
+          y_val = self.convert_value(cl_split[3].strip())
+          z_val = self.convert_value(cl_split[4].strip())
+          temp_dict['QP '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+
+      except:
+
+        num_elems = num_nodes
+
+        for i in range(num_elems):
+
+          cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+          x_val = self.convert_value(cl_split[2].strip())
+          y_val = self.convert_value(cl_split[3].strip())
+          z_val = self.convert_value(cl_split[4].strip())
+          temp_dict['QP '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+    
+    else:
+
+      try:
+        num_elems = num_nodes
+
+        for i in range(num_elems):
+
+          cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+          x_val = self.convert_value(cl_split[2].strip())
+          y_val = self.convert_value(cl_split[3].strip())
+          z_val = self.convert_value(cl_split[4].strip())
+          temp_dict['QP '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+
+      except:
+
+        for i in range(num_elems):
+
+          cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
+          x_val = self.convert_value(cl_split[2].strip())
+          y_val = self.convert_value(cl_split[3].strip())
+          z_val = self.convert_value(cl_split[4].strip())
+          temp_dict['QP '+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
 
     new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
 
@@ -642,15 +701,12 @@ class BeamdynInputSummaryFile(BeamdynFile):
 
       new_dict[current_head] = temp_dict
     
-    node_section_start = node_section_start + 11
+    node_section_start = node_section_start + num_nodes + 5
     new_header = self.data[node_section_start].strip().replace(':','')
     
     temp_dict = {}
 
-    out_list = in_dict['OutList']
-    count_list = []
-    [count_list.append(len(ele.split(','))) for ele in out_list]
-    num_colp = sum(count_list)
+    num_colp = len(in_dict['OutList'])+1
 
     for i in range(num_colp):
 
