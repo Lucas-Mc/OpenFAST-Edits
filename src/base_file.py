@@ -266,3 +266,21 @@ class BaseFile():
 
     return new_dict
 
+  def parse_xyz(self, s, n, k):
+    '''
+    s: string to be parsed
+    n: number of elements in the dictionary
+    k: key for the dictionary
+    '''
+    temp_dict = {}
+
+    for i in range(n):
+
+      cl_split = self.remove_whitespace(s)
+      x_val = self.convert_value(cl_split[1].strip())
+      y_val = self.convert_value(cl_split[2].strip())
+      z_val = self.convert_value(cl_split[3].strip())
+      temp_dict[k+str(i)] = {'X':x_val,'Y':y_val,'Z':z_val}
+
+    return temp_dict
+
