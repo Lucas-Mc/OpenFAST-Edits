@@ -3,6 +3,7 @@ import sys
 import subprocess
 from src.beamdyn_driver import BeamdynDriver
 from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
+from src.output_files import OutputPrimaryFile
 
 class Case():
   def __init__(self, driver, case_directory, input_files, primary_input_index=0):
@@ -72,6 +73,12 @@ class BeamdynCase(Case):
   def export_to_yaml(self):
     file_path = self.case_directory + '/bd_primary.inp.sum'
     temp_file = BeamdynInputSummaryFile(file_path)
+    new_dict = temp_file.read()
+    temp_file.to_yaml(new_dict)
+
+  def output_to_yaml(self):
+    file_path = self.case_directory + '/bd_driver.out'
+    temp_file = OutputPrimaryFile(file_path)
     new_dict = temp_file.read()
     temp_file.to_yaml(new_dict)
   

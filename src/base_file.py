@@ -239,6 +239,18 @@ class BaseFile():
     
       parsed_filename = parsed_filename.replace('.','_inpsum.')
 
+    elif (in_type == '.out'):
+    
+      parsed_filename = parsed_filename.replace('.','_out.')
+
+    elif (in_type == '.log'):
+    
+      parsed_filename = parsed_filename.replace('.','_log.')
+
+    elif (in_type == '.inp.ech'):
+    
+      parsed_filename = parsed_filename.replace('.','_inpech.')
+
     return parsed_filename
 
   def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list):

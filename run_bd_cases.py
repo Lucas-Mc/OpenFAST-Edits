@@ -22,15 +22,18 @@ beamdyn_cases = [
 # Run each case
 for i,case_num in enumerate(beamdyn_cases):
   case_num.run()
+  case_num.output_to_yaml()
+  
   # case_num.import_to_yaml()
   # case_num.export_to_yaml()
-  try:
-    case_num.import_to_yaml()
-    print('SUCCESSFUL IMPORT: ' + case_num.case_type)
-  except:
-    print('FAILED IMPORT: ' + case_num.case_type)
-  try:
-    case_num.export_to_yaml()
-    print('SUCCESSFUL EXPORT: ' + case_num.case_type)
-  except:
-    print('FAILED EXPORT: ' + case_num.case_type)
+
+  # try:
+  #   case_num.import_to_yaml()
+  #   print('SUCCESSFUL IMPORT: ' + case_num.case_type)
+  # except:
+  #   print('FAILED IMPORT: ' + case_num.case_type)
+  # try:
+  #   case_num.export_to_yaml()
+  #   print('SUCCESSFUL EXPORT: ' + case_num.case_type)
+  # except:
+  #   print('FAILED EXPORT: ' + case_num.case_type)
