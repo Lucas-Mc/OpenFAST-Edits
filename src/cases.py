@@ -78,7 +78,7 @@ class BeamdynCase(Case):
     temp_file.to_yaml(new_dict)
 
   def output_to_yaml(self):
-    file_path = self.case_directory + '/bd_driver_out.out' # blehh
+    file_path = self.case_directory + '/bd_driver.out' 
     temp_file = OutputPrimaryFile_t2y(file_path)
     new_dict = temp_file.read()
     temp_file.to_yaml(new_dict)

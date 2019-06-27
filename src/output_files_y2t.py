@@ -40,29 +40,30 @@ class OutputPrimaryFile(OutputFile):
       print('Oops!',sys.exc_info(),'occured.')
 
   def read(self):
-    # print(self.filename)
+
     in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
     in_dict = yaml.load(open(in_file))
 
     file_string = ''
     file_string += '\n'
-    # TODO: make dynamic
-    file_string += 'Predictions were generated on 26-Jun-2019 at 13:50:04 using BeamDyn'
+    file_string += in_dict['Intro']
     file_string += '\n\n\n\n\n'
+    key_list = list(in_dict.keys())
+    key_list.remove('Intro')
     
-    for kn in in_dict.keys():
+    for kn in key_list:
       file_string += kn + '\t'
 
     file_string += '\n'
 
-    for kn in in_dict.keys():
+    for kn in key_list:
       temp_string = '(' + in_dict[kn]['Unit'] + ') '
       file_string += temp_string
     
     file_string += '\n'
 
     for i in range(len(in_dict['Time']['Value'])):
-      for kn in in_dict.keys():
+      for kn in key_list:
         file_string += ' '
         file_string += str(in_dict[kn]['Value'][i])
       file_string += '\n'
