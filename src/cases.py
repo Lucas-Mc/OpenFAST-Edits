@@ -3,7 +3,8 @@ import sys
 import subprocess
 from src.beamdyn_driver import BeamdynDriver
 from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
-from src.output_files import OutputPrimaryFile
+from src.output_files import OutputPrimaryFile as OutputPrimaryFile_t2y
+from src.output_files_y2t import OutputPrimaryFile as OutputPrimaryFile_y2t
 
 class Case():
   def __init__(self, driver, case_directory, input_files, primary_input_index=0):
@@ -77,8 +78,14 @@ class BeamdynCase(Case):
     temp_file.to_yaml(new_dict)
 
   def output_to_yaml(self):
-    file_path = self.case_directory + '/bd_driver.out'
-    temp_file = OutputPrimaryFile(file_path)
+    file_path = self.case_directory + '/bd_driver_out.out' # blehh
+    temp_file = OutputPrimaryFile_t2y(file_path)
     new_dict = temp_file.read()
     temp_file.to_yaml(new_dict)
-  
+
+  def output_to_text(self):
+    file_path = self.case_directory + '/bd_driver_out.yml'
+    temp_file = OutputPrimaryFile_y2t(file_path)
+    file_string = temp_file.read()
+    temp_file.to_text(file_string)
+

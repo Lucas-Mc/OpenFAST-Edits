@@ -33,6 +33,16 @@ class BaseFile():
 
       print('Oops!',sys.exc_info(),'occured.')
 
+  def init_input_file(self, input_filename):
+
+    try:
+
+      self.input_file = open(input_filename,'w') 
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
+
   def to_yaml(self, new_dict):
 
     try:
@@ -42,6 +52,17 @@ class BaseFile():
       # new_outfile = os.path.join(new_folder, self.output_file.name)
       yaml.safe_dump(new_dict, self.output_file)
       self.output_file.close()
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
+
+  def to_text(self, file_string):
+
+    try:
+      
+      self.input_file.write(file_string)
+      self.input_file.close()
 
     except:
 
@@ -250,6 +271,11 @@ class BaseFile():
     elif (in_type == '.inp.ech'):
     
       parsed_filename = parsed_filename.replace('.','_inpech.')
+
+    # Temporary
+    # elif (in_type == '.yml'):
+    
+    #   parsed_filename = parsed_filename.replace('.','_t.')
 
     return parsed_filename
 

@@ -45,6 +45,7 @@ class OutputPrimaryFile(OutputFile):
     len_file = len(self.data)
     param_list = self.data[6].split('\t')
     param_list = [p.strip() for p in param_list]
+    param_list = list(filter(None, param_list))
     unit_list = self.remove_parens(self.data[7].split())
 
     new_dict = {}
@@ -60,4 +61,3 @@ class OutputPrimaryFile(OutputFile):
       new_dict[param_list[i]] = {'Unit':unit_list[i],'Value':self.convert_value(value_list)}
     
     return new_dict
-

@@ -22,8 +22,12 @@ beamdyn_cases = [
 # Run each case
 for i,case_num in enumerate(beamdyn_cases):
   case_num.run()
-  case_num.output_to_yaml()
-  
+  # If case_num.run() isn't executed the resulting files will be placed in your current directory,
+  # otherwise they will be placed in the same directory as the driver
+  case_num.output_to_text()
+
+  # case_num.output_to_yaml()
+
   # case_num.import_to_yaml()
   # case_num.export_to_yaml()
 
