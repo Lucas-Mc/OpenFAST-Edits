@@ -41,27 +41,28 @@ class Case():
     return subprocess.call(command, stdout=stdout, shell=True)
 
 class BeamdynCase(Case):
-  def __init__(self, openfast_directory, case_type):
+  def __init__(self, openfast_directory, case_directory):
     """
     openfast_directory: Str - # TODO See example above
-    case_type: Str - # TODO See example above
+    case_directory: Str - # TODO See example above
     """
 
     self.openfast_directory = openfast_directory
-    self.case_type = case_type
+    self.case_directory = case_directory
+
     driver = BeamdynDriver(self.openfast_directory + '/build/modules/beamdyn/beamdyn_driver')
-    input_files = [
-      'bd_driver.inp',
-      'bd_primary.inp',
-      'beam_props.inp'
+    self.input_files = [
+      BeamdynPrimaryFile(case_directory + 'bd_primary.inp.yml'),
+      BeamdynBladeFile(case_directory + 'beam_props.inp.yml'),
+      BeamdynInputSummaryFile(case_directory + 'bd_driver.inp.yml')
     ]
-    self.case_directory = self.openfast_directory + '/build/reg_tests/modules/beamdyn/' + self.case_type
 
-    super().__init__(driver, self.case_directory, input_files)
+    super().__init__(driver, self.case_directory, self.input_files)
 
-  # TODO: connect this with the beamdyn file classes
-  #  - input files should use the yaml interface
-  #  - output files should ultimatley be exported in yaml
+  def initialize_input_files(self):
+    # TODO: convert all yaml files to openfast files
+    for f in self.input_files:
+      pass
 
   def inp_to_yaml(self):
     for input_file in self.input_files:
