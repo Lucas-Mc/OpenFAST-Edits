@@ -16,8 +16,17 @@ class BeamdynFile(BaseFile):
     try:
 
       super().__init__(filename)
-      file_ext = '.out'
-      input_filename = self.parse_filename(filename,'.yml',file_ext)
+      file_ext = filename.split('.',1)[1]
+      if (file_ext == 'yml'):
+        if ('_inp.' in filename):
+          input_filename = self.parse_filename(filename,'.yml','.inp')
+        if ('_out.' in filename):
+          input_filename = self.parse_filename(filename,'.yml','.out')
+        if ('_inpsum.' in filename):
+          input_filename = self.parse_filename(filename,'.yml','.inp.sum')
+      else:
+        input_filename = self.parse_filename(filename,'.yml',file_ext)
+      
       self.init_input_file(input_filename)
 
     except:
