@@ -7,6 +7,7 @@ from src.output_files import OutputPrimaryFile as OutputPrimaryFile_t2y
 from src.output_files_y2t import OutputPrimaryFile as OutputPrimaryFile_y2t
 from src.beamdyn_files_y2t import BeamdynPrimaryFile as BeamdynPrimaryFile_y2t
 from src.beamdyn_files_y2t import BeamdynBladeFile as BeamdynBladeFile_y2t
+from src.beamdyn_files_y2t import BeamdynInputSummaryFile as BeamdynInputSummaryFile_y2t
 
 class Case():
   def __init__(self, driver, case_directory, input_files, primary_input_index=0):
@@ -73,11 +74,17 @@ class BeamdynCase(Case):
       temp_file.to_yaml(new_dict)
 
   # Convert the outputted summary file to YAML
-  def export_to_yaml(self):
+  def inpsum_to_yaml(self):
     file_path = self.case_directory + '/bd_primary.inp.sum'
     temp_file = BeamdynInputSummaryFile(file_path)
     new_dict = temp_file.read()
     temp_file.to_yaml(new_dict)
+
+  def inpsum_to_text(self):
+    file_path = self.case_directory + '/bd_primary_inpsum.yml' 
+    temp_file = BeamdynInputSummaryFile_y2t(file_path)
+    file_string = temp_file.read()
+    temp_file.to_text(file_string)
 
   def output_to_yaml(self):
     file_path = self.case_directory + '/bd_driver.out' 
