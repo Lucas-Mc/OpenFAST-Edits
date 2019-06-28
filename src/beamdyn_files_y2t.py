@@ -42,9 +42,8 @@ class BeamdynPrimaryFile(BeamdynFile):
 
   def read(self):
 
-    in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
-    print(in_file)
-    in_dict = yaml.load(open(in_file))
+    # in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
+    in_dict = yaml.load(open(self.filename))
 
     file_string = ''
     file_string += '--------- BEAMDYN with OpenFAST INPUT FILE -------------------------------------------\n'
@@ -173,3 +172,97 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     return file_string
 
+class BeamdynBladeFile(BeamdynFile):
+  # TODO: not done yet
+  """
+  Primary output file.
+  """
+
+  def __init__(self, filename):
+
+    try:
+
+      super().__init__(filename)
+
+    except:
+
+      print('Oops!',sys.exc_info(),'occured.')
+
+  def read(self):
+
+    in_dict = yaml.load(open(self.filename))
+
+    file_string = ''
+
+    file_string += '   ------- BEAMDYN V1.00.* INDIVIDUAL BLADE INPUT FILE --------------------------\n'
+    # TODO: does this line change every file?
+    file_string += ' Test Format 1\n'
+    file_string += ' ---------------------- BLADE PARAMETERS --------------------------------------\n'
+
+    key_list = [     
+      'station_total',   
+      'damp_type'       
+    ]
+
+    desc_list = [
+      '- Number of blade input stations (-)',
+      '- Damping type: 0: no damping; 1: damped'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,'Blade Parameters')
+    file_string += temp_string
+
+    file_string += '  ---------------------- DAMPING COEFFICIENT------------------------------------\n'
+    
+    temp_string = ''
+    temp_keys = in_dict['Damping Coefficient'].keys()
+    for val in temp_keys:
+      t_string = '  ' + val.split('(')[0]
+      temp_string += t_string
+    
+    file_string += temp_string
+    file_string += '\n'
+    
+    temp_string = ''
+    for val in temp_keys:
+      t_string = '  (' + val.split('(')[1]
+      temp_string += t_string
+    
+    file_string += temp_string
+    file_string += '\n'
+
+    temp_string = ''
+    for val in temp_keys:
+      t_string = '  ' + str(in_dict['Damping Coefficient'][val])
+      temp_string += t_string
+    
+    file_string += temp_string
+    file_string += '\n'
+
+    file_string += ' ---------------------- DISTRIBUTED PROPERTIES---------------------------------\n'
+    
+    for tk in in_dict['Distributed Properties'].keys():
+      
+      temp_string = '  ' + str(tk) + '\n'
+      file_string += temp_string
+      
+      for ttk in in_dict['Distributed Properties'][tk]['Stiffness Matrix']:
+        
+        temp_key = list(ttk.keys())[0]
+        # current_mat = self.convert_value(temp_key.split('_')[0][-1])
+        current_row = self.convert_value(temp_key[-1])
+        temp_string = ''
+
+        for v in ttk[temp_key]:
+          
+          t_string = '   ' + str(v)
+          temp_string += t_string
+
+        temp_string += '\n'
+        file_string += temp_string
+
+        if (current_row == 6):
+          
+          file_string += '\n'
+
+    return file_string

@@ -194,7 +194,7 @@ class BeamdynBladeFile(BeamdynFile):
 
       temp_dict[station_loc] = temp_temp_dict
 
-    new_dict['Distrubuted Properties'] = temp_dict
+    new_dict['Distributed Properties'] = temp_dict
 
     return new_dict
 

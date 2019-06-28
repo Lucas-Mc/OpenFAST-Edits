@@ -27,8 +27,9 @@ for i,case_num in enumerate(beamdyn_cases):
   # case_num.output_to_text()
   # case_num.primary_to_text()
 
-  case_num.props_to_yaml()
-  #case_num.output_to_yaml()
+  # case_num.props_to_yaml()
+  case_num.props_to_text()
+  # case_num.output_to_yaml()
 
   # case_num.import_to_yaml()
   # case_num.export_to_yaml()
