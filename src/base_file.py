@@ -324,4 +324,19 @@ class BaseFile():
 
     return temp_dict
 
+  def write_valdesc(self,inp_d,k_list,d_list):
+    '''
+    inp_d: input dictionary 
+    k_list: list of keys
+    d_list: list of descriptions 
+    '''
+    temp_string = ''
+
+    for i,kn in enumerate(k_list):
+
+      temp_string = inp_d[kn] + '  ' + kn + '  ' + d_list[i] + '\n'
+      file_string += temp_string
+
+    return temp_string
+
 
