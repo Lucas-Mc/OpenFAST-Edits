@@ -96,7 +96,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       '- Orient states in the rotating frame during linearization? (flag) [used only when linearizing]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
     file_string += '---------------------- GEOMETRY PARAMETER --------------------------------------\n'
@@ -112,7 +112,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       '- Total number of key points (-) [must be at least 3]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
     file_string += '---------------------- MESH PARAMETER ------------------------------------------\n'
@@ -125,7 +125,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       '- Order of interpolation (basis) function (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
     file_string += '---------------------- MATERIAL PARAMETER --------------------------------------\n'
@@ -138,7 +138,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       '- Name of file containing properties for blade (quoted string)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
     file_string += '---------------------- PITCH ACTUATOR PARAMETERS -------------------------------\n'
@@ -157,7 +157,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       '- Pitch actuator damping (kg-m^2/s) [used only when UsePitchAct is true]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
     file_string += '---------------------- OUTPUTS -------------------------------------------------\n'
@@ -174,7 +174,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       '- Number of nodes to output to file [0 - 9] (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
     file_string += '---------------------------------------------------------------------------------------\n'

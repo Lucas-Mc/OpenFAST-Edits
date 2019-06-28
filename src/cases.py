@@ -100,7 +100,7 @@ class BeamdynCase(Case):
 
   # TODO: not done yet
   def primary_to_text(self):
-    file_path = self.case_directory + '/NRELOffshrBsline5MW_BeamDyn.yml'
+    file_path = self.case_directory + '/bd_primary_inp.yml'
     temp_file = BeamdynPrimaryFile_y2t(file_path)
     file_string = temp_file.read()
     temp_file.to_text(file_string)

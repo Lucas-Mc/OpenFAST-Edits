@@ -335,7 +335,10 @@ class BaseFile():
 
     for i,kn in enumerate(k_list):
 
-      temp_string = str(inp_d[cat_name][kn]) + '  ' + str(kn) + '  ' + str(d_list[i]) + '\n'
+      if (cat_name is None):
+        temp_string = str(inp_d[kn]) + '  ' + str(kn) + '  ' + str(d_list[i]) + '\n'
+      else:
+        temp_string = str(inp_d[cat_name][kn]) + '  ' + str(kn) + '  ' + str(d_list[i]) + '\n'
       file_string += temp_string
 
     return file_string
