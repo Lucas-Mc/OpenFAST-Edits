@@ -19,7 +19,8 @@ class BaseFile():
 
     except:
 
-      print('Oops!',sys.exc_info(),'occured.')
+      pass
+      #print('Oops!',sys.exc_info(),'occured.')
 
   def init_output_file(self, output_filename):
 
@@ -339,6 +340,7 @@ class BaseFile():
         temp_string = str(inp_d[kn]) + '  ' + str(kn) + '  ' + str(d_list[i]) + '\n'
       else:
         temp_string = str(inp_d[cat_name][kn]) + '  ' + str(kn) + '  ' + str(d_list[i]) + '\n'
+      
       file_string += temp_string
 
     return file_string
