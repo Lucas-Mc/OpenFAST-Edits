@@ -88,13 +88,13 @@ class BeamdynCase(Case):
     file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
-  def out_to_yaml(self):
+  def driver_to_yaml(self):
     file_path = self.case_directory + '/bd_driver.out' 
     temp_file = OutputPrimaryFile(file_path)
     new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)
 
-  def out_to_text(self):
+  def driver_to_text(self):
     file_path = self.case_directory + '/bd_driver_out.yml'
     temp_file = OutputPrimaryFile(file_path)
     file_string = temp_file.read_y2t()

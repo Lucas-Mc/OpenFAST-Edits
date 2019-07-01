@@ -32,13 +32,10 @@ for i,case_num in enumerate(beamdyn_cases):
   # TODO: not done yet
   case_num.inpsum_to_text()
 
-  case_num.out_to_yaml()
-  case_num.out_to_text()
+  case_num.driver_to_yaml()
+  case_num.driver_to_text()
 
   case_num.primary_to_text()
-  # TODO:
-  # case_num.driver_to_text()
-  # case_num.props_to_text()
 
   case_num.props_to_yaml() 
   case_num.props_to_text()
