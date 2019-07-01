@@ -103,18 +103,19 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     key_list = [
       'member_total',
-      'kp_total',    
-      '49'             # May need in the future          
+      'kp_total'        
     ]
 
     desc_list = [
       '- Total number of members (-)',
-      '- Total number of key points (-) [must be at least 3]',
-      '- Member number; Number of key points in this member'
+      '- Total number of key points (-) [must be at least 3]'
     ]
 
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
+    
+    file_string += in_dict['NumInfo']
+    file_string += '\n'
 
     temp_keys = list(in_dict['Matrix'].keys())
 

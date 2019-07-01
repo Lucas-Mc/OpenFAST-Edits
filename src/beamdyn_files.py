@@ -42,7 +42,7 @@ class BeamdynPrimaryFile(BeamdynFile):
   def read(self):
 
     new_dict = {}
-
+    
     key_list = [
       'Echo',
       'QuasiStaticInit',
@@ -60,8 +60,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       'tngt_stf_difftol',
       'RotStates',
       'member_total',
-      'kp_total',    
-      '49',             # May need in the future          
+      'kp_total',           
       'order_elem',
       'BldFile',
       'UsePitchAct',
@@ -76,9 +75,10 @@ class BeamdynPrimaryFile(BeamdynFile):
     matching = list(filter(lambda x: 'kp_total' in x, self.data))
     data_length = self.convert_value(matching[0].split()[0])
     sec_start_list = [3,19,data_length+25,data_length+27,data_length+29,data_length+34]
-    length_list = [14,3,1,1,4,3]
+    length_list = [14,2,1,1,4,3]
     
     new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict['NumInfo'] = self.data[21].strip()
     
     temp_line = self.data[data_length+37]
     temp_list = temp_line.split('  ')
