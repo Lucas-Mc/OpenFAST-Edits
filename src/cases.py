@@ -3,11 +3,8 @@ import sys
 import subprocess
 from src.beamdyn_driver import BeamdynDriver
 from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
-from src.output_files import OutputPrimaryFile as OutputPrimaryFile_t2y
-from src.output_files_y2t import OutputPrimaryFile as OutputPrimaryFile_y2t
-from src.beamdyn_files_y2t import BeamdynPrimaryFile as BeamdynPrimaryFile_y2t
-from src.beamdyn_files_y2t import BeamdynBladeFile as BeamdynBladeFile_y2t
-from src.beamdyn_files_y2t import BeamdynInputSummaryFile as BeamdynInputSummaryFile_y2t
+from src.output_files import OutputPrimaryFile
+
 
 class Case():
   def __init__(self, driver, case_directory, input_files, primary_input_index=0):
@@ -54,9 +51,9 @@ class BeamdynCase(Case):
     self.case_type = case_type
     driver = BeamdynDriver(self.openfast_directory + '/build/modules/beamdyn/beamdyn_driver')
     input_files = [
-      #'bd_driver.inp',
-      'bd_primary.inp'#,
-      #'beam_props.inp'
+      'bd_driver.inp',
+      'bd_primary.inp',
+      'beam_props.inp'
     ]
     self.case_directory = self.openfast_directory + '/build/reg_tests/modules/beamdyn/' + self.case_type
 
@@ -66,53 +63,58 @@ class BeamdynCase(Case):
   #  - input files should use the yaml interface
   #  - output files should ultimatley be exported in yaml
 
-  def import_to_yaml(self):
+  def inp_to_yaml(self):
     for input_file in self.input_files:
       file_path = self.case_directory + '/' + input_file
-      temp_file = BeamdynPrimaryFile(file_path)
-      new_dict = temp_file.read()
+      if (input_file == 'bd_driver.inp'):
+        temp_file = BeamdynInputFile(file_path)
+      elif (input_file == 'bd_primary.inp'):
+        temp_file = BeamdynPrimaryFile(file_path)
+      elif (input_file == 'beam_props.inp'):
+        temp_file = BeamdynBladeFile(file_path)
+      new_dict = temp_file.read_t2y()
       temp_file.to_yaml(new_dict)
 
   # Convert the outputted summary file to YAML
   def inpsum_to_yaml(self):
     file_path = self.case_directory + '/bd_primary.inp.sum'
     temp_file = BeamdynInputSummaryFile(file_path)
-    new_dict = temp_file.read()
+    new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)
 
   def inpsum_to_text(self):
     file_path = self.case_directory + '/bd_primary_inpsum.yml' 
-    temp_file = BeamdynInputSummaryFile_y2t(file_path)
-    file_string = temp_file.read()
+    temp_file = BeamdynInputSummaryFile(file_path)
+    file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
-  def output_to_yaml(self):
+  def out_to_yaml(self):
     file_path = self.case_directory + '/bd_driver.out' 
-    temp_file = OutputPrimaryFile_t2y(file_path)
-    new_dict = temp_file.read()
+    temp_file = OutputPrimaryFile(file_path)
+    new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)
 
-  def output_to_text(self):
+  def out_to_text(self):
     file_path = self.case_directory + '/bd_driver_out.yml'
-    temp_file = OutputPrimaryFile_y2t(file_path)
-    file_string = temp_file.read()
+    temp_file = OutputPrimaryFile(file_path)
+    file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
   # TODO: not done yet
   def primary_to_text(self):
     file_path = self.case_directory + '/bd_primary_inp.yml'
-    temp_file = BeamdynPrimaryFile_y2t(file_path)
-    file_string = temp_file.read()
+    temp_file = BeamdynPrimaryFile(file_path)
+    file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
   def props_to_yaml(self):
     file_path = self.case_directory + '/beam_props.inp' 
     temp_file = BeamdynBladeFile(file_path)
-    new_dict = temp_file.read()
+    new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)   
 
   def props_to_text(self):
     file_path = self.case_directory + '/beam_props_inp.yml' 
-    temp_file = BeamdynBladeFile_y2t(file_path)
-    file_string = temp_file.read()
+    temp_file = BeamdynBladeFile(file_path)
+    file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)

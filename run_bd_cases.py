@@ -21,21 +21,27 @@ beamdyn_cases = [
 
 # Run each case
 for i,case_num in enumerate(beamdyn_cases):
+
   case_num.run()
   # If case_num.run() isn't executed the resulting files will be placed in your current directory,
   # otherwise they will be placed in the same directory as the driver
-  # case_num.output_to_text()
 
-  case_num.import_to_yaml()
+  case_num.inp_to_yaml()
+
+  case_num.inpsum_to_yaml()
+  # TODO: not done yet
+  case_num.inpsum_to_text()
+
+  case_num.out_to_yaml()
+  case_num.out_to_text()
+
   case_num.primary_to_text()
-  
-  # case_num.props_to_yaml()
+  # TODO:
+  # case_num.driver_to_text()
   # case_num.props_to_text()
-  # case_num.inpsum_to_text()
-  # case_num.output_to_yaml()
 
-  # case_num.import_to_yaml()
-  # case_num.inpsum_to_yaml()
+  case_num.props_to_yaml() 
+  case_num.props_to_text()
 
   # try:
   #   case_num.import_to_yaml()

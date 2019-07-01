@@ -1,7 +1,7 @@
 # Lucas McCullum
 # Rafael Mudafort
 # NWTC
-# June 27, 2019
+# July 1, 2019
 
 import sys
 import yaml
@@ -13,16 +13,20 @@ class OutputFile(BaseFile):
   """
   def __init__(self, filename):
 
-    try:
+    super().__init__(filename)
 
-      super().__init__(filename)
-      file_ext = filename.split('.',1)[1]
+    file_ext = filename.split('.',1)[1]
+
+    if (file_ext == 'out'):
+
       output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
       self.init_output_file(output_filename)
 
-    except:
+    else:
 
-      print('Oops!',sys.exc_info(),'occured.')
+      input_filename = self.parse_filename(filename,'.yml','.out')
+      self.init_input_file(input_filename)
+
 
 class OutputPrimaryFile(OutputFile):
   """
@@ -31,15 +35,9 @@ class OutputPrimaryFile(OutputFile):
 
   def __init__(self, filename):
 
-    try:
+    super().__init__(filename)
 
-      super().__init__(filename)
-
-    except:
-
-      print('Oops!',sys.exc_info(),'occured.')
-
-  def read(self):
+  def read_t2y(self):
 
     new_dict = {}
     new_dict['Intro'] = self.data[1].strip()
@@ -62,3 +60,34 @@ class OutputPrimaryFile(OutputFile):
       new_dict[param_list[i]] = {'Unit':unit_list[i],'Value':self.convert_value(value_list)}
     
     return new_dict
+
+  def read_y2t(self):
+
+    in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
+    in_dict = yaml.load(open(in_file))
+
+    file_string = ''
+    file_string += '\n'
+    file_string += in_dict['Intro']
+    file_string += '\n\n\n\n\n'
+    key_list = list(in_dict.keys())
+    key_list.remove('Intro')
+    
+    for kn in key_list:
+      file_string += kn + '\t'
+
+    file_string += '\n'
+
+    for kn in key_list:
+      temp_string = '(' + in_dict[kn]['Unit'] + ') '
+      file_string += temp_string
+    
+    file_string += '\n'
+
+    for i in range(len(in_dict['Time']['Value'])):
+      for kn in key_list:
+        file_string += ' '
+        file_string += str(in_dict[kn]['Value'][i])
+      file_string += '\n'
+
+    return file_string
