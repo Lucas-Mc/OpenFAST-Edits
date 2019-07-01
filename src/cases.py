@@ -54,9 +54,9 @@ class BeamdynCase(Case):
     self.case_type = case_type
     driver = BeamdynDriver(self.openfast_directory + '/build/modules/beamdyn/beamdyn_driver')
     input_files = [
-      'bd_driver.inp'
-      'bd_primary.inp'
-      'beam_props.inp'
+      #'bd_driver.inp',
+      'bd_primary.inp'#,
+      #'beam_props.inp'
     ]
     self.case_directory = self.openfast_directory + '/build/reg_tests/modules/beamdyn/' + self.case_type
 
@@ -68,7 +68,7 @@ class BeamdynCase(Case):
 
   def import_to_yaml(self):
     for input_file in self.input_files:
-      file_path = self.case_directory + input_file
+      file_path = self.case_directory + '/' + input_file
       temp_file = BeamdynPrimaryFile(file_path)
       new_dict = temp_file.read()
       temp_file.to_yaml(new_dict)

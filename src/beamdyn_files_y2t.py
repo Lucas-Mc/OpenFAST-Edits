@@ -103,18 +103,47 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     key_list = [
       'member_total',
-      'kp_total'    
-      # '49',             May need in the future          
+      'kp_total',    
+      '49'             # May need in the future          
     ]
 
     desc_list = [
       '- Total number of members (-)',
-      '- Total number of key points (-) [must be at least 3]'
+      '- Total number of key points (-) [must be at least 3]',
+      '- Member number; Number of key points in this member'
     ]
 
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
+    temp_keys = list(in_dict['Matrix'].keys())
+
+    temp_string = ''
+    for tk in temp_keys:
+      temp_string += '  '
+      temp_string += tk
+    file_string += temp_string
+    file_string += '\n'
+
+    temp_string = ''
+    for tk in temp_keys:
+      tu = in_dict['Matrix'][tk]['Unit']
+      temp_string += '  '
+      ind_string = '(' + tu + ')'
+      temp_string +=ind_string
+    file_string += temp_string
+    file_string += '\n'
+
+    num_vals = len(in_dict['Matrix']['kp_xr']['Value'])
+
+    for i in range(num_vals):
+      temp_string = ''
+      for tk in temp_keys:
+        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
+        temp_string += '  '
+      file_string += temp_string
+      file_string += '\n'
+      
     file_string += '---------------------- MESH PARAMETER ------------------------------------------\n'
     
     key_list = [
@@ -165,18 +194,33 @@ class BeamdynPrimaryFile(BeamdynFile):
     key_list = [     
       'SumPrint',   
       'OutFmt',     
-      'NNodeOuts'  
+      'NNodeOuts',
+      'OutNd' 
     ]
 
     desc_list = [
       '- Print summary data to "<RootName>.sum" (flag)',
       '- Format used for text tabular output, excluding the time channel.',
-      '- Number of nodes to output to file [0 - 9] (-)'
+      '- Number of nodes to output to file [0 - 9] (-)',
+      '- Nodes whose values will be output  (-)'
     ]
 
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
+    file_string += 'OutList        - The next line(s) contains a list of output parameters. See OutListParameters.xlsx for a listing of available output channels, (-)\n'
+    
+    len_v = len(in_dict['OutList'])
+    temp_string = '"'
+    for i,lv in enumerate(in_dict['OutList']):
+      temp_string += lv
+      if (i != len_v-1):
+        temp_string += ','
+    temp_string += '"'
+    file_string += temp_string
+    file_string += '\n'
+    
+    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
     file_string += '---------------------------------------------------------------------------------------\n'
 
     return file_string

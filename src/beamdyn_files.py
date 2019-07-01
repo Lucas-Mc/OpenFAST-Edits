@@ -61,7 +61,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       'RotStates',
       'member_total',
       'kp_total',    
-      # '49',             May need in the future          
+      '49',             # May need in the future          
       'order_elem',
       'BldFile',
       'UsePitchAct',
@@ -70,15 +70,23 @@ class BeamdynPrimaryFile(BeamdynFile):
       'PitchC',     
       'SumPrint',   
       'OutFmt',     
-      'NNodeOuts'  
+      'NNodeOuts'
     ]
 
-    data_length = self.convert_value(self.data[20].split()[0])
+    matching = list(filter(lambda x: 'kp_total' in x, self.data))
+    data_length = self.convert_value(matching[0].split()[0])
     sec_start_list = [3,19,data_length+25,data_length+27,data_length+29,data_length+34]
-    length_list = [14,2,1,1,4,3]
+    length_list = [14,3,1,1,4,3]
     
     new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     
+    temp_line = self.data[data_length+37]
+    temp_list = temp_line.split('  ')
+    temp_list = list(filter(None, temp_list))
+    beg_list = ' '.join(temp_list[0:-3])
+
+    new_dict[temp_list[-3].strip()] = beg_list
+
     temp_key_list = self.data[22].split()
     temp_unit_list = self.remove_parens(self.data[23].split())
     
@@ -87,11 +95,11 @@ class BeamdynPrimaryFile(BeamdynFile):
     for tk in temp_key_list:
       temp_temp_dict[tk] = []
 
-    for i in range(self.convert_value(new_dict['kp_total'])-1):
+    for i in range(self.convert_value(new_dict['kp_total'])):
       
       for j, tk in enumerate(temp_key_list):
       
-        temp_value = self.data[25+i].split()[j]
+        temp_value = self.data[25+i-1].split()[j]
         temp_temp_dict[tk].append(self.convert_value(temp_value))
         temp_dict[tk] = {
           'Value': temp_temp_dict[tk],
