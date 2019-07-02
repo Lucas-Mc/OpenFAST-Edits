@@ -155,26 +155,70 @@ class TestBaseFile(unittest.TestCase):
     self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename7,'.yml','.inp'), 'a.inp')
 
   def test_parse_filetype_valuefirst(self):
-    # # Build up the baseline objects
-    # baseline_list = '5    fish    - here it is'
-    
-    # # Assertions - test that various strings can be converted to an integer
-    # self.assertEqual(BaseFile.parse_type1(BaseFile(''),baseline_list), ('fish', {'Value': 5, 'Description': 'here it is'}))
-    pass
+    # Build up the baseline objects
+    baseline_contents = [
+      'a\n',
+      'b  c  - d\n',
+      'e  f  - g\n',
+      'h\n',
+      'i\n',
+      'j  k  - l\n',
+      'm  n  - o\n',
+      'p  q  - r\n'
+    ]
+    baseline_keys = ['c','f','k','n','q']
+    baseline_sec_start = [1,5]
+    baseline_length = [1,3]
+    check_dict = {
+      'c':'b',
+      'f':'e',
+      'k':'j',
+      'n':'m',
+      'q':'p'
+    }
+
+    # Assertions - test that various strings can be converted to an integer
+    self.assertEqual(BaseFile.parse_filetype_valuefirst(BaseFile(''),baseline_contents,baseline_keys,baseline_sec_start,baseline_length), check_dict)
 
   def test_parse_xyz(self):
     # Build up the baseline objects
-    baseline_list = '1   2 3'
+    baseline_string = [
+      'Wind Value\n',
+      'W  1  2   3\n',
+      'W  4  5   6\n',
+      'W  7  8   9\n',
+      'W  10  11   12\n',
+      'W  13  14   15\n',
+      'W  16  17   18\n',
+      'W  19  20   21\n'
+    ]
+    baseline_startd = 1
+    baseline_starti = 1
+    baseline_loops = 7
+    baseline_key = 'W'
+    check_dict = {
+      'W0': {'X': 1, 'Y': 2, 'Z': 3},
+      'W1': {'X': 4, 'Y': 5, 'Z': 6},
+      'W2': {'X': 7, 'Y': 8, 'Z': 9},
+      'W3': {'X': 10, 'Y': 11, 'Z': 12},
+      'W4': {'X': 13, 'Y': 14, 'Z': 15},
+      'W5': {'X': 16, 'Y': 17, 'Z': 18},
+      'W6': {'X': 19, 'Y': 20, 'Z': 21}
+    }
     
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.parse_xyz(BaseFile(''),), ('fish', {'Value': 5, 'Description': 'here it is'}))
+    self.assertEqual(BaseFile.parse_xyz(BaseFile(''),baseline_string,baseline_startd,baseline_starti,baseline_loops,baseline_key), check_dict)
 
   def test_write_valdesc(self):
     # Build up the baseline objects
-    baseline_list = '1   2 3'
+    baseline_dict = {}
+    baseline_keys = []
+    baseline_desc = []
+    baseline_cats = []
+    check_string = ''
     
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_list,0,0,1,'a'), ('fish', {'Value': 5, 'Description': 'here it is'}))
+    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_dict,baseline_keys,baseline_desc,baseline_cats), check_string)
 
 
 if __name__ == '__main__':
