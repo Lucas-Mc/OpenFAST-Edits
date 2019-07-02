@@ -26,8 +26,8 @@ class BaseFile():
         self.openfast_filename = self.filename.replace(file_ext, BaseFile._openfast_extension)
       else:
         self.load_openfast()
-        self.openfast_filepath = self.filename
-        self.yaml_filepath = self.filename.replace(file_ext, "yaml")
+        self.openfast_filename = self.filename                        # replace `openfast_filename` with `openfast_filepath` maybe?? (it works as is though)
+        self.yaml_filename = self.filename.replace(file_ext, "yaml")  # replace `yaml_filename` with `yaml_filepath` maybe?? (it works as is though)
 
   def open_file(self, filepath):
       return open(filepath, "r")
@@ -40,6 +40,9 @@ class BaseFile():
 
   def init_input_file(self, input_filename):
       self.input_file = open(input_filename,'w') 
+
+  def init_output_file(self, output_filename):
+      self.output_file = open(output_filename,'w') 
 
   def to_yaml(self, new_dict):
       outfile = open(self.yaml_filename, 'w')

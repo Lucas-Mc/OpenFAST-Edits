@@ -11,20 +11,20 @@ class OutputFile(BaseFile):
   """
   Super class for all output-related files.
   """
-  def __init__(self, filename):
-
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    
+    super().__init__(parent_directory, filename)
 
     file_ext = filename.split('.',1)[1]
 
     if (file_ext == 'out'):
 
-      output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
+      output_filename = self.parse_filename(filename,'.out','.yml')
       self.init_output_file(output_filename)
 
     else:
 
-      input_filename = self.parse_filename(filename,'.yml','.out')
+      input_filename = self.parse_filename(filename,'.yml','.'+file_ext)
       self.init_input_file(input_filename)
 
 
@@ -33,9 +33,9 @@ class OutputPrimaryFile(OutputFile):
   Primary output file.
   """
 
-  def __init__(self, filename):
-
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    
+    super().__init__(parent_directory, filename)
 
   def read_t2y(self):
 
