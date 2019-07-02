@@ -24,51 +24,23 @@ class BaseFile():
       self.data = self.file_handle.readlines()
 
   def init_output_file(self, output_filename):
-
-    try:
-
       self.output_file = open(output_filename,'w') 
       self.output_file.write('---\n')
       self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
 
-    except:
-
-      print('Oops!',sys.exc_info(),'occured.')
-
   def init_input_file(self, input_filename):
-
-    try:
-
       self.input_file = open(input_filename,'w') 
 
-    except:
-
-      print('Oops!',sys.exc_info(),'occured.')
-
   def to_yaml(self, new_dict):
-
-    try:
-
       self.new_dict = new_dict
       # new_folder = 'yaml_files'
       # new_outfile = os.path.join(new_folder, self.output_file.name)
       yaml.safe_dump(new_dict, self.output_file)
       self.output_file.close()
 
-    except:
-
-      print('Oops!',sys.exc_info(),'occured.')
-
-  def to_text(self, file_string):
-
-    try:
-      
-      self.input_file.write(file_string)
-      self.input_file.close()
-
-    except:
-
-      print('Oops!',sys.exc_info(),'occured.')
+  def to_text(self, file_string):      
+      self.output_file.write(file_string)
+      self.output_file.close()
 
   def is_float(self, s):
     '''
