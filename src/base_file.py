@@ -26,8 +26,8 @@ class BaseFile():
         self.openfast_filename = self.filename.replace(file_ext, BaseFile._openfast_extension)
       else:
         self.load_openfast()
-        self.openfast_filename = self.filename                        # replace `openfast_filename` with `openfast_filepath` maybe?? (it works as is though)
-        self.yaml_filename = self.filename.replace(file_ext, "yaml")  # replace `yaml_filename` with `yaml_filepath` maybe?? (it works as is though)
+        self.openfast_filename = self.filename
+        self.yaml_filename = self.filename.replace(file_ext, "yaml")
 
   def open_file(self, filepath):
     print(filepath)
