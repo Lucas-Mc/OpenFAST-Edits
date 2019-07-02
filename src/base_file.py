@@ -9,9 +9,11 @@ import yaml
 
 class BaseFile():
 
-  def __init__(self, filename):
+  def __init__(self, parent_directory, filename):
+      self.parent_directory = parent_directory
       self.filename = filename
-      self.file_handle = self.open_file(self.filename)
+      self.filepath = os.path.join(self.parent_directory, self.filename)
+      self.file_handle = self.open_file(self.filepath)
       # self.data = new_file.readlines()
 
   def open_file(self, filename):

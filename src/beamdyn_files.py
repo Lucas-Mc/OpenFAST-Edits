@@ -11,9 +11,9 @@ class BeamdynFile(BaseFile):
   """
   Super class for all BeamDyn-related files.
   """
-  def __init__(self, filename):
 
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
 
     # Load the data based on the filetype given
     # All cases store data in self.data
@@ -28,8 +28,8 @@ class BeamdynPrimaryFile(BeamdynFile):
   Input file for the BeamDyn module
   """
 
-  def __init__(self, filename):
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
 
   def read_t2y(self):
 
@@ -301,9 +301,8 @@ class BeamdynBladeFile(BeamdynFile):
   BeamDyn file decsribing a blade.
   """
 
-  def __init__(self, filename):
-
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
 
   def read_t2y(self):
 
@@ -451,9 +450,8 @@ class BeamdynDriverFile(BeamdynFile):
   BeamDyn file decsribing the inputs.
   """
 
-  def __init__(self, filename):
-
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
 
   def read_t2y(self):
 
@@ -665,9 +663,8 @@ class BeamdynInputSummaryFile(BeamdynFile):
   BeamDyn file decsribing the summary of the input file.
   """
 
-  def __init__(self, filename):
-    
-    super().__init__(filename)
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
 
   def read_t2y(self):
 

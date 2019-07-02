@@ -17,23 +17,29 @@ class BaseCase():
     self.primary_input_file = self.input_files[primary_input_index]
 
     if not os.path.isdir(case_directory):
-      print('Directory does not exist... Please setup the following: ' + case_directory)
-      # TODO: probably bail? otherwise, things will fail later on
+      print("Given case directory does not exist: {}".format(self.case_directory))
+      create_directory = input("Should it be created [y/n]? ")
+      if create_directory.lower() == "y":
+        os.mkdir(self.case_directory)
+      else:
+        sys.exit(99)
+    os.chdir(self.case_directory)
 
-    # TODO: lets handle this better... use the case directory as the base name instead
-    try:
-      self.log_file = self.primary_input_file.split('.')[0] + '.log'
-    except:
-      self.log_file = self.primary_input_file.filename + '.log'
-
-    if (os.path.exists(os.path.join(case_directory, self.log_file))):
+    parent_directory = os.path.dirname(self.case_directory)
+    base_name = os.path.basename(self.primary_input_file.filename) + ".log"
+    self.log_file =  os.path.join(parent_directory, base_name)
+    if os.path.exists(os.path.join(case_directory, self.log_file)):
       # TODO: Add a helper function
+      # TODO: Give the user the opportunity to stop the run?
       print('Log file does exist... ')
       print('\tThis file will be overwritten now: ' + self.log_file)
 
-  def run(self):
-    stdout = sys.stdout  # if verbose else open(os.devnull, 'w')
-    os.chdir(self.case_directory)
-    command = "{} {} > {}".format(
-        self.driver.executable_path, self.primary_input_file, self.log_file)
+  def run(self, verbose=True):
+    stdout = sys.stdout if verbose else open(os.devnull, 'w')
+    command = "{} {} # > {}".format(
+      self.driver.executable_path,
+      self.primary_input_file.filename,
+      self.log_file
+    )
+    print(command)
     return subprocess.call(command, stdout=stdout, shell=True)
