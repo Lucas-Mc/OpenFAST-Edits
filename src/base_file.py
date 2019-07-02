@@ -9,15 +9,28 @@ import yaml
 
 class BaseFile():
 
+  _openfast_extension = "inp"
+
   def __init__(self, parent_directory, filename):
       self.parent_directory = parent_directory
       self.filename = filename
       self.filepath = os.path.join(self.parent_directory, self.filename)
       self.file_handle = self.open_file(self.filepath)
-      # self.data = new_file.readlines()
 
-  def open_file(self, filename):
-      return open(filename, "r")
+      # Load the data based on the filetype given
+      # All cases store data in self.data
+      file_ext = filename.split('.')[-1]
+      if file_ext == 'yml' or file_ext == 'yaml':
+        self.load_yaml()
+        self.yaml_filename = self.filename
+        self.openfast_filename = self.filename.replace(file_ext, BaseFile._openfast_extension)
+      else:
+        self.load_openfast()
+        self.openfast_filepath = self.filename
+        self.yaml_filepath = self.filename.replace(file_ext, "yaml")
+
+  def open_file(self, filepath):
+      return open(filepath, "r")
 
   def load_yaml(self):
       self.data = yaml.load(self.file_handle, Loader=yaml.FullLoader)
@@ -25,24 +38,18 @@ class BaseFile():
   def load_openfast(self):
       self.data = self.file_handle.readlines()
 
-  def init_output_file(self, output_filename):
-      self.output_file = open(output_filename,'w') 
-      #self.output_file.write('---\n')
-      #self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
-
   def init_input_file(self, input_filename):
       self.input_file = open(input_filename,'w') 
 
   def to_yaml(self, new_dict):
-      self.new_dict = new_dict
-      # new_folder = 'yaml_files'
-      # new_outfile = os.path.join(new_folder, self.output_file.name)
-      yaml.safe_dump(new_dict, self.output_file)
-      self.output_file.close()
+      outfile = open(self.yaml_filename, 'w')
+      yaml.safe_dump(new_dict, outfile)
+      outfile.close()
 
-  def to_text(self, file_string):      
-      self.output_file.write(file_string)
-      self.output_file.close()
+  def to_text(self, file_string):
+      outfile = open(self.openfast_filename, 'w')
+      outfile.write(file_string)
+      outfile.close()
 
   def is_float(self, s):
     '''

@@ -7,6 +7,7 @@ import sys
 import yaml
 from src.base_file import BaseFile
 
+
 class BeamdynFile(BaseFile):
   """
   Super class for all BeamDyn-related files.
@@ -15,13 +16,6 @@ class BeamdynFile(BaseFile):
   def __init__(self, parent_directory, filename):
     super().__init__(parent_directory, filename)
 
-    # Load the data based on the filetype given
-    # All cases store data in self.data
-    file_ext = filename.split('.')[-1]
-    if (file_ext == 'yml'):
-      self.load_yaml()
-    else:
-      self.load_openfast()
 
 class BeamdynPrimaryFile(BeamdynFile):
   """

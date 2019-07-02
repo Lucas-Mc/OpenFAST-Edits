@@ -38,7 +38,7 @@ class BaseCase():
     stdout = sys.stdout if verbose else open(os.devnull, 'w')
     command = "{} {} # > {}".format(
       self.driver.executable_path,
-      self.primary_input_file.filename,
+      self.primary_input_file.openfast_filename,
       self.log_file
     )
     print(command)

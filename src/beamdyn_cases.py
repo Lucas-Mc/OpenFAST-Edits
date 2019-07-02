@@ -7,34 +7,25 @@ from src.beamdyn_files import BeamdynInputSummaryFile
 from src.output_files import OutputPrimaryFile
 
 
-
 class BeamdynCase(BaseCase):
   def __init__(self, openfast_directory, case_directory):
     """
     openfast_directory: Str - # TODO See example in base_case
     case_directory: Str - # TODO See example in base_case
     """
-
-    self.openfast_directory = openfast_directory
-    self.case_directory = case_directory
-
-    driver = BeamdynDriver(self.openfast_directory + '/build/modules/beamdyn/beamdyn_driver')
-    self.input_files = [
-      BeamdynPrimaryFile(case_directory + 'bd_primary.inp.yml'),
-      BeamdynBladeFile(case_directory + 'beam_props.inp.yml'),
-      BeamdynDriverFile(case_directory + 'bd_driver.inp.yml')
+    driver = BeamdynDriver(openfast_directory + '/build/modules/beamdyn/beamdyn_driver')
+    input_files = [
+        BeamdynDriverFile(case_directory, 'bd_driver.yml'),
+        BeamdynPrimaryFile(case_directory, 'bd_primary.yml'),
+        BeamdynBladeFile(case_directory, 'beam_props.yml'),
     ]
-    self.initialize_output_files()
-    super().__init__(driver, self.case_directory, self.input_files)
-
-  def initialize_output_files(self):
-    for f in self.input_files:
-      f.init_output_file(f.filename.rstrip('.yml'))
+    super().__init__(driver, case_directory, input_files)
 
   def initialize_input_files(self):
-    # TODO: convert all yaml files to openfast files
+    """
+    Convert all yaml files to openfast files
+    """
     for f in self.input_files:
-      print(f)
       f.to_text(f.read_y2t())
 
   def inp_to_yaml(self):
