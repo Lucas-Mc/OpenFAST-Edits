@@ -10,17 +10,18 @@ import yaml
 class BaseFile():
 
   def __init__(self, filename):
-
-    try:
-
       self.filename = filename
-      new_file = open(filename)
-      self.data = new_file.readlines()
+      self.file_handle = self.open_file(self.filename)
+      # self.data = new_file.readlines()
 
-    except:
+  def open_file(self, filename):
+      return open(filename, "r")
 
-      pass
-      #print('Oops!',sys.exc_info(),'occured.')
+  def load_yaml(self):
+      self.data = yaml.load(self.file_handle, Loader=yaml.FullLoader)
+
+  def load_openfast(self):
+      self.data = self.file_handle.readlines()
 
   def init_output_file(self, output_filename):
 

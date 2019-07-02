@@ -14,23 +14,14 @@ class BeamdynFile(BaseFile):
   def __init__(self, filename):
 
     super().__init__(filename)
-    file_ext = filename.split('.',1)[1]
 
+    # Load the data based on the filetype given
+    # All cases store data in self.data
+    file_ext = filename.split('.')[-1]
     if (file_ext == 'yml'):
-
-      if ('_inp.' in filename):
-        input_filename = self.parse_filename(filename,'.yml','.inp')
-      if ('_out.' in filename):
-        input_filename = self.parse_filename(filename,'.yml','.out')
-      if ('_inpsum.' in filename):
-        input_filename = self.parse_filename(filename,'.yml','.inp.sum')
-      
-      self.init_input_file(input_filename)
-    
+      self.load_yaml()
     else:
-
-      output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
-      self.init_output_file(output_filename)
+      self.load_openfast()
 
 class BeamdynPrimaryFile(BeamdynFile):
   """
