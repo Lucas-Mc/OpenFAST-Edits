@@ -41,5 +41,4 @@ class BaseCase():
       self.primary_input_file.openfast_filename,
       self.log_file
     )
-    print(command)
     return subprocess.call(command, stdout=stdout, shell=True)
