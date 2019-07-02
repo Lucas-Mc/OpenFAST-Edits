@@ -30,7 +30,8 @@ class BaseFile():
         self.yaml_filename = self.filename.replace(file_ext, "yaml")  # replace `yaml_filename` with `yaml_filepath` maybe?? (it works as is though)
 
   def open_file(self, filepath):
-      return open(filepath, "r")
+    print(filepath)
+    return open(filepath, "r")
 
   def load_yaml(self):
       self.data = yaml.load(self.file_handle, Loader=yaml.FullLoader)

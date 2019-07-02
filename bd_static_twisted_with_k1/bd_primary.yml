@@ -1,0 +1,100 @@
+---
+# Input information for: bd_primary_inp
+BldFile: '"beam_props.inp"'
+DTBeam: DEFAULT
+Echo: 'True'
+Matrix:
+  initial_twist:
+    Unit: deg
+    Value:
+    - 0.0
+    - 9.0
+    - 18.0
+    - 27.0
+    - 36.0
+    - 45.0
+    - 54.0
+    - 63.0
+    - 72.0
+    - 81.0
+    - 90.0
+  kp_xr:
+    Unit: m
+    Value:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+  kp_yr:
+    Unit: m
+    Value:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+  kp_zr:
+    Unit: m
+    Value:
+    - 0.0
+    - 1.0
+    - 2.0
+    - 3.0
+    - 4.0
+    - 5.0
+    - 6.0
+    - 7.0
+    - 8.0
+    - 9.0
+    - 10.0
+NNodeOuts: 1
+NRMax: DEFAULT
+NumInfo: 1     11                 - Member number; Number of key points in this member
+OutFmt: '"ES10.3E2"'
+OutList:
+- RootFxr
+- RootFyr
+- RootFzr
+- RootMxr
+- RootMyr
+- RootMzr
+- TipTDxr
+- TipTDyr
+- TipTDzr
+- TipRDxr
+- TipRDyr
+- TipRDzr
+OutNd: '1'
+PitchC: 500000
+PitchJ: 200
+PitchK: 20000000.0
+QuasiStaticInit: 'False'
+RotStates: 'True'
+SumPrint: 'True'
+UsePitchAct: 'False'
+kp_total: 11
+load_retries: DEFAULT
+member_total: 1
+n_fact: DEFAULT
+order_elem: 7
+quadrature: 1
+refine: 20
+rhoinf: 0
+stop_tol: DEFAULT
+tngt_stf_comp: DEFAULT
+tngt_stf_difftol: DEFAULT
+tngt_stf_fd: DEFAULT
+tngt_stf_pert: DEFAULT

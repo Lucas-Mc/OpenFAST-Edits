@@ -1,0 +1,91 @@
+--------- BEAMDYN with OpenFAST INPUT FILE -------------------------------------------
+NREL 5MW blade
+---------------------- SIMULATION CONTROL --------------------------------------
+TRUE  Echo  - Echo input data to "<RootName>.ech" (flag)
+False  QuasiStaticInit  - Use quasistatic pre-conditioning with centripetal accelerations in initialization (flag) [dynamic solve only]
+0  rhoinf  - Numerical damping parameter for generalized-alpha integrator
+2  quadrature  - Quadrature method: 1=Gaussian; 2=Trapezoidal (switch)
+"DEFAULT"  refine  - Refinement factor for trapezoidal quadrature (-). DEFAULT = 1 [used only when quadrature=2]
+DEFAULT  n_fact  - Factorization frequency (-). DEFAULT = 5
+DEFAULT  DTBeam  - Time step size (s).
+DEFAULT  load_retries  - Number of factored load retries before quitting the aimulation
+DEFAULT  NRMax  - Max number of iterations in Newton-Ralphson algorithm (-). DEFAULT = 10
+DEFAULT  stop_tol  - Tolerance for stopping criterion (-)
+DEFAULT  tngt_stf_fd  - Flag to use finite differenced tangent stiffness matrix (-)
+DEFAULT  tngt_stf_comp  - Flag to compare analytical finite differenced tangent stiffness matrix  (-)
+DEFAULT  tngt_stf_pert  - perturbation size for finite differencing (-)
+DEFAULT  tngt_stf_difftol  - Maximum allowable relative difference between analytical and fd tangent stiffness (-)
+True  RotStates  - Orient states in the rotating frame during linearization? (flag) [used only when linearizing]
+---------------------- GEOMETRY PARAMETER --------------------------------------
+1  member_total  - Total number of members (-)
+49  kp_total  - Total number of key points (-) [must be at least 3]
+1     49                 - Member number; Number of key points in this member
+  kp_xr  kp_yr  kp_zr  initial_twist
+  (m)  (m)  (m)  (deg)
+0.0  0.0  0.0  13.308  
+0.0  0.0  0.199875  13.308  
+0.0  0.0  1.199865  13.308  
+0.0  0.0  2.199855  13.308  
+0.0  0.0  3.199845  13.308  
+0.0  0.0  4.199835  13.308  
+0.0  0.0  5.199825  13.308  
+0.0  0.0  6.199815  13.308  
+0.0  0.0  7.199805  13.308  
+0.0  0.0  8.201025  13.308  
+0.0  0.0  9.199785  13.308  
+0.0  0.0  10.199775  13.308  
+0.0  0.0  11.199765  13.181  
+0.0  0.0  12.199755  12.848  
+0.0  0.0  13.200975  12.192  
+0.0  0.0  14.199735  11.561  
+0.0  0.0  15.199725  11.072  
+0.0  0.0  16.199715  10.792  
+0.0  0.0  18.200925  10.232  
+0.0  0.0  20.20029  9.672  
+0.0  0.0  22.20027  9.11  
+0.0  0.0  24.20025  8.534  
+0.0  0.0  26.20023  7.932  
+0.0  0.0  28.200825  7.321  
+0.0  0.0  30.20019  6.711  
+0.0  0.0  32.20017  6.122  
+0.0  0.0  34.20015  5.546  
+0.0  0.0  36.20013  4.971  
+0.0  0.0  38.200725  4.401  
+0.0  0.0  40.20009  3.834  
+0.0  0.0  42.20007  3.332  
+0.0  0.0  44.20005  2.89  
+0.0  0.0  46.20003  2.503  
+0.0  0.0  48.20124  2.116  
+0.0  0.0  50.19999  1.73  
+0.0  0.0  52.19997  1.342  
+0.0  0.0  54.19995  0.954  
+0.0  0.0  55.19994  0.76  
+0.0  0.0  56.19993  0.574  
+0.0  0.0  57.19992  0.404  
+0.0  0.0  57.699915  0.319  
+0.0  0.0  58.20114  0.253  
+0.0  0.0  58.699905  0.216  
+0.0  0.0  59.1999  0.178  
+0.0  0.0  59.699895  0.14  
+0.0  0.0  60.19989  0.101  
+0.0  0.0  60.699885  0.062  
+0.0  0.0  61.19988  0.023  
+0.0  0.0  61.5  0.0  
+---------------------- MESH PARAMETER ------------------------------------------
+5  order_elem  - Order of interpolation (basis) function (-)
+---------------------- MATERIAL PARAMETER --------------------------------------
+"beam_props.inp"  BldFile  - Name of file containing properties for blade (quoted string)
+---------------------- PITCH ACTUATOR PARAMETERS -------------------------------
+False  UsePitchAct  - Whether a pitch actuator should be used (flag)
+200  PitchJ  - Pitch actuator inertia (kg-m^2) [used only when UsePitchAct is true]
+20000000.0  PitchK  - Pitch actuator stiffness (kg-m^2/s^2) [used only when UsePitchAct is true]
+500000  PitchC  - Pitch actuator damping (kg-m^2/s) [used only when UsePitchAct is true]
+---------------------- OUTPUTS -------------------------------------------------
+True  SumPrint  - Print summary data to "<RootName>.sum" (flag)
+"ES10.3E2"  OutFmt  - Format used for text tabular output, excluding the time channel.
+9  NNodeOuts  - Number of nodes to output to file [0 - 9] (-)
+1, 7, 14, 21, 28, 35, 42, 46, 49  OutNd  - Nodes whose values will be output  (-)
+OutList        - The next line(s) contains a list of output parameters. See OutListParameters.xlsx for a listing of available output channels, (-)
+"N1Fxl,N2Fxl,N3Fxl,N4Fxl,N5Fxl,N6Fxl,N7Fxl,N8Fxl,N9Fxl,N1Fyl,N2Fyl,N3Fyl,N4Fyl,N5Fyl,N6Fyl,N7Fyl,N8Fyl,N9Fyl,N1Mxl,N2Mxl,N3Mxl,N4Mxl,N5Mxl,N6Mxl,N7Mxl,N8Mxl,N9Mxl,N1Myl,N2Myl,N3Myl,N4Myl,N5Myl,N6Myl,N7Myl,N8Myl,N9Myl,RootFxr,RootFyr,RootFzr,RootMxr,RootMyr,RootMzr,TipTDxr,TipTDyr,TipTDzr,TipRDxr,TipRDyr,TipRDzr"
+END of input file (the word "END" must appear in the first 3 columns of this last OutList line)
+---------------------------------------------------------------------------------------

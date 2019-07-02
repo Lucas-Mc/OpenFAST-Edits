@@ -10,17 +10,19 @@ openfast_directory = homedir + '/openfast'
 
 # Build the cases
 beamdyn_cases = [
-    # BeamdynCase(openfast_directory, 'bd_5MW_dynamic'),
-    # BeamdynCase(openfast_directory, 'bd_5MW_dynamic_gravity_Az00'),
-    # BeamdynCase(openfast_directory, 'bd_5MW_dynamic_gravity_Az90'),
-    BeamdynCase(openfast_directory, './bd_curved_beam/'),
-    # BeamdynCase(openfast_directory, 'bd_isotropic_rollup'),
-    # BeamdynCase(openfast_directory, 'bd_static_cantilever_beam'),
-    # BeamdynCase(openfast_directory, 'bd_static_twisted_with_k1')
+    BeamdynCase(openfast_directory, './bd_5MW_dynamic/'),               # DONE
+    BeamdynCase(openfast_directory, './bd_5MW_dynamic_gravity_Az00/'),   # DONE
+    BeamdynCase(openfast_directory, './bd_5MW_dynamic_gravity_Az90/'),   # DONE
+    BeamdynCase(openfast_directory, './bd_curved_beam/'),               # DONE
+    BeamdynCase(openfast_directory, './bd_isotropic_rollup/'),          # DONE
+    BeamdynCase(openfast_directory, './bd_static_cantilever_beam/'),     # DONE
+    BeamdynCase(openfast_directory, './bd_static_twisted_with_k1/')      # DONE
 ]
 
 # Run each case
 for i, case in enumerate(beamdyn_cases):
+  print(i)
+  print(case)
   # converts the yaml input files to openfast-style files
   case.initialize_input_files()
 

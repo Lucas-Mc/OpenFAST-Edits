@@ -33,24 +33,24 @@ class BeamdynCase(BaseCase):
     for input_file in self.input_files:
       file_path = self.case_directory + '/' + input_file
       if (input_file == 'bd_driver.inp'):
-        temp_file = BeamdynDriverFile(file_path)
+        temp_file = BeamdynDriverFile('',file_path)
       elif (input_file == 'bd_primary.inp'):
-        temp_file = BeamdynPrimaryFile(file_path)
+        temp_file = BeamdynPrimaryFile('',file_path)
       elif (input_file == 'beam_props.inp'):
-        temp_file = BeamdynBladeFile(file_path)
+        temp_file = BeamdynBladeFile('',file_path)
       new_dict = temp_file.read_t2y()
       temp_file.to_yaml(new_dict)
 
   # Convert the outputted summary file to YAML
   def inpsum_to_yaml(self):
     file_path = self.case_directory + '/bd_primary.inp.sum'
-    temp_file = BeamdynInputSummaryFile(file_path)
+    temp_file = BeamdynInputSummaryFile('',file_path)
     new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)
 
   def inpsum_to_text(self):
     file_path = self.case_directory + '/bd_primary_inpsum.yml' 
-    temp_file = BeamdynInputSummaryFile(file_path)
+    temp_file = BeamdynInputSummaryFile('',file_path)
     file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
@@ -63,24 +63,24 @@ class BeamdynCase(BaseCase):
 
   def driver_to_text(self):
     file_path = self.case_directory + '/bd_driver_out.yml'
-    temp_file = OutputPrimaryFile(file_path)
+    temp_file = OutputPrimaryFile('',file_path)
     file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
   # TODO: not done yet
   def primary_to_text(self):
     file_path = self.case_directory + '/bd_primary_inp.yml'
-    temp_file = BeamdynPrimaryFile(file_path)
+    temp_file = BeamdynPrimaryFile('',file_path)
     file_string = temp_file.read_y2t()
     temp_file.to_text(file_string)
 
   def props_to_yaml(self):
     file_path = self.case_directory + '/beam_props.inp'
-    temp_file = BeamdynBladeFile(file_path)
+    temp_file = BeamdynBladeFile('',file_path)
     new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)   
 
   def props_to_text(self):
     file_path = self.case_directory + '/beam_props_inp.yml' 
-    temp_file = BeamdynBladeFile(file_path)
+    temp_file = BeamdynBladeFile('',file_path)
     file_string = temp_file.read_y2t()
