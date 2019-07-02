@@ -6,7 +6,7 @@ from src.beamdyn_files import BeamdynBladeFile
 # this script converts the input files for a BeamDyn driver case
 # into yaml files for use with this Python wrapper
 
-case_directory = "/Users/rmudafor/Development/openfast/reg_tests/r-test/modules/beamdyn/bd_isotropic_rollup/"
+case_directory = "/Users/rmudafor/Development/OpenFAST-Edits//bd_curved_beam/"
 bd_input_files = [
     BeamdynDriverFile(case_directory + "bd_driver.inp"),
     BeamdynPrimaryFile(case_directory + "bd_primary.inp"),
@@ -15,4 +15,4 @@ bd_input_files = [
 
 for f in bd_input_files:
     f.init_output_file(f.filename + ".yml")
-    f.to_yaml(f._data)
+    f.to_yaml(f.read_t2y())
