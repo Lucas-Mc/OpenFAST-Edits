@@ -25,8 +25,8 @@ class BaseFile():
 
   def init_output_file(self, output_filename):
       self.output_file = open(output_filename,'w') 
-      self.output_file.write('---\n')
-      self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
+      #self.output_file.write('---\n')
+      #self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
 
   def init_input_file(self, input_filename):
       self.input_file = open(input_filename,'w') 

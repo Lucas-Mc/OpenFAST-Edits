@@ -63,7 +63,8 @@ class OutputPrimaryFile(OutputFile):
 
   def read_y2t(self):
 
-    in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
+    in_file = self.filename
+    # in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
     in_dict = yaml.load(open(in_file))
 
     file_string = ''
