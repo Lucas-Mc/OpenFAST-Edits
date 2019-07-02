@@ -24,7 +24,7 @@ class BaseCase():
     try:
       self.log_file = self.primary_input_file.split('.')[0] + '.log'
     except:
-      self.log_file = self.primary_input_file + '.log'
+      self.log_file = self.primary_input_file.filename + '.log'
 
     if (os.path.exists(os.path.join(case_directory, self.log_file))):
       # TODO: Add a helper function

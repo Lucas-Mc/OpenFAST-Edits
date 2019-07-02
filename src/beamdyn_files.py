@@ -25,11 +25,10 @@ class BeamdynFile(BaseFile):
 
 class BeamdynPrimaryFile(BeamdynFile):
   """
-  Primary input file for BeamDyn.
+  Input file for the BeamDyn module
   """
 
   def __init__(self, filename):
-
     super().__init__(filename)
 
   def read_t2y(self):
@@ -123,8 +122,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       
   def read_y2t(self):
 
-    # in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
-    in_dict = yaml.load(open(self.filename))
+    in_dict = self.data
 
     file_string = ''
     file_string += '--------- BEAMDYN with OpenFAST INPUT FILE -------------------------------------------\n'
@@ -371,7 +369,7 @@ class BeamdynBladeFile(BeamdynFile):
 
   def read_y2t(self):
 
-    in_dict = yaml.load(open(self.filename))
+    in_dict = self.data
 
     file_string = ''
 
@@ -448,7 +446,7 @@ class BeamdynBladeFile(BeamdynFile):
 
     return file_string
 
-class BeamdynInputFile(BeamdynFile):
+class BeamdynDriverFile(BeamdynFile):
   """
   BeamDyn file decsribing the inputs.
   """
@@ -745,8 +743,7 @@ class BeamdynInputSummaryFile(BeamdynFile):
   def read_y2t(self):
     # TODO: not done yet
 
-    # in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
-    in_dict = yaml.load(open(self.filename))
+    in_dict = self.data
 
     file_string = ''
     file_string += '\n'

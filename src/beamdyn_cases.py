@@ -1,6 +1,9 @@
 from src.base_case import BaseCase
 from src.beamdyn_driver import BeamdynDriver
-from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
+from src.beamdyn_files import BeamdynPrimaryFile
+from src.beamdyn_files import BeamdynBladeFile
+from src.beamdyn_files import BeamdynDriverFile
+from src.beamdyn_files import BeamdynInputSummaryFile
 from src.output_files import OutputPrimaryFile
 
 
@@ -21,19 +24,23 @@ class BeamdynCase(BaseCase):
       BeamdynBladeFile(case_directory + 'beam_props.inp.yml'),
       BeamdynInputSummaryFile(case_directory + 'bd_driver.inp.yml')
     ]
-
+    self.initialize_output_files()
     super().__init__(driver, self.case_directory, self.input_files)
+
+  def initialize_output_files(self):
+    for f in self.input_files:
+      f.init_output_file(f.filename.rstrip('.yml'))
 
   def initialize_input_files(self):
     # TODO: convert all yaml files to openfast files
     for f in self.input_files:
-      pass
+      f.to_text(f.read_y2t())
 
   def inp_to_yaml(self):
     for input_file in self.input_files:
       file_path = self.case_directory + '/' + input_file
       if (input_file == 'bd_driver.inp'):
-        temp_file = BeamdynInputFile(file_path)
+        temp_file = BeamdynDriverFile(file_path)
       elif (input_file == 'bd_primary.inp'):
         temp_file = BeamdynPrimaryFile(file_path)
       elif (input_file == 'beam_props.inp'):

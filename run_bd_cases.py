@@ -13,7 +13,7 @@ beamdyn_cases = [
     # BeamdynCase(openfast_directory, 'bd_5MW_dynamic'),
     # BeamdynCase(openfast_directory, 'bd_5MW_dynamic_gravity_Az00'),
     # BeamdynCase(openfast_directory, 'bd_5MW_dynamic_gravity_Az90'),
-    BeamdynCase(openfast_directory, 'bd_curved_beam'),
+    BeamdynCase(openfast_directory, './bd_curved_beam/'),
     # BeamdynCase(openfast_directory, 'bd_isotropic_rollup'),
     # BeamdynCase(openfast_directory, 'bd_static_cantilever_beam'),
     # BeamdynCase(openfast_directory, 'bd_static_twisted_with_k1')
@@ -25,8 +25,8 @@ for i, case in enumerate(beamdyn_cases):
   case.initialize_input_files()
 
   # executes the driver using the files generated above
-  case.run()
+  # case.run()
 
   # converts the ".out" and/or ".outb" files to yaml
   # ignore summary files for now
-  case.convert_output()
+  # case.convert_output()
