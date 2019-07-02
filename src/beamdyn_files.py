@@ -580,6 +580,9 @@ class BeamdynDriverFile(BeamdynFile):
       '- Reference orientation for BeamDyn calculations is aligned with initial blade root'
     ]
 
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
     file_string += '---------------------- ROOT VELOCITY PARAMETER ----------------------------------\n'
 
     key_list = [
