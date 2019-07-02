@@ -20,6 +20,9 @@ class BeamdynCase(BaseCase):
         BeamdynPrimaryFile(case_directory, 'bd_primary.yml'),
         BeamdynBladeFile(case_directory, 'beam_props.yml'),
     ]
+    self.expected_output_files = [
+        'bd_driver.out'
+    ]
     super().__init__(driver, case_directory, input_files)
 
   def initialize_input_files(self):
@@ -28,6 +31,11 @@ class BeamdynCase(BaseCase):
     """
     for f in self.input_files:
       f.to_text(f.read_y2t())
+  
+  def convert_output(self):
+    for f in self.expected_output_files:
+      outfile = OutputPrimaryFile(".", f)
+      outfile.to_yaml(outfile.read_t2y())
 
   def inp_to_yaml(self):
     for input_file in self.input_files:
