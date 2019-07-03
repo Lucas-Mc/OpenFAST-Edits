@@ -8,16 +8,7 @@ import yaml
 from src.base_file import BaseFile
 
 
-class BeamdynFile(BaseFile):
-  """
-  Super class for all BeamDyn-related files.
-  """
-
-  def __init__(self, parent_directory, filename):
-    super().__init__(parent_directory, filename)
-
-
-class BeamdynPrimaryFile(BeamdynFile):
+class BeamdynPrimaryFile(BaseFile):
   """
   Input file for the BeamDyn module
   """
@@ -316,7 +307,8 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     return file_string
 
-class BeamdynBladeFile(BeamdynFile):
+
+class BeamdynBladeFile(BaseFile):
   """
   BeamDyn file decsribing a blade.
   """
@@ -465,7 +457,8 @@ class BeamdynBladeFile(BeamdynFile):
 
     return file_string
 
-class BeamdynDriverFile(BeamdynFile):
+
+class BeamdynDriverFile(BaseFile):
   """
   BeamDyn file decsribing the inputs.
   """
@@ -681,7 +674,7 @@ class BeamdynDriverFile(BeamdynFile):
     return file_string
 
 
-class BeamdynInputSummaryFile(BeamdynFile):
+class BeamdynInputSummaryFile(BaseFile):
   """
   BeamDyn file decsribing the summary of the input file.
   """
