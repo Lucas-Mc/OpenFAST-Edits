@@ -36,39 +36,58 @@ class TestBaseFile(unittest.TestCase):
     self.assertEqual(os.path.exists(baseline_file), True)
     os.remove(baseline_file)
 
-  # def test_to_yaml(self):
-  #   # Build up the baseline objects
-  #   dir_path = os.path.dirname(os.path.realpath(__file__))
-  #   baseline_file = dir_path + '/temp_file.out'
-  #   baseline_dict = {
-  #     'key0':'val0',
-  #     'key1':'val1',
-  #     'key2':'val2',
-  #     'key3':'val3',
-  #   }
-  #   # Temp parent directory to instantiate a case of BaseFile
-  #   baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
-  #   # Temp filename to instantiate a case of BaseFile
-  #   baseline_fn = 'bd_driver.yml'
-  #   baseline_case = BaseFile(baseline_pd,baseline_fn)
-  #   BaseFile.to_yaml(baseline_case,baseline_dict)
+  def test_to_yaml(self):
+    # Build up the baseline objects
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_dict = {
+      'key0':'val0',
+      'key1':'val1',
+      'key2':'val2',
+      'key3':'val3',
+    }
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+    BaseFile.to_yaml(baseline_case,baseline_dict)
     
-  #   # Assertions - test that various strings can be converted to a float
-  #   self.assertEqual(False, True)
+    # Assertions - test that various strings can be converted to a float
+    line_list = [
+      'key0: val0\n',
+      'key1: val1\n',
+      'key2: val2\n',
+      'key3: val3\n'
+    ]
+    for i,line in enumerate(open(baseline_fn,'r')):
+      self.assertEqual(line, line_list[i])
 
-  # def test_to_text(self):
-  #   # Build up the baseline objects
-  #   dir_path = os.path.dirname(os.path.realpath(__file__))
-  #   baseline_file = dir_path + '/test_file.inp'
-  #   baseline_string = ''
-  #   # Temp parent directory to instantiate a case of BaseFile
-  #   baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
-  #   # Temp filename to instantiate a case of BaseFile
-  #   baseline_fn = 'bd_driver.yml'
-  #   baseline_case = BaseFile(baseline_pd,baseline_fn)
+    rm_file = dir_path + '/' + baseline_fn
+    os.remove(rm_file)
+
+  def test_to_text(self):
+    # Build up the baseline objects
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_string = 'key0: val0\nkey1: val1\nkey2: val2\nkey3: val3\n'
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+    BaseFile.to_text(baseline_case,baseline_string)
     
-  #   # Assertions - test that various strings can be converted to a float
-  #   self.assertEqual(BaseFile.is_float(baseline_case,baseline_value1), True)
+    # Assertions - test that various strings can be converted to a float
+    line_list = [
+      'key0: val0\n',
+      'key1: val1\n',
+      'key2: val2\n',
+      'key3: val3\n'
+    ]
+    for i,line in enumerate(open(baseline_fn,'r')):
+      self.assertEqual(line, line_list[i])
+
+    rm_file = dir_path + '/' + baseline_fn.replace('.yml','.inp')
+    os.remove(rm_file)
 
   def test_is_float(self):
     # Build up the baseline objects
