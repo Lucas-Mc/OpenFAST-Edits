@@ -35,9 +35,11 @@ class TurbsimInputFile(TurbsimFile):
 
       print('Oops!',sys.exc_info(),'occured.')
 
-  def read(self):
+  def read_t2y(self):
 
     new_dict = {}
+
+    new_dict['Intro'] = self.data[0]
 
     key_list = [
       'RandSeed1',      
@@ -97,35 +99,181 @@ class TurbsimInputFile(TurbsimFile):
     length_list = [11,10,11,11,7]
 
     new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
-    
-    # new_dict = {}
-    # temp_dict = {}
-    # # output_file.write('# '+data[0])
-        
-    # for line in self.data[2:]:
 
-    #   if (line[0] == '-'):
-
-    #     new_header = self.remove_char(line,['-','\n'])
-          
-    #   elif ((len(line.split()) > 0) and (line[0] != '=')):
-          
-    #     new_line = line.split()
-    #     temp_value = new_line[0]
-    #     temp_key = new_line[1]
-    #     description = self.combine_text_spaces(new_line[3:]).replace('"','\'')
-    #     temp_dict[temp_key] = {'Value':self.convert_value(temp_value),'Description':description}
-
-    #   elif (len(line.split()) == 0):
-
-    #     new_dict[new_header] = temp_dict
-    #     temp_dict = {}
-
-    #   else: 
-          
-    #     pass
-        
     return new_dict
+
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+
+    file_string += in_dict['Intro']
+    file_string += '\n'
+
+    file_string += '---------Runtime Options-----------------------------------\n'
+    
+    key_list = [
+      'RandSeed1',
+      'RandSeed2',
+      'WrBHHTP',
+      'WrFHHTP',
+      'WrADHH',
+      'WrADFF',
+      'WrBLFF',
+      'WrADTWR',
+      'WrFMTFF',
+      'WrACT',
+      'Clockwise',
+      'ScaleIEC'
+    ]
+
+    desc_list = [
+      '- First random seed  (-2147483648 to 2147483647)',
+      '- Second random seed (-2147483648 to 2147483647) for intrinsic pRNG, or an alternative pRNG: "RanLux" or "RNSNLW"',
+      '- Output hub-height turbulence parameters in binary form?  (Generates RootName.bin)',
+      '- Output hub-height turbulence parameters in formatted form?  (Generates RootName.dat)',
+      '- Output hub-height time-series data in AeroDyn form?  (Generates RootName.hh)',
+      '- Output full-field time-series data in TurbSim/AeroDyn form? (Generates RootName.bts)',
+      '- Output full-field time-series data in BLADED/AeroDyn form?  (Generates RootName.wnd)',
+      '- Output tower time-series data? (Generates RootName.twr)',
+      '- Output full-field time-series data in formatted (readable) form?  (Generates RootName.u, RootName.v, RootName.w)',
+      '- Output coherent turbulence time steps in AeroDyn form? (Generates RootName.cts)',
+      '- Clockwise rotation looking downwind? (used only for full-field binary files - not necessary for AeroDyn)',
+      '- Scale IEC turbulence models to exact target standard deviation? [0=no additional scaling; 1=use hub scale uniformly; 2=use individual scales]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '--------Turbine/Model Specifications-----------------------\n'
+    
+    key_list = [
+      'NumGrid_Z',
+      'NumGrid_Y',
+      'TimeStep',
+      'AnalysisTime',
+      'UsableTime',
+      'HubHt',
+      'GridHeight',
+      'GridWidth',
+      'VFlowAng',
+      'HFlowAng'
+    ]
+
+    desc_list = [
+      '- Vertical grid-point matrix dimension',
+      '- Horizontal grid-point matrix dimension',
+      '- Time step [seconds]',
+      '- Length of analysis time series [seconds]',
+      '- Usable length of output time series [seconds] (program will add GridWidth/MeanHHWS seconds) [bjj: was 630]',
+      '- Hub height [m] (should be > 0.5*GridHeight)',
+      '- Grid height [m]',
+      '- Grid width [m] (should be >= 2*(RotorRadius+ShaftLength))',
+      '- Vertical mean flow (uptilt) angle [degrees]',
+      '- Horizontal mean flow (skew) angle [degrees]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '--------Meteorological Boundary Conditions-------------------\n'
+    
+    key_list = [
+      'TurbModel',
+      'IECstandard',
+      'IECturbc',
+      'IEC_WindType',
+      'ETMc',
+      'WindProfileType',
+      'RefHt',
+      'URef',
+      'ZJetMax',
+      'PLExp',
+      'Z0'
+    ]
+
+    desc_list = [
+      '- Turbulence model ("IECKAI"=Kaimal, "IECVKM"=von Karman, "GP_LLJ", "NWTCUP", "SMOOTH", "WF_UPW", "WF_07D", "WF_14D", or "NONE")',
+      '- Number of IEC 61400-x standard (x=1,2, or 3 with optional 61400-1 edition number (i.e. "1-Ed2") )',
+      '- IEC turbulence characteristic ("A", "B", "C" or the turbulence intensity in percent) ("KHTEST" option with NWTCUP, not used for other models)',
+      '- IEC turbulence type ("NTM"=normal, "xETM"=extreme turbulence, "xEWM1"=extreme 1-year wind, "xEWM50"=extreme 50-year wind, where x=wind turbine class 1, 2, or 3)',
+      '- IEC Extreme turbulence model "c" parameter [m/s]',
+      '- Wind profile type ("JET"=Low-level jet,"LOG"=Logarithmic,"PL"=Power law, or "default", or "USR"=User-defined)',
+      '- Height of the reference wind speed [m]',
+      '- Mean (total) wind speed at the reference height [m/s]',
+      '- Jet height [m] (used only for JET wind profile, valid 70-490 m)',
+      '- Power law exponent [-] (or "default")',
+      '- Surface roughness length [m] (or "default")'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '--------Non-IEC Meteorological Boundary Conditions------------\n'
+    
+    key_list = [
+      'Latitude',
+      'RICH_NO',
+      'UStar',
+      'ZI',
+      'PC_UW',
+      'PC_UV',
+      'PC_VW',
+      'IncDec1',
+      'IncDec2',
+      'IncDec3',
+      'CohExp'
+    ]
+
+    desc_list = [
+      '- Site latitude [degrees] (or "default")',
+      '- Gradient Richardson number',
+      '- Friction or shear velocity [m/s] (or "default")',
+      '- Mixing layer depth [m] (or "default")',
+      '- Hub mean u''w'' Reynolds stress [(m/s)^2] (or "default")',
+      '- Hub mean u''v'' Reynolds stress [(m/s)^2] (or "default")',
+      '- Hub mean v''w'' Reynolds stress [(m/s)^2] (or "default")',
+      '- u-component coherence parameters (e.g. "10.0  0.3e-3" in quotes) (or "default")',
+      '- v-component coherence parameters (e.g. "10.0  0.3e-3" in quotes) (or "default")',
+      '- w-component coherence parameters (e.g. "10.0  0.3e-3" in quotes) (or "default")',
+      '- Coherence exponent (or "default")'
+
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '--------Coherent Turbulence Scaling Parameters-------------------\n'
+    
+    key_list = [
+      'CTEventPath',     
+      'CTEventFile',     
+      'Randomize',     
+      'DistScl',     
+      'CTLy',     
+      'CTLz',     
+      'CTStartTime'  
+    ]   
+
+    desc_list = [
+      '-   Name of the path where event data files are located',
+      '- Type of event files ("random", "les" or "dns")',
+      '- Randomize disturbance scale and location? (true/false)',
+      '- Disturbance scale (ratio of dataset height to rotor disk).',
+      '- Fractional location of tower centerline from right (looking downwind) to left side of the dataset.',
+      '- Fractional location of hub height from the bottom of the dataset.',
+      '- Minimum start time for coherent structures in RootName.cts [seconds]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '==================================================\n'
+    file_string += 'NOTE: Do not add or remove any lines in this file!\n'
+    file_string += '==================================================\n'
+
+    return file_string
 
 class TurbsimSummaryFile(TurbsimFile):
   """
