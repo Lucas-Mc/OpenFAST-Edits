@@ -23,16 +23,16 @@ class BaseCase():
         os.mkdir(self.case_directory)
       else:
         sys.exit(99)
-    os.chdir(self.case_directory)
+    
+    # store the current directory so we know where to return on end()
+    self.calling_directory = os.getcwd()
 
     parent_directory = os.path.dirname(self.case_directory)
     base_name = os.path.basename(self.primary_input_file.filename) + ".log"
     self.log_file =  os.path.join(parent_directory, base_name)
-    if os.path.exists(os.path.join(case_directory, self.log_file)):
-      # TODO: Add a helper function
-      # TODO: Give the user the opportunity to stop the run?
-      print('Log file does exist... ')
-      print('\tThis file will be overwritten now: ' + self.log_file)
+
+  def start(self):
+    os.chdir(self.case_directory)
 
   def run(self, verbose=True):
     stdout = sys.stdout if verbose else open(os.devnull, 'w')
@@ -42,3 +42,6 @@ class BaseCase():
       self.log_file
     )
     return subprocess.call(command, stdout=stdout, shell=True)
+
+  def end(self):
+    os.chdir(self.calling_directory)

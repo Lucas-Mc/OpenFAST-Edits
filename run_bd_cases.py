@@ -1,4 +1,4 @@
-import os.path
+import os
 from src.beamdyn_cases import BeamdynCase
 from src.beamdyn_driver import BeamdynDriver
 
@@ -21,6 +21,8 @@ beamdyn_cases = [
 
 # Run each case
 for i, case in enumerate(beamdyn_cases):
+  case.start()
+
   # converts the yaml input files to openfast-style files
   case.initialize_input_files()
 
@@ -30,3 +32,5 @@ for i, case in enumerate(beamdyn_cases):
   # converts the ".out" and/or ".outb" files to yaml
   # ignore summary files for now
   case.convert_output()
+
+  case.end()
