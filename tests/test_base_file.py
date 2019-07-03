@@ -211,14 +211,38 @@ class TestBaseFile(unittest.TestCase):
 
   def test_write_valdesc(self):
     # Build up the baseline objects
-    baseline_dict = {}
-    baseline_keys = []
-    baseline_desc = []
-    baseline_cats = []
-    check_string = ''
-    
+    baseline_dict1 = {
+      'fish':{
+        'key0':'desc0',
+        'key1':'desc1',
+        'key2':'desc2',
+        'key3':'desc3',
+        'key4':'desc4',
+        'key5':'desc5'
+      },
+      'apple':{
+        'key00':'desc00',
+        'key01':'desc01',
+        'key02':'desc02'
+      }
+    }
+    baseline_dict2 = {
+      'key0':'desc0',
+      'key1':'desc1',
+      'key2':'desc2',
+      'key3':'desc3',
+      'key4':'desc4',
+      'key5':'desc5'
+    }
+    baseline_keys = ['key1','key2','key4']
+    baseline_desc = ['desc1','desc2','desc4']
+    baseline_cats1 = 'fish'
+    baseline_cats2 = None
+    check_string = 'desc1  key1  desc1\ndesc2  key2  desc2\ndesc4  key4  desc4\n'
+        
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_dict,baseline_keys,baseline_desc,baseline_cats), check_string)
+    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_dict1,baseline_keys,baseline_desc,baseline_cats1), check_string)
+    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_dict2,baseline_keys,baseline_desc,baseline_cats2), check_string)
 
 
 if __name__ == '__main__':
