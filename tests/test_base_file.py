@@ -1,139 +1,300 @@
 import unittest
 import sys
 sys.path.append("..")
+import os
 from src.base_file import BaseFile
 
 class TestBaseFile(unittest.TestCase):
+
+  def test_init_output_file(self):
+    # Build up the baseline objects
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_file = dir_path + '/temp_file.out'
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+    BaseFile.init_output_file(baseline_case,baseline_file)
+
+    # Assertions - test that various strings can be converted to a float
+    self.assertEqual(os.path.exists(baseline_file), True)
+    os.remove(baseline_file)
+
+  def test_init_input_file(self):
+    # Build up the baseline objects
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_file = dir_path + '/temp_file.inp'
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+    BaseFile.init_output_file(baseline_case,baseline_file)
+
+    # Assertions - test that various strings can be converted to a float
+    self.assertEqual(os.path.exists(baseline_file), True)
+    os.remove(baseline_file)
+
+  # def test_to_yaml(self):
+  #   # Build up the baseline objects
+  #   dir_path = os.path.dirname(os.path.realpath(__file__))
+  #   baseline_file = dir_path + '/temp_file.out'
+  #   baseline_dict = {
+  #     'key0':'val0',
+  #     'key1':'val1',
+  #     'key2':'val2',
+  #     'key3':'val3',
+  #   }
+  #   # Temp parent directory to instantiate a case of BaseFile
+  #   baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+  #   # Temp filename to instantiate a case of BaseFile
+  #   baseline_fn = 'bd_driver.yml'
+  #   baseline_case = BaseFile(baseline_pd,baseline_fn)
+  #   BaseFile.to_yaml(baseline_case,baseline_dict)
+    
+  #   # Assertions - test that various strings can be converted to a float
+  #   self.assertEqual(False, True)
+
+  # def test_to_text(self):
+  #   # Build up the baseline objects
+  #   dir_path = os.path.dirname(os.path.realpath(__file__))
+  #   baseline_file = dir_path + '/test_file.inp'
+  #   baseline_string = ''
+  #   # Temp parent directory to instantiate a case of BaseFile
+  #   baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+  #   # Temp filename to instantiate a case of BaseFile
+  #   baseline_fn = 'bd_driver.yml'
+  #   baseline_case = BaseFile(baseline_pd,baseline_fn)
+    
+  #   # Assertions - test that various strings can be converted to a float
+  #   self.assertEqual(BaseFile.is_float(baseline_case,baseline_value1), True)
 
   def test_is_float(self):
     # Build up the baseline objects
     baseline_value1 = '1.2'
     baseline_value2 = '1'
     baseline_value3 = 's'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to a float
-    self.assertEqual(BaseFile.is_float(BaseFile(''),baseline_value1), True)
-    self.assertEqual(BaseFile.is_float(BaseFile(''),baseline_value2), True)
-    self.assertEqual(BaseFile.is_float(BaseFile(''),baseline_value3), False)
+    self.assertEqual(BaseFile.is_float(baseline_case,baseline_value1), True)
+    self.assertEqual(BaseFile.is_float(baseline_case,baseline_value2), True)
+    self.assertEqual(BaseFile.is_float(baseline_case,baseline_value3), False)
 
   def test_is_int(self):
     # Build up the baseline objects
     baseline_value1 = '1.2'
     baseline_value2 = '1'
     baseline_value3 = 's'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.is_int(BaseFile(''),baseline_value1), False)
-    self.assertEqual(BaseFile.is_int(BaseFile(''),baseline_value2), True)
-    self.assertEqual(BaseFile.is_int(BaseFile(''),baseline_value3), False)
+    self.assertEqual(BaseFile.is_int(baseline_case,baseline_value1), False)
+    self.assertEqual(BaseFile.is_int(baseline_case,baseline_value2), True)
+    self.assertEqual(BaseFile.is_int(baseline_case,baseline_value3), False)
 
   def test_convert_value(self):
     # Build up the baseline objects
     baseline_value1 = '1.2'
     baseline_value2 = '1'
     baseline_value3 = 's'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.convert_value(BaseFile(''),baseline_value1), 1.2)
-    self.assertEqual(BaseFile.convert_value(BaseFile(''),baseline_value2), 1)
-    self.assertEqual(BaseFile.convert_value(BaseFile(''),baseline_value3), 's')
+    self.assertEqual(BaseFile.convert_value(baseline_case,baseline_value1), 1.2)
+    self.assertEqual(BaseFile.convert_value(baseline_case,baseline_value2), 1)
+    self.assertEqual(BaseFile.convert_value(baseline_case,baseline_value3), 's')
 
   def test_combine_text(self):
     # Build up the baseline objects
     baseline_list = ['1','2','3']
     baseline_sep = ' a '
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.combine_text(BaseFile(''),baseline_list,baseline_sep), '1 a 2 a 3')
+    self.assertEqual(BaseFile.combine_text(baseline_case,baseline_list,baseline_sep), '1 a 2 a 3')
 
   def test_combine_text_spaces(self):
     # Build up the baseline objects
     baseline_list = ['1','2','3']
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.combine_text_spaces(BaseFile(''),baseline_list), '1 2 3')
+    self.assertEqual(BaseFile.combine_text_spaces(baseline_case,baseline_list), '1 2 3')
 
   def test_remove_char(self):
     # Build up the baseline objects
     baseline_list = '12345'
     baseline_c = ['2','5']
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.remove_char(BaseFile(''),baseline_list,baseline_c), '134')
+    self.assertEqual(BaseFile.remove_char(baseline_case,baseline_list,baseline_c), '134')
 
   def test_remove_parens(self):
     # Build up the baseline objects
     baseline_list = '12()(345)'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.remove_parens(BaseFile(''),baseline_list), '12345')
+    self.assertEqual(BaseFile.remove_parens(baseline_case,baseline_list), '12345')
 
   def test_remove_brackets(self):
     # Build up the baseline objects
     baseline_list = '12[]]345]'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.remove_brackets(BaseFile(''),baseline_list), '12345')
+    self.assertEqual(BaseFile.remove_brackets(baseline_case,baseline_list), '12345')
 
   def test_split_line(self):
     # Build up the baseline objects
     baseline_list = '1 :2 : 3   :   56'
     delim = ':'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.split_line(BaseFile(''),baseline_list,delim), ['1','2','3','56'])
+    self.assertEqual(BaseFile.split_line(baseline_case,baseline_list,delim), ['1','2','3','56'])
 
   def test_split_line_spaces(self):
     # Build up the baseline objects
     baseline_list = '1 2  3      56'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.split_line_spaces(BaseFile(''),baseline_list), ['1 2','3','56'])
+    self.assertEqual(BaseFile.split_line_spaces(baseline_case,baseline_list), ['1 2','3','56'])
 
   def test_sep_string(self):
     # Build up the baseline objects
     baseline_list = '1 /     7'
     delim = '/'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.sep_string(BaseFile(''),baseline_list,delim), ('1','7'))
+    self.assertEqual(BaseFile.sep_string(baseline_case,baseline_list,delim), ('1','7'))
 
   def test_sep_string_double(self):
     # Build up the baseline objects
     baseline_list = '1 /     7 >     2'
     delim1 = '/'
     delim2 = '>'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.sep_string_double(BaseFile(''),baseline_list,delim1,delim2), ('1','7','2'))
+    self.assertEqual(BaseFile.sep_string_double(baseline_case,baseline_list,delim1,delim2), ('1','7','2'))
 
   def test_capitalize_list(self):
     # Build up the baseline objects
     baseline_list = ['abc','aBC','Abc','ABC']
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.capitalize_list(BaseFile(''),baseline_list), ['Abc','Abc','Abc','Abc'])
+    self.assertEqual(BaseFile.capitalize_list(baseline_case,baseline_list), ['Abc','Abc','Abc','Abc'])
 
   def test_remove_whitespace(self):
     # Build up the baseline objects
     baseline_list = '1 2     4  5    6'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.remove_whitespace(BaseFile(''),baseline_list), ['1 2',' 4','5','6'])
+    self.assertEqual(BaseFile.remove_whitespace(baseline_case,baseline_list), ['1 2',' 4','5','6'])
 
   def test_remove_whitespace_filter(self):
     # Build up the baseline objects
     baseline_list = '1 2  4'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.remove_whitespace_filter(BaseFile(''),baseline_list), ['1',' ','2',' ',' ','4'])
+    self.assertEqual(BaseFile.remove_whitespace_filter(baseline_case,baseline_list), ['1',' ','2',' ',' ','4'])
 
   def test_parse_type1(self):
     # Build up the baseline objects
     baseline_list = '5    fish    - here it is'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.parse_type1(BaseFile(''),baseline_list), ('fish', {'Value': 5, 'Description': 'here it is'}))
+    self.assertEqual(BaseFile.parse_type1(baseline_case,baseline_list), ('fish', {'Value': 5, 'Description': 'here it is'}))
 
   def test_parse_filename(self):
     # Build up the baseline objects
@@ -144,15 +305,21 @@ class TestBaseFile(unittest.TestCase):
     filename5 = 'a.log'
     filename6 = 'a.inp.ech'
     filename7 = 'a.yml'
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename1,'.inp','.yml'), 'a_inp.yml')
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename2,'.sum','.yml'), 'a_sum.yml')
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename3,'.inp.sum','.yml'), 'a_inpsum.yml')
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename4,'.out','.yml'), 'a_out.yml')
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename5,'.log','.yml'), 'a_log.yml')
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename6,'.inp.ech','.yml'), 'a_inpech.yml')
-    self.assertEqual(BaseFile.parse_filename(BaseFile(''),filename7,'.yml','.inp'), 'a.inp')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename1,'.inp','.yml'), 'a_inp.yml')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename2,'.sum','.yml'), 'a_sum.yml')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename3,'.inp.sum','.yml'), 'a_inpsum.yml')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename4,'.out','.yml'), 'a_out.yml')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename5,'.log','.yml'), 'a_log.yml')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename6,'.inp.ech','.yml'), 'a_inpech.yml')
+    self.assertEqual(BaseFile.parse_filename(baseline_case,filename7,'.yml','.inp'), 'a.inp')
 
   def test_parse_filetype_valuefirst(self):
     # Build up the baseline objects
@@ -176,9 +343,15 @@ class TestBaseFile(unittest.TestCase):
       'n':'m',
       'q':'p'
     }
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
 
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.parse_filetype_valuefirst(BaseFile(''),baseline_contents,baseline_keys,baseline_sec_start,baseline_length), check_dict)
+    self.assertEqual(BaseFile.parse_filetype_valuefirst(baseline_case,baseline_contents,baseline_keys,baseline_sec_start,baseline_length), check_dict)
 
   def test_parse_xyz(self):
     # Build up the baseline objects
@@ -205,9 +378,15 @@ class TestBaseFile(unittest.TestCase):
       'W5': {'X': 16, 'Y': 17, 'Z': 18},
       'W6': {'X': 19, 'Y': 20, 'Z': 21}
     }
-    
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.parse_xyz(BaseFile(''),baseline_string,baseline_startd,baseline_starti,baseline_loops,baseline_key), check_dict)
+    self.assertEqual(BaseFile.parse_xyz(baseline_case,baseline_string,baseline_startd,baseline_starti,baseline_loops,baseline_key), check_dict)
 
   def test_write_valdesc(self):
     # Build up the baseline objects
@@ -239,12 +418,19 @@ class TestBaseFile(unittest.TestCase):
     baseline_cats1 = 'fish'
     baseline_cats2 = None
     check_string = 'desc1  key1  desc1\ndesc2  key2  desc2\ndesc4  key4  desc4\n'
-        
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_driver.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+
     # Assertions - test that various strings can be converted to an integer
-    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_dict1,baseline_keys,baseline_desc,baseline_cats1), check_string)
-    self.assertEqual(BaseFile.write_valdesc(BaseFile(''),baseline_dict2,baseline_keys,baseline_desc,baseline_cats2), check_string)
+    self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict1,baseline_keys,baseline_desc,baseline_cats1), check_string)
+    self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict2,baseline_keys,baseline_desc,baseline_cats2), check_string)
 
 
 if __name__ == '__main__':
   unittest.main()
+
 
