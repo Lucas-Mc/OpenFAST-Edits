@@ -6,6 +6,40 @@ from src.base_file import BaseFile
 
 class TestBaseFile(unittest.TestCase):
 
+  def test_open_file(self):
+    # Build up the baseline objects
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    # Temp parent directory to instantiate a case of BaseFile
+    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+    # Temp filename to instantiate a case of BaseFile
+    baseline_fn = 'bd_primary.yml'
+    baseline_case = BaseFile(baseline_pd,baseline_fn)
+    new_file = os.path.join(baseline_pd,baseline_fn)
+    op = BaseFile.open_file(baseline_case,new_file)
+    self.assertEqual(op.name, new_file)
+    op.close()
+
+  # def test_load_yaml(self):
+  #   # Build up the baseline objects
+  #   dir_path = os.path.dirname(os.path.realpath(__file__))
+  #   # Temp parent directory to instantiate a case of BaseFile
+  #   baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+  #   # Temp filename to instantiate a case of BaseFile
+  #   baseline_fn = 'bd_driver.yml'
+  #   baseline_case = BaseFile(baseline_pd,baseline_fn)
+  #   BaseFile.load_yaml(baseline_case)
+  #   print(baseline_case.data)
+
+  # def test_load_openfast(self):
+  #   # Build up the baseline objects
+  #   dir_path = os.path.dirname(os.path.realpath(__file__))
+  #   # Temp parent directory to instantiate a case of BaseFile
+  #   baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
+  #   # Temp filename to instantiate a case of BaseFile
+  #   baseline_fn = 'bd_driver.yml'
+  #   baseline_case = BaseFile(baseline_pd,baseline_fn)
+  #   BaseFile.load_openfast(baseline_case)
+
   def test_init_output_file(self):
     # Build up the baseline objects
     dir_path = os.path.dirname(os.path.realpath(__file__))
