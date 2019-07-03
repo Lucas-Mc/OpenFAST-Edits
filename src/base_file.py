@@ -27,8 +27,6 @@ class BaseFile():
     try:
 
       self.output_file = open(output_filename,'w') 
-      self.output_file.write('---\n')
-      self.output_file.write('# Input information for: '+self.remove_char(output_filename,['.yml'])+'\n')
 
     except:
 

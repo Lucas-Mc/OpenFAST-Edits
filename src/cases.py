@@ -2,7 +2,7 @@ import os
 import sys
 import subprocess
 from src.beamdyn_driver import BeamdynDriver
-from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
+from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynDriverFile, BeamdynInputSummaryFile
 from src.output_files import OutputPrimaryFile
 
 
@@ -67,7 +67,7 @@ class BeamdynCase(Case):
     for input_file in self.input_files:
       file_path = self.case_directory + '/' + input_file
       if (input_file == 'bd_driver.inp'):
-        temp_file = BeamdynInputFile(file_path)
+        temp_file = BeamdynDriverFile(file_path)
       elif (input_file == 'bd_primary.inp'):
         temp_file = BeamdynPrimaryFile(file_path)
       elif (input_file == 'beam_props.inp'):
@@ -89,7 +89,9 @@ class BeamdynCase(Case):
     temp_file.to_text(file_string)
 
   def driver_to_yaml(self):
-    file_path = self.case_directory + '/bd_driver.out' 
+    #print(self.openfast_directory.replace('openfast','OpenFAST_Edits'))
+    #file_path = self.openfast_directory.replace('openfast','OpenFAST_Edits') + self.case_directory[1:] + 'bd_driver.out'  
+    file_path = self.case_directory + '/bd_driver.out'
     temp_file = OutputPrimaryFile(file_path)
     new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)
@@ -108,7 +110,7 @@ class BeamdynCase(Case):
     temp_file.to_text(file_string)
 
   def props_to_yaml(self):
-    file_path = self.case_directory + '/beam_props.inp' 
+    file_path = self.case_directory + '/beam_props.inp'
     temp_file = BeamdynBladeFile(file_path)
     new_dict = temp_file.read_t2y()
     temp_file.to_yaml(new_dict)   
@@ -117,4 +119,3 @@ class BeamdynCase(Case):
     file_path = self.case_directory + '/beam_props_inp.yml' 
     temp_file = BeamdynBladeFile(file_path)
     file_string = temp_file.read_y2t()
-    temp_file.to_text(file_string)

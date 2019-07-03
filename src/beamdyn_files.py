@@ -7,38 +7,22 @@ import sys
 import yaml
 from src.base_file import BaseFile
 
+
 class BeamdynFile(BaseFile):
   """
   Super class for all BeamDyn-related files.
   """
+
   def __init__(self, filename):
-
     super().__init__(filename)
-    file_ext = filename.split('.',1)[1]
 
-    if (file_ext == 'yml'):
-
-      if ('_inp.' in filename):
-        input_filename = self.parse_filename(filename,'.yml','.inp')
-      if ('_out.' in filename):
-        input_filename = self.parse_filename(filename,'.yml','.out')
-      if ('_inpsum.' in filename):
-        input_filename = self.parse_filename(filename,'.yml','.inp.sum')
-      
-      self.init_input_file(input_filename)
-    
-    else:
-
-      output_filename = self.parse_filename(filename,'.'+file_ext,'.yml')
-      self.init_output_file(output_filename)
 
 class BeamdynPrimaryFile(BeamdynFile):
   """
-  Primary input file for BeamDyn.
+  Input file for the BeamDyn module
   """
 
   def __init__(self, filename):
-
     super().__init__(filename)
 
   def read_t2y(self):
@@ -91,7 +75,7 @@ class BeamdynPrimaryFile(BeamdynFile):
 
     temp_key_list = self.data[22].split()
     temp_unit_list = self.remove_parens(self.data[23].split())
-    
+   
     temp_dict = {}
     temp_temp_dict = {}
     for tk in temp_key_list:
@@ -132,8 +116,7 @@ class BeamdynPrimaryFile(BeamdynFile):
       
   def read_y2t(self):
 
-    # in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
-    in_dict = yaml.load(open(self.filename))
+    in_dict = self.data
 
     file_string = ''
     file_string += '--------- BEAMDYN with OpenFAST INPUT FILE -------------------------------------------\n'
@@ -198,7 +181,21 @@ class BeamdynPrimaryFile(BeamdynFile):
     file_string += in_dict['NumInfo']
     file_string += '\n'
 
-    temp_keys = list(in_dict['Matrix'].keys())
+    tt_keys = list(in_dict['Matrix'].keys())
+    for i,tk in enumerate(tt_keys):
+      if (tk == 'kp_xr'):
+        ind_xr = i
+      if (tk == 'kp_yr'):
+        ind_yr = i
+      if (tk == 'kp_zr'):
+        ind_zr = i
+      if (tk == 'initial_twist'):
+        ind_tw = i  
+    rearrange_list = [ind_xr,ind_yr,ind_zr,ind_tw] 
+    
+    temp_keys = []
+    for i,v in enumerate(rearrange_list):
+      temp_keys.append(tt_keys[v])
 
     temp_string = ''
     for tk in temp_keys:
@@ -313,7 +310,6 @@ class BeamdynBladeFile(BeamdynFile):
   """
 
   def __init__(self, filename):
-
     super().__init__(filename)
 
   def read_t2y(self):
@@ -380,7 +376,7 @@ class BeamdynBladeFile(BeamdynFile):
 
   def read_y2t(self):
 
-    in_dict = yaml.load(open(self.filename))
+    in_dict = self.data
 
     file_string = ''
 
@@ -457,13 +453,12 @@ class BeamdynBladeFile(BeamdynFile):
 
     return file_string
 
-class BeamdynInputFile(BeamdynFile):
+class BeamdynDriverFile(BeamdynFile):
   """
   BeamDyn file decsribing the inputs.
   """
 
   def __init__(self, filename):
-
     super().__init__(filename)
 
   def read_t2y(self):
@@ -519,13 +514,167 @@ class BeamdynInputFile(BeamdynFile):
 
     return new_dict
 
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+    file_string += '------- BEAMDYN Driver with OpenFAST INPUT FILE --------------------------------\n'
+    file_string += 'Static analysis of a curved beam\n'
+    file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
+      
+    key_list = [
+      'DynamicSolve',
+      't_initial',   
+      't_final',     
+      'dt'
+    ]          
+
+    desc_list = [
+      '- Dynamic solve (false for static solve) (-)',
+      '- Starting time of simulation (s) [used only when DynamicSolve=TRUE]',
+      '- Ending time of simulation   (s) [used only when DynamicSolve=TRUE]',
+      '- Time increment size         (s) [used only when DynamicSolve=TRUE]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- GRAVITY PARAMETER --------------------------------------\n'
+    
+    key_list = [
+      'Gx',            
+      'Gy',            
+      'Gz' 
+    ]
+
+    desc_list = [    
+      '- Component of gravity vector along X direction (m/s^2)',       
+      '- Component of gravity vector along Y direction (m/s^2)',
+      '- Component of gravity vector along Z direction (m/s^2)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- FRAME PARAMETER --------------------------------------\n'
+
+    key_list = [
+      'GlbPos(1)',     
+      'GlbPos(2)',     
+      'GlbPos(3)'   
+    ]  
+
+    desc_list = [
+      '- Component of position vector of the reference blade frame along X direction (m)',
+      '- Component of position vector of the reference blade frame along Y direction (m)',
+      '- Component of position vector of the reference blade frame along Z direction (m)'
+    ]    
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---The following 3 by 3 matrix is the direction cosine matirx ,GlbDCM(3,3),\n'
+    file_string += '---relates global frame to the initial blade root frame\n'
+
+    # TODO: insert matrix here
+    temp_string = ''
+    for nr in in_dict['Matrix'].keys():
+      for v in in_dict['Matrix'][nr]:
+        temp_string += str(v)
+        temp_string += '  '
+      temp_string += '\n'
+    file_string += temp_string
+
+    key_list = [
+      'GlbRotBladeT0'
+    ] 
+
+    desc_list = [
+      '- Reference orientation for BeamDyn calculations is aligned with initial blade root'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- ROOT VELOCITY PARAMETER ----------------------------------\n'
+
+    key_list = [
+      'RootVel(4)', 
+      'RootVel(5)', 
+      'RootVel(6)'
+    ]
+
+    desc_list = [
+      '- Component of angular velocity vector of the beam root about X axis (rad/s)',
+      '- Component of angular velocity vector of the beam root about Y axis (rad/s)',   
+      '- Component of angular velocity vector of the beam root about Z axis (rad/s)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- APPLIED FORCE ----------------------------------\n'
+
+    key_list = [
+      'DistrLoad(1)',
+      'DistrLoad(2)', 
+      'DistrLoad(3)', 
+      'DistrLoad(4)',  
+      'DistrLoad(5)', 
+      'DistrLoad(6)',
+      'TipLoad(1)', 
+      'TipLoad(2)', 
+      'TipLoad(3)',
+      'TipLoad(4)',
+      'TipLoad(5)',
+      'TipLoad(6)', 
+      'NumPointLoads'
+    ]
+
+    desc_list = [
+      '- Component of distributed force vector along Y direction (N/m)',
+      '- Component of distributed force vector along Z direction (N/m)',
+      '- Component of distributed moment vector along X direction (N-m/m)',
+      '- Component of distributed force vector along X direction (N/m)',
+      '- Component of distributed moment vector along Y direction (N-m/m)',
+      '- Component of distributed moment vector along Z direction (N-m/m)',  
+      '- Component of concentrated force vector at blade tip along X direction (N)',   
+      '- Component of concentrated force vector at blade tip along Y direction (N)',    
+      '- Component of concentrated force vector at blade tip along Z direction (N)',    
+      '- Component of concentrated moment vector at blade tip along X direction (N-m)',    
+      '- Component of concentrated moment vector at blade tip along Y direction (N-m)',   
+      '- Component of concentrated moment vector at blade tip along Z direction (N-m)',
+      '- Number of point loads along blade'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += 'Non-dim blade-span eta   Fx          Fy            Fz           Mx           My           Mz\n'
+    file_string += '(-)                      (N)         (N)           (N)          (N-m)        (N-m)        (N-m)\n'
+    file_string += '---------------------- PRIMARY INPUT FILE --------------------------------------\n'
+
+    key_list = [
+      'InputFile'
+    ]
+
+    desc_list = [
+      '- Name of the primary BeamDyn input file'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    return file_string
+
+
 class BeamdynInputSummaryFile(BeamdynFile):
   """
   BeamDyn file decsribing the summary of the input file.
   """
 
   def __init__(self, filename):
-    
     super().__init__(filename)
 
   def read_t2y(self):
@@ -754,8 +903,7 @@ class BeamdynInputSummaryFile(BeamdynFile):
   def read_y2t(self):
     # TODO: not done yet
 
-    # in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_driver_out.yml'
-    in_dict = yaml.load(open(self.filename))
+    in_dict = self.data
 
     file_string = ''
     file_string += '\n'
