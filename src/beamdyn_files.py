@@ -65,19 +65,7 @@ class BeamdynPrimaryFile(BaseFile):
     new_dict[temp_list[-3].strip()] = beg_list
 
     temp_key_list = self.data[22].split()
-    # for i,tk in tt_key_list:
-    #   if (tk == 'kp_xr'):
-    #     ind_xr = i
-    #   if (tk == 'kp_yr'):
-    #     ind_yr = i
-    #   if (tk == 'kp_zr'):
-    #     ind_zr = i
-    #   if (tk == 'initial_twist'):
-    #     ind_tw = i  
-    # rearrange_list = [ind_xr,ind_yr,ind_zr,ind_tw] 
-    # temp_key_list = [x for _,x in sorted(zip(rearrange_list,tt_key_list))]     
     temp_unit_list = self.remove_parens(self.data[23].split())
-    # temp_unit_list = [x for _,x in sorted(zip(rearrange_list,tt_unit_list))] 
    
     temp_dict = {}
     temp_temp_dict = {}
@@ -931,6 +919,5 @@ class BeamdynInputSummaryFile(BaseFile):
     for tk in key_list:
       for ttk in in_dict[tk].keys():
         val_list = in_dict[tk][ttk]
-        #print(val_list)
 
     return file_string
