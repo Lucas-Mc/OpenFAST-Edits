@@ -9,7 +9,7 @@ import yaml
 
 class BaseFile():
 
-  _openfast_extension = "inp"
+  _openfast_extension = 'inp'
 
   def __init__(self, parent_directory, filename):
     self.parent_directory = parent_directory
@@ -27,10 +27,10 @@ class BaseFile():
     else:
       self.load_openfast()
       self.openfast_filename = self.filename
-      self.yaml_filename = self.filename.replace(file_ext, "yaml")
+      self.yaml_filename = self.filename.replace(file_ext, 'yaml')
 
   def open_file(self, filepath):
-    return open(filepath, "r")
+    return open(filepath, 'r')
 
   def load_yaml(self):
     self.data = yaml.load(self.file_handle, Loader=yaml.FullLoader)

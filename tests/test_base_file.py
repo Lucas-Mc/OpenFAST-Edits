@@ -53,6 +53,7 @@ class TestBaseFile(unittest.TestCase):
 
     self.assertEqual(os.path.exists(baseline_file), True)
     # os.remove(baseline_file)
+    # os.close(baseline_file)
 
   def test_init_input_file(self):
     # Build up the baseline objects
@@ -67,20 +68,20 @@ class TestBaseFile(unittest.TestCase):
 
     self.assertEqual(os.path.exists(baseline_file), True)
     # os.remove(baseline_file)
+    # os.close(baseline_file)
 
   def test_to_yaml(self):
     # Build up the baseline objects
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_pd = os.path.dirname(os.path.realpath(__file__))
     baseline_dict = {
       'key0':'val0',
       'key1':'val1',
       'key2':'val2',
       'key3':'val3',
     }
-    # Temp parent directory to instantiate a case of BaseFile
-    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
     # Temp filename to instantiate a case of BaseFile
-    baseline_fn = 'bd_driver.yml'
+    baseline_fn = 'test_file.yml'
+    open(baseline_fn,'w+')
     baseline_case = BaseFile(baseline_pd,baseline_fn)
     BaseFile.to_yaml(baseline_case,baseline_dict)
     
@@ -98,12 +99,10 @@ class TestBaseFile(unittest.TestCase):
 
   def test_to_text(self):
     # Build up the baseline objects
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+    baseline_pd = os.path.dirname(os.path.realpath(__file__))
     baseline_string = 'key0: val0\nkey1: val1\nkey2: val2\nkey3: val3\n'
-    # Temp parent directory to instantiate a case of BaseFile
-    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
     # Temp filename to instantiate a case of BaseFile
-    baseline_fn = 'bd_driver.yml'
+    baseline_fn = 'test_file.yml'
     baseline_case = BaseFile(baseline_pd,baseline_fn)
     BaseFile.to_text(baseline_case,baseline_string)
     
@@ -457,6 +456,11 @@ class TestBaseFile(unittest.TestCase):
 
     self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict1,baseline_keys,baseline_desc,baseline_cats1), check_string)
     self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict2,baseline_keys,baseline_desc,baseline_cats2), check_string)
+
+  def test_z(self):
+    # Clean up and remove all temporary files
+    os.remove('temp_file.inp')
+    os.remove('temp_file.out')
 
 
 if __name__ == '__main__':

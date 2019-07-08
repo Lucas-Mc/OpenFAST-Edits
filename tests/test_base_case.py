@@ -6,6 +6,7 @@ from src.base_case import BaseCase
 from src.beamdyn_driver import BeamdynDriver
 from src.beamdyn_files import BeamdynDriverFile
 
+
 class TestBaseCase(unittest.TestCase):
 
   def test_start(self):
@@ -42,6 +43,12 @@ class TestBaseCase(unittest.TestCase):
     cd_after = os.getcwd()
     self.assertNotEqual(cd_before,cd_after)
     self.assertEqual(cd_after,baseline_cd)
+
+  def test_z(self):
+    # Clean up and remove all temporary files
+    os.remove('bd_primary.inp.ech')
+    os.remove('bd_primary.inp.sum')
+    os.remove('tests.log')
 
 
 if __name__ == '__main__':

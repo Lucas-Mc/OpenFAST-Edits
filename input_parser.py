@@ -7,7 +7,7 @@ import os
 import sys
 import yaml
 from src.crushing_inp_file import CrushingInpFile
-from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynInputFile, BeamdynInputSummaryFile
+from src.beamdyn_files import BeamdynPrimaryFile, BeamdynBladeFile, BeamdynDriverFile, BeamdynInputSummaryFile
 from src.turbsim_files import TurbsimInputFile, TurbsimSummaryFile
 
 input_file_type = 6
