@@ -15,7 +15,7 @@ class BaseFile():
     self.parent_directory = parent_directory
     self.filename = filename
     self.filepath = os.path.join(self.parent_directory, self.filename)
-    self.file_handle = self.open_file(self.filepath)
+    # self.file_handle = self.open_file(self.filepath)
 
     # Load the data based on the filetype given
     # All cases store data in self.data
@@ -33,10 +33,14 @@ class BaseFile():
     return open(filepath, 'r')
 
   def load_yaml(self):
+    self.file_handle = self.open_file(self.filepath)
     self.data = yaml.load(self.file_handle, Loader=yaml.FullLoader)
+    self.file_handle.close()
 
   def load_openfast(self):
+    self.file_handle = self.open_file(self.filepath)
     self.data = self.file_handle.readlines()
+    self.file_handle.close()
 
   def init_input_file(self, input_filename):
     self.input_file = open(input_filename,'w') 
