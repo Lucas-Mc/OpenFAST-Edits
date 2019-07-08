@@ -81,7 +81,7 @@ class TestBaseFile(unittest.TestCase):
     }
     # Temp filename to instantiate a case of BaseFile
     baseline_fn = 'test_file.yml'
-    open(baseline_fn,'w+')
+    temp_f = open(baseline_fn,'w+')
     baseline_case = BaseFile(baseline_pd,baseline_fn)
     BaseFile.to_yaml(baseline_case,baseline_dict)
     
@@ -91,11 +91,14 @@ class TestBaseFile(unittest.TestCase):
       'key2: val2\n',
       'key3: val3\n'
     ]
-    for i,line in enumerate(open(baseline_fn,'r')):
+    ttf = open(baseline_fn,'r')
+    for i,line in enumerate(ttf):
       self.assertEqual(line, line_list[i])
+    ttf.close()
 
     # rm_file = dir_path + '/' + baseline_fn
     # os.remove(rm_file)
+    temp_f.close()
 
   def test_to_text(self):
     # Build up the baseline objects
@@ -112,8 +115,10 @@ class TestBaseFile(unittest.TestCase):
       'key2: val2\n',
       'key3: val3\n'
     ]
-    for i,line in enumerate(open(baseline_fn,'r')):
+    ttf = open(baseline_fn,'r')
+    for i,line in enumerate(ttf):
       self.assertEqual(line, line_list[i])
+    ttf.close()
 
     # rm_file = dir_path + '/' + baseline_fn.replace('.yml','.inp')
     # os.remove(rm_file)
@@ -457,7 +462,7 @@ class TestBaseFile(unittest.TestCase):
     self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict1,baseline_keys,baseline_desc,baseline_cats1), check_string)
     self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict2,baseline_keys,baseline_desc,baseline_cats2), check_string)
 
-  def test_z(self):
+def tearDownModule():
     # Clean up and remove all temporary files
     os.remove('temp_file.inp')
     os.remove('temp_file.out')

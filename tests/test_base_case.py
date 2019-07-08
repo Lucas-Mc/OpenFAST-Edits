@@ -55,7 +55,7 @@ class TestBaseCase(unittest.TestCase):
     self.assertNotEqual(cd_before,cd_after)
     self.assertEqual(cd_after,baseline_cd)
 
-  def cleanup(self):
+def tearDownModule():
     # Clean up and remove all temporary files
     os.remove('bd_primary.inp.ech')
     os.remove('bd_primary.inp.sum')

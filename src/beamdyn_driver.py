@@ -2,7 +2,9 @@ import os
 from stat import ST_MODE
 
 class BeamdynDriver():
+
   def __init__(self, executable_path):
+    
     # Verify that the executable exists
     if not os.path.isfile(executable_path):
       raise OSError(2, 'Driver file does not exist', executable_path)
