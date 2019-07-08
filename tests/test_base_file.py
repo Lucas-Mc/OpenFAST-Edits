@@ -461,6 +461,7 @@ class TestBaseFile(unittest.TestCase):
     # Clean up and remove all temporary files
     os.remove('temp_file.inp')
     os.remove('temp_file.out')
+    os.remove('test_file.inp')
 
 
 if __name__ == '__main__':
