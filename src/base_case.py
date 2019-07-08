@@ -2,8 +2,8 @@ import os
 import sys
 import subprocess
 
-
 class BaseCase():
+
   def __init__(self, driver, case_directory, input_files, primary_input_index=0):
     """
     driver: Driver - The Driver object which will be used to run this case

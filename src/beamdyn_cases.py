@@ -8,6 +8,7 @@ from src.output_files import OutputPrimaryFile
 
 
 class BeamdynCase(BaseCase):
+  
   def __init__(self, openfast_directory, case_directory):
     """
     openfast_directory: Str - # TODO See example in base_case
