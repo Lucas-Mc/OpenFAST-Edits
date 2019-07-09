@@ -17,7 +17,7 @@ class TestBaseCase(unittest.TestCase):
     baseline_case = BaseCase(baseline_driver,baseline_cd,baseline_if)
     
     test_loc = baseline_cd.rstrip(os.path.sep)
-    BaseCase.end(baseline_case)
+    BaseCase.start(baseline_case)
     cd_after = os.getcwd()
 
     self.assertEqual(test_loc,cd_after)
