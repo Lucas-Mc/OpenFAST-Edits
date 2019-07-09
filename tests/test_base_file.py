@@ -50,8 +50,8 @@ class TestBaseFile(unittest.TestCase):
       'key3':'val3',
     }
     # Temp filename to instantiate a case of BaseFile
-    baseline_fn = 'test_file.yml'
-    temp_f = open(baseline_fn,'w+')
+    baseline_fn = 'temp_file.yml'
+    temp_f = open(os.path.join(baseline_pd,baseline_fn),'w+')
     baseline_case = BaseFile(baseline_pd,baseline_fn)
     BaseFile.to_yaml(baseline_case,baseline_dict)
     
@@ -66,9 +66,8 @@ class TestBaseFile(unittest.TestCase):
       self.assertEqual(line, line_list[i])
     ttf.close()
 
-    # rm_file = dir_path + '/' + baseline_fn
-    # os.remove(rm_file)
     temp_f.close()
+    os.remove(baseline_fn)
 
   def test_to_text(self):
     # Build up the baseline objects
@@ -85,13 +84,10 @@ class TestBaseFile(unittest.TestCase):
       'key2: val2\n',
       'key3: val3\n'
     ]
-    ttf = open(baseline_fn,'r')
+    ttf = open(os.path.join(baseline_pd,baseline_fn),'r')
     for i,line in enumerate(ttf):
       self.assertEqual(line, line_list[i])
     ttf.close()
-
-    # rm_file = dir_path + '/' + baseline_fn.replace('.yml','.inp')
-    # os.remove(rm_file)
 
   def test_is_float(self):
     # Build up the baseline objects
@@ -434,8 +430,6 @@ class TestBaseFile(unittest.TestCase):
 
 def tearDownModule():
     # Clean up and remove all temporary files
-    os.remove('temp_file.inp')
-    os.remove('temp_file.out')
     os.remove('test_file.inp')
 
 
