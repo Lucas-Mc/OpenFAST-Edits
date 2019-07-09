@@ -15,10 +15,16 @@ class TestBaseCase(unittest.TestCase):
     baseline_driver_path = os.path.join(baseline_cd,'test_driver')
     baseline_driver = BeamdynDriver(baseline_driver_path)
     baseline_if = [BeamdynDriverFile(baseline_cd, 'test_file.yml')]
-    baseline_case = BaseCase(baseline_driver,test_cd,baseline_if)
     
     with mock.patch('builtins.input', return_value='y'):
+      baseline_case = BaseCase(baseline_driver,test_cd,baseline_if)
       self.assertTrue(os.path.exists(test_cd))
+      os.rmdir(test_cd)
+
+    with mock.patch('builtins.input', return_value='n'):
+      with self.assertRaises(SystemExit) as cm:
+        baseline_case = BaseCase(baseline_driver,test_cd,baseline_if)
+      self.assertEqual(cm.exception.code, 99)
 
   def test_start(self):
 
