@@ -18,10 +18,8 @@ class TestBaseCase(unittest.TestCase):
     
     new_dir = os.path.abspath(os.path.join(baseline_cd, os.pardir))
     os.chdir(new_dir)
-    cd_before = os.getcwd()
     BaseCase.end(baseline_case)
     cd_after = os.getcwd()
-    self.assertNotEqual(cd_before,cd_after)
 
     self.assertEqual(cd_after,baseline_cd)
 
@@ -47,11 +45,9 @@ class TestBaseCase(unittest.TestCase):
     
     new_dir = os.path.abspath(os.path.join(baseline_cd, os.pardir))
     os.chdir(new_dir)
-    cd_before = os.getcwd()
     BaseCase.end(baseline_case)
     cd_after = os.getcwd()
 
-    self.assertNotEqual(cd_before,cd_after)
     self.assertEqual(cd_after,baseline_cd)
 
 def tearDownModule():
