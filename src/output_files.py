@@ -19,13 +19,13 @@ class OutputFile(BaseFile):
 
     if (file_ext == 'out'):
 
-      output_filename = self.parse_filename(filename,'.out','.yml')
-      self.init_output_file(output_filename)
+      self.output_filename = self.parse_filename(filename,'.out','.yml')
+      # self.init_output_file(output_filename)
 
     else:
 
-      input_filename = self.parse_filename(filename,'.yml','.'+file_ext)
-      self.init_input_file(input_filename)
+      self.input_filename = self.parse_filename(filename,'.yml','.'+file_ext)
+      # self.init_input_file(input_filename)
 
 
 class OutputPrimaryFile(OutputFile):

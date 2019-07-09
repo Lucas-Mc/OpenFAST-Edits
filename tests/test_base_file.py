@@ -52,8 +52,7 @@ class TestBaseFile(unittest.TestCase):
     BaseFile.init_output_file(baseline_case,baseline_file)
 
     self.assertEqual(os.path.exists(baseline_file), True)
-    # os.remove(baseline_file)
-    # os.close(baseline_file)
+    baseline_case.output_file.close()
 
   def test_init_input_file(self):
     # Build up the baseline objects
@@ -67,8 +66,7 @@ class TestBaseFile(unittest.TestCase):
     BaseFile.init_output_file(baseline_case,baseline_file)
 
     self.assertEqual(os.path.exists(baseline_file), True)
-    # os.remove(baseline_file)
-    # os.close(baseline_file)
+    baseline_case.output_file.close()
 
   def test_to_yaml(self):
     # Build up the baseline objects
