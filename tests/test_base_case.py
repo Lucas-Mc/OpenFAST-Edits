@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 import os
 from src.base_case import BaseCase
 from src.beamdyn_driver import BeamdynDriver
@@ -16,6 +17,8 @@ class TestBaseCase(unittest.TestCase):
     baseline_if = [BeamdynDriverFile(baseline_cd, 'test_file.yml')]
     baseline_case = BaseCase(baseline_driver,test_cd,baseline_if)
     
+    with mock.patch('builtins.input', return_value='y'):
+      self.assertTrue(os.path.exists(test_cd))
 
   def test_start(self):
 
