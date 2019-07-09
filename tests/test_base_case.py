@@ -16,12 +16,11 @@ class TestBaseCase(unittest.TestCase):
     baseline_if = [BeamdynDriverFile(baseline_cd, 'bd_driver.yml')]
     baseline_case = BaseCase(baseline_driver,baseline_cd,baseline_if)
     
-    new_dir = os.path.abspath(os.path.join(baseline_cd, os.pardir))
-    os.chdir(new_dir)
+    test_loc = baseline_cd.rstrip(os.path.sep)
     BaseCase.end(baseline_case)
     cd_after = os.getcwd()
 
-    self.assertEqual(cd_after,baseline_cd)
+    self.assertEqual(test_loc,cd_after)
 
   def test_run(self):
 
@@ -43,18 +42,14 @@ class TestBaseCase(unittest.TestCase):
     baseline_if = [BeamdynDriverFile(baseline_cd, 'bd_driver.yml')]
     baseline_case = BaseCase(baseline_driver,baseline_cd,baseline_if)
     
-    new_dir = os.path.abspath(os.path.join(baseline_cd, os.pardir))
-    os.chdir(new_dir)
+    cd_before = os.getcwd()
     BaseCase.end(baseline_case)
     cd_after = os.getcwd()
 
-    self.assertEqual(cd_after,baseline_cd)
+    self.assertEqual(cd_before,cd_after)
 
 def tearDownModule():
     # Clean up and remove all temporary files
-    #pass
-    #os.remove('bd_primary.inp.ech')
-    #os.remove('bd_primary.inp.sum')
     os.remove('tests.log')
 
 
