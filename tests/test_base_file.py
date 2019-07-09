@@ -40,34 +40,6 @@ class TestBaseFile(unittest.TestCase):
     baseline_case = BaseFile(baseline_pd,baseline_fn)
     self.assertNotEqual(baseline_case.data, None)
 
-  def test_init_output_file(self):
-    # Build up the baseline objects
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    baseline_file = dir_path + '/temp_file.out'
-    # Temp parent directory to instantiate a case of BaseFile
-    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
-    # Temp filename to instantiate a case of BaseFile
-    baseline_fn = 'bd_driver.yml'
-    baseline_case = BaseFile(baseline_pd,baseline_fn)
-    BaseFile.init_output_file(baseline_case,baseline_file)
-
-    self.assertEqual(os.path.exists(baseline_file), True)
-    baseline_case.output_file.close()
-
-  def test_init_input_file(self):
-    # Build up the baseline objects
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    baseline_file = dir_path + '/temp_file.inp'
-    # Temp parent directory to instantiate a case of BaseFile
-    baseline_pd = dir_path.replace('tests','bd_5MW_dynamic')
-    # Temp filename to instantiate a case of BaseFile
-    baseline_fn = 'bd_driver.yml'
-    baseline_case = BaseFile(baseline_pd,baseline_fn)
-    BaseFile.init_output_file(baseline_case,baseline_file)
-
-    self.assertEqual(os.path.exists(baseline_file), True)
-    baseline_case.output_file.close()
-
   def test_to_yaml(self):
     # Build up the baseline objects
     baseline_pd = os.path.dirname(os.path.realpath(__file__))

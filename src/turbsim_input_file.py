@@ -5,9 +5,7 @@ class TurbsimInputFile(BaseFile):
 
   def __init__(self,filename):
     super().__init__(filename)
-    output_filename = filename.split('/')[len(filename.split('/'))-1].replace('.inp','.yml')
-    #output_filename = output_filename.replace('.sum','.yml').replace('.','_sum.')
-    self.init_output_file(output_filename)
+    self.output_filename = filename.split('/')[len(filename.split('/'))-1].replace('.inp','.yml')
 
   def read(self):
     new_dict = {}

@@ -14,5 +14,5 @@ bd_input_files = [
 ]
 
 for f in bd_input_files:
-  f.init_output_file(f.filename + '.yml')
   f.to_yaml(f.read_t2y())
+

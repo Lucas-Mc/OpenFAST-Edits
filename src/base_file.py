@@ -42,12 +42,6 @@ class BaseFile():
     self.data = self.file_handle.readlines()
     self.file_handle.close()
 
-  def init_input_file(self, input_filename):
-    self.input_file = open(input_filename,'w') 
-
-  def init_output_file(self, output_filename):
-    self.output_file = open(output_filename,'w') 
-
   def to_yaml(self, new_dict):
     outfile = open(self.yaml_filename, 'w')
     yaml.safe_dump(new_dict, outfile)
