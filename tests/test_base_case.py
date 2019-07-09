@@ -50,7 +50,8 @@ class TestBaseCase(unittest.TestCase):
 
 def tearDownModule():
     # Clean up and remove all temporary files
-    os.remove('tests.log')
+    baseline_cd = os.path.dirname(os.path.realpath(__file__))
+    os.remove(os.path.join(baseline_cd,'tests.log'))
 
 
 if __name__ == '__main__':
