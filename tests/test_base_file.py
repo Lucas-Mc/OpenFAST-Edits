@@ -1,6 +1,6 @@
 import unittest
-import sys
-sys.path.append("..")
+# import sys
+# sys.path.append("..")
 import os
 from src.base_file import BaseFile
 

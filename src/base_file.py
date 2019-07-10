@@ -1,8 +1,3 @@
-# Lucas McCullum
-# Rafael Mudafort
-# NWTC
-# June 18, 2019
-
 import os
 import sys
 import yaml
@@ -53,9 +48,9 @@ class BaseFile():
     outfile.close()
 
   def is_float(self, s):
-    '''
+    """
     Determines if a string (s) can be converted to a float
-    '''
+    """
     try:
         float(s)
         return True
@@ -63,9 +58,9 @@ class BaseFile():
         return False
 
   def is_int(self, s):
-    '''
+    """
     Determines if a string (s) can be converted to an integer
-    '''
+    """
     try:
         int(s)
         return True
@@ -73,9 +68,9 @@ class BaseFile():
         return False
 
   def convert_value(self, s_list):
-    '''
+    """
     Determines and converts a list of strings (s_list) to either int, float, or string
-    '''
+    """
     if (type(s_list) is not list):
 
       if (self.is_int(s_list)):
@@ -101,32 +96,32 @@ class BaseFile():
       return new_list
 
   def combine_text(self, s_list, sep):
-    '''
+    """
     s_list: list of strings ready and in order to be merged
     sep: the character used to join the list of strings (s_list)
-    '''
+    """
     new_string = sep.join(s_list)
     return new_string
 
   def combine_text_spaces(self, s_list):
-    '''
+    """
     Combines a list of strings (s_list) with the default seperator as a space character
-    '''
+    """
     return self.combine_text(s_list, sep=' ')
 
   def remove_char(self, s, c_list):
-    '''
+    """
     Remove all the characters in a string (s) based on a list (c_list)
-    '''
+    """
     new_s = s
     for c in c_list:
         new_s = new_s.replace(c, '')
     return new_s
 
   def remove_parens(self, s_list):
-    '''
+    """
     Remove parentheses from a list of strings (s_list)
-    '''
+    """
     if (type(s_list) is list):
       new_list = []
 
@@ -140,9 +135,9 @@ class BaseFile():
       return self.remove_char(s_list, ['(', ')'])
 
   def remove_brackets(self, s_list):
-    '''
+    """
     Remove brackets from a string (s_list)
-    '''
+    """
     if (type(s_list) is list):
       new_list = []
 
@@ -156,9 +151,9 @@ class BaseFile():
       return self.remove_char(s_list, ['[', ']'])
 
   def split_line(self, current_line, delimiter='  '):
-    '''
+    """
     Take the line and split by whitespace while conserving spaces in categories
-    '''
+    """
     temp_value_list = current_line.split(delimiter)
     temp_value_list = [self.remove_char(i, ['\n']).strip() for i in temp_value_list]
     temp_value_list = list(filter(None, temp_value_list))
@@ -166,17 +161,17 @@ class BaseFile():
     return temp_value_list
 
   def split_line_spaces(self, current_line):
-    '''
+    """
     Splits a line by the default delimiter of double spaces to conserve titles
-    '''
+    """
     return self.split_line(current_line, delimiter='  ')
 
   def sep_string(self, s, sep):
-    '''
+    """
     Takes an input sting and divides it into two by a chosen character
     s: the input string
     sep: the character that will split the string
-    '''
+    """
     tl = s.split(sep)
     tl = list(filter(None, tl))
     value1 = tl[0].strip()
@@ -184,39 +179,39 @@ class BaseFile():
     return value1, value2
 
   def sep_string_double(self, s, c1, c2):
-    '''
+    """
     s: input string
-    c1: first character after splitting
-    c2: second character after splitting
-    '''
+    c1: first character to be split by
+    c2: second character to be split by
+    """
     val1, val2 = self.sep_string(s, c1)
     val2, val3 = self.sep_string(val2, c2)
     return val1, val2, val3
 
   def capitalize_list(self, s_list):
-    '''
+    """
     CONTROL --> Control
     s_list: list of strings to be capitalized
-    '''
+    """
     return [s.capitalize() for s in s_list]
 
   def remove_whitespace(self, s):
-    '''
+    """
     s: input string
-    '''
+    """
     return list(filter(None, s.split('  ')))
 
   def remove_whitespace_filter(self, s):
-    '''
+    """
     s: input string
-    '''
+    """
     return list(filter(None, s))
 
   def parse_type1(self, s):
-    '''
+    """
     VAL   KEY   - DESC
     s: input string
-    '''
+    """
     temp_vals = self.remove_whitespace(s)
     temp_value = temp_vals[0].strip()
     temp_key = temp_vals[1].strip()
@@ -225,11 +220,11 @@ class BaseFile():
     return temp_key,parsed_dict
 
   def parse_filename(self, s, in_type, out_type):
-    '''
+    """
     s: input string
     in_type: file extension of input file
     out_type:file extension of output file
-    '''
+    """
     parsed_filename = s.split('/')[-1].replace(in_type,out_type)
 
     if (in_type == '.inp'):
@@ -264,13 +259,13 @@ class BaseFile():
     return parsed_filename
 
   def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list):
-    '''
+    """
     VALUE   KEY   - DESC
     contents: the contents of the data file
     key_list: list of keys to be added to the dictionary
     sec_start_list: list of starting line numbers for dictionary values
     length_list: list of the lengths of each section
-    '''
+    """
     new_dict = {}
     current_sec_ind = 0
     current_line_ind = 0
@@ -289,13 +284,13 @@ class BaseFile():
     return new_dict
 
   def parse_xyz(self, s, d, i, n, k):
-    '''
+    """
     s: string to be parsed
     d: data starting index
     i: starting index to parse
     n: number of loops
     k: dictionary key
-    '''
+    """
     temp_dict = {}
 
     for j in range(n):
@@ -309,12 +304,12 @@ class BaseFile():
     return temp_dict
 
   def write_valdesc(self,inp_d,k_list,d_list,cat_name):
-    '''
+    """
     inp_d: input dictionary 
     k_list: list of keys
     d_list: list of descriptions 
     cat_name: name of main dictionary category
-    '''
+    """
     file_string = ''
 
     for i,kn in enumerate(k_list):
