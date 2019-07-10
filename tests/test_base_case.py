@@ -68,9 +68,8 @@ class TestBaseCase(unittest.TestCase):
 
 def tearDownModule():
     # Clean up and remove all temporary files
-    #os.remove('tests.log')
-    pass
-
+    os.remove('tests.log')
+    
 
 if __name__ == '__main__':
   unittest.main()
