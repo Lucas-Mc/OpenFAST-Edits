@@ -2,6 +2,7 @@ import os
 import sys
 import yaml
 
+
 class BaseFile():
 
   _openfast_extension = 'inp'
