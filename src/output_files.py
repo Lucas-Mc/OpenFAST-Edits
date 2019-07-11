@@ -1,11 +1,7 @@
-# Lucas McCullum
-# Rafael Mudafort
-# NWTC
-# July 1, 2019
-
 import sys
 import yaml
 from src.base_file import BaseFile
+
 
 class OutputFile(BaseFile):
   """

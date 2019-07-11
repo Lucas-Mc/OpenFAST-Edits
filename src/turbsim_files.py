@@ -1,12 +1,7 @@
-# Lucas McCullum
-# Rafael Mudafort
-# NWTC
-# June 19, 2019
-
 import sys
 from src.base_file import BaseFile
 
-# Maybe use this in the future.. need some help deciding
+
 class TurbsimFile(BaseFile):
   """
   Super class for all Turbsim-related files.

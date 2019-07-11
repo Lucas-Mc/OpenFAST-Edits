@@ -1,10 +1,6 @@
-# Lucas McCullum
-# Rafael Mudafort
-# NWTC
-# June 19, 2019
-
 import sys
 from src.base_file import BaseFile
+
 
 class CrushingInpFile(BaseFile):
 

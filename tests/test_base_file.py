@@ -426,7 +426,7 @@ class TestBaseFile(unittest.TestCase):
     self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict1,baseline_keys,baseline_desc,baseline_cats1), check_string)
     self.assertEqual(BaseFile.write_valdesc(baseline_case,baseline_dict2,baseline_keys,baseline_desc,baseline_cats2), check_string)
 
-def tearDownModule():
+def tearDownClass():
     # Clean up and remove all temporary files
     os.remove('test_file.inp')
 

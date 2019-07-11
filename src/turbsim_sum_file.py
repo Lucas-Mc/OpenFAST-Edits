@@ -1,7 +1,3 @@
-# Lucas McCullum
-# Rafael Mudafort
-# NWTC
-# June 19, 2019
 from base_file import BaseFile
 
 

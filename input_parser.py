@@ -1,8 +1,3 @@
-# Lucas McCullum
-# Rafael Mudafort
-# NWTC
-# June 14, 2019
-
 import os
 import sys
 import yaml

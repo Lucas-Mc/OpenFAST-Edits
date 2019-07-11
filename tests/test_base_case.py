@@ -66,7 +66,7 @@ class TestBaseCase(unittest.TestCase):
 
     self.assertEqual(cd_before,cd_after)
 
-def tearDownModule():
+def tearDownClass():
     # Clean up and remove all temporary files
     os.remove('tests.log')
     
