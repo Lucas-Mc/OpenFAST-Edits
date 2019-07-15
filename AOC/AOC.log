@@ -1,0 +1,30 @@
+
+ **************************************************************************************************
+ OpenFAST
+
+ Copyright (C)  National Renewable Energy Laboratory
+ Copyright (C)  Envision Energy USA LTD
+
+ This program is licensed under Apache License Version 2.0 and comes with ABSOLUTELY NO WARRANTY.
+ See the "LICENSE" file distributed with this software for details.
+ **************************************************************************************************
+
+ OpenFAST-v2.1.0-130-g2d9230df-dirty
+ Compile Info:
+  - Architecture: 64 bit
+  - Precision: double
+  - Date: Jun 25 2019
+  - Time: 13:30:43
+ Execution Info:
+  - Date: 07/15/2019
+  - Time: 13:05:16-0600
+
+
+ FAST_InitializeAll:FAST_Init:FAST_ReadPrimaryFile:Invalid logical input for file "AOC_Blade.inp"
+ occurred while trying to read Echo.
+
+ FAST encountered an error during module initialization.
+  Simulation error level: FATAL ERROR
+
+  Aborting OpenFAST.
+

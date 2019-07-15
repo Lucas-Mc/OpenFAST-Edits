@@ -16,12 +16,12 @@ class AOCCase(BaseCase):
     self.openfast_directory = openfast_directory
     driver = AOCDriver(openfast_directory + '/build/glue-codes/openfast/openfast')
     input_files = [
-        AOCBladeADFile(case_directory, 'aoc_bladead.yml'),
-        AOCTowerFile(case_directory, 'aoc_tower.yml'),
-        AOCBladeFile(case_directory, 'aoc_blade.yml'),
+        #AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
+        #AOCTowerFile(case_directory, 'AOC_Tower.yml'),
+        AOCBladeFile(case_directory, 'AOC_Blade.yml'),
     ]
     self.expected_output_files = [
-        'aoc_driver.out'
+        'AOC_driver.out'
     ]
     super().__init__(driver, case_directory, input_files)
 

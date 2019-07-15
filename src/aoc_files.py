@@ -133,6 +133,8 @@ class AOCTowerFile(BaseFile):
 
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
+
+    file_string += '---------------------- DISTRIBUTED TOWER PROPERTIES ----------------------------\n'
     
     tt_keys = list(in_dict['Matrix'].keys())
     for i,tk in enumerate(tt_keys):
@@ -248,145 +250,204 @@ class AOCBladeFile(BaseFile):
 
   def __init__(self, parent_directory, filename):
     super().__init__(parent_directory, filename)
-
+  
   def read_t2y(self):
 
     new_dict = {}
-
+    
     key_list = [
-      'station_total',
-      'damp_type'
+      'NBlInpSt',
+      'BldFlDmp(1)',
+      'BldFlDmp(2)',
+      'BldEdDmp(1)',
+      'FlStTunr(1)',
+      'FlStTunr(2)',
+      'AdjBlMs',
+      'AdjFlSt',
+      'AdjEdSt',
+      'BldFl1Sh(2)',
+      'BldFl1Sh(3)',
+      'BldFl1Sh(4)',
+      'BldFl1Sh(5)',
+      'BldFl1Sh(6)',
+      'BldFl2Sh(2)',
+      'BldFl2Sh(3)',
+      'BldFl2Sh(4)',
+      'BldFl2Sh(5)',
+      'BldFl2Sh(6)',
+      'BldEdgSh(2)',
+      'BldEdgSh(3)',
+      'BldEdgSh(4)',
+      'BldEdgSh(5)',
+      'BldEdgSh(6)'
     ]
 
-    sec_start_list = [3]
-    length_list = [1]
+    matching = list(filter(lambda x: 'NBlInpSt' in x, self.data))
+    data_length = self.convert_value(matching[0].split()[0])
+    sec_start_list = [3,8,data_length+17]
+    length_list = [3,5,15]
     
-    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
-    new_dict['Blade Parameters'] = temp_dict
-    
-    temp_key_list = self.data[6].split()
-    temp_quant_list = self.data[7].split()
-    temp_val_list = self.convert_value(self.data[8].split())
+    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+
+    temp_key_list = self.data[14].split()
+    temp_unit_list = self.remove_parens(self.data[15].split())
+   
     temp_dict = {}
+    temp_temp_dict = {}
+    for tk in temp_key_list:
+      temp_temp_dict[tk] = []
 
-    for i, tk in enumerate(temp_key_list):
-
-      temp_dict[tk+temp_quant_list[i]] = temp_val_list[i] 
-
-    new_dict['Damping Coefficient'] = temp_dict 
-
-    line_start = 11
-    line_interval = 15
-    num_intervals = self.convert_value(new_dict['Blade Parameters']['station_total'])
-    temp_dict = {}
-
-    for line_num in range(line_start-1,(line_start+line_interval*num_intervals)-1,line_interval):
+    for i in range(self.convert_value(new_dict['NBlInpSt'])):
       
-      station_loc = self.convert_value(self.data[line_num].strip())
-      current_row = 1
-      temp_temp_dict = {}
-      temp_temp_dict['Stiffness Matrix'] = []
+      for j, tk in enumerate(temp_key_list):
+      
+        temp_value = self.data[17+i-1].split()[j]
+        temp_temp_dict[tk].append(self.convert_value(temp_value))
+        temp_dict[tk] = {
+          'Value': temp_temp_dict[tk],
+          'Unit': temp_unit_list[j]
+        }
 
-      for j in range(1,7):
-        
-        current_mat = 'matrix1'
-        current_name = current_mat + '_row' + str(current_row)
-        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
-        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-        current_row += 1
-
-      current_row = 1
-
-      for j in range(8,14):
-        
-        current_mat = 'matrix2'
-        current_name = current_mat + '_row' + str(current_row)
-        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
-        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-        current_row += 1   
-
-      temp_dict[station_loc] = temp_temp_dict
-
-    new_dict['Distributed Properties'] = temp_dict
+    new_dict['Matrix'] = temp_dict
 
     return new_dict
-
+      
   def read_y2t(self):
 
     in_dict = self.data
 
     file_string = ''
-
-    file_string += '   ------- AOC V1.00.* INDIVIDUAL BLADE INPUT FILE --------------------------\n'
-    # TODO: does this line change every file?
-    file_string += ' Test Format 1\n'
-    file_string += ' ---------------------- BLADE PARAMETERS --------------------------------------\n'
-
-    key_list = [     
-      'station_total',   
-      'damp_type'       
+    file_string += '------- ELASTODYN V1.00.* INDIVIDUAL BLADE INPUT FILE --------------------------\n'
+    # TODO: should this be dynamic?
+    file_string += 'AOC 15/50 blade file.  GJStiff -> EdgEAof are mostly lies.\n'
+    file_string += '---------------------- BLADE PARAMETERS ----------------------------------------\n'
+    
+    key_list = [
+      'NBlInpSt',
+      'BldFlDmp(1)',
+      'BldFlDmp(2)',
+      'BldEdDmp(1)'
     ]
 
     desc_list = [
       '- Number of blade input stations (-)',
-      '- Damping type: 0: no damping; 1: damped'
+      '- Blade flap mode #1 structural damping in percent of critical (%)',
+      '- Blade flap mode #2 structural damping in percent of critical (%)',
+      '- Blade edge mode #1 structural damping in percent of critical (%)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,'Blade Parameters')
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    file_string += '  ---------------------- DAMPING COEFFICIENT------------------------------------\n'
-    
-    temp_string = ''
-    temp_keys = in_dict['Damping Coefficient'].keys()
-    for val in temp_keys:
-      t_string = '  ' + val.split('(')[0]
-      temp_string += t_string
-    
+    file_string += '---------------------- BLADE ADJUSTMENT FACTORS --------------------------------\n'
+
+    key_list = [
+      'FlStTunr(2)',
+      'FlStTunr(1)',
+      'AdjBlMs',
+      'AdjFlSt',
+      'AdjEdSt'
+    ]
+
+    desc_list = [
+      '- Blade flapwise modal stiffness tuner, 1st mode (-)',
+      '- Blade flapwise modal stiffness tuner, 2nd mode (-)',
+      '- Factor to adjust blade mass density (-)',
+      '- Factor to adjust blade flap stiffness (-)',
+      '- Factor to adjust blade edge stiffness (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
-    file_string += '\n'
+
+    file_string += '---------------------- DISTRIBUTED BLADE PROPERTIES ----------------------------\n'
     
+    tt_keys = list(in_dict['Matrix'].keys())
+    for i,tk in enumerate(tt_keys):
+      if (tk == 'BlFract'):
+        ind1 = i
+      if (tk == 'PitchAxis'):
+        ind2 = i
+      if (tk == 'StrcTwst'):
+        ind3 = i
+      if (tk == 'BMassDen'):
+        ind4 = i  
+      if (tk == 'FlpStff'):
+        ind5 = i  
+      if (tk == 'EdgStff'):
+        ind6 = i  
+    rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6] 
+    
+    temp_keys = []
+    for i,v in enumerate(rearrange_list):
+      temp_keys.append(tt_keys[v])
+
     temp_string = ''
-    for val in temp_keys:
-      t_string = '  (' + val.split('(')[1]
-      temp_string += t_string
-    
+    for tk in temp_keys:
+      temp_string += '  '
+      temp_string += tk
     file_string += temp_string
     file_string += '\n'
 
     temp_string = ''
-    for val in temp_keys:
-      t_string = '  ' + str(in_dict['Damping Coefficient'][val])
-      temp_string += t_string
-    
+    for tk in temp_keys:
+      tu = in_dict['Matrix'][tk]['Unit']
+      temp_string += '  '
+      ind_string = '(' + tu + ')'
+      temp_string +=ind_string
     file_string += temp_string
     file_string += '\n'
 
-    file_string += ' ---------------------- DISTRIBUTED PROPERTIES---------------------------------\n'
-    
-    for tk in in_dict['Distributed Properties'].keys():
-      
-      temp_string = '  ' + str(tk) + '\n'
+    num_vals = len(in_dict['Matrix']['BlFract']['Value'])
+
+    for i in range(num_vals):
+      temp_string = ''
+      for tk in temp_keys:
+        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
+        temp_string += '  '
       file_string += temp_string
+      file_string += '\n'
       
-      for ttk in in_dict['Distributed Properties'][tk]['Stiffness Matrix']:
-        
-        temp_key = list(ttk.keys())[0]
-        # current_mat = self.convert_value(temp_key.split('_')[0][-1])
-        current_row = self.convert_value(temp_key[-1])
-        temp_string = ''
+    file_string += '---------------------- BLADE MODE SHAPES ---------------------------------------\n'
+    
+    key_list = [
+      'BldFl1Sh(2)',
+      'BldFl1Sh(3)',
+      'BldFl1Sh(4)',
+      'BldFl1Sh(5)',
+      'BldFl1Sh(6)',
+      'BldFl2Sh(2)',
+      'BldFl2Sh(3)',
+      'BldFl2Sh(4)',
+      'BldFl2Sh(5)',
+      'BldFl2Sh(6)',
+      'BldEdgSh(2)',
+      'BldEdgSh(3)',
+      'BldEdgSh(4)',
+      'BldEdgSh(5)',
+      'BldEdgSh(6)'
+    ]
 
-        for v in ttk[temp_key]:
-          
-          t_string = '   ' + str(v)
-          temp_string += t_string
+    desc_list = [
+      '- Flap mode 1, coeff of x^2',
+      '-            , coeff of x^3',
+      '-            , coeff of x^4',
+      '-            , coeff of x^5',
+      '-            , coeff of x^6',
+      '- Flap mode 2, coeff of x^2',
+      '-            , coeff of x^3',
+      '-            , coeff of x^4',
+      '-            , coeff of x^5',
+      '-            , coeff of x^6',
+      '- Edge mode 1, coeff of x^2',
+      '-            , coeff of x^3',
+      '-            , coeff of x^4',
+      '-            , coeff of x^5',
+      '-            , coeff of x^6'
+   ]
 
-        temp_string += '\n'
-        file_string += temp_string
-
-        if (current_row == 6):
-          
-          file_string += '\n'
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
 
     return file_string
 

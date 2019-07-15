@@ -9,7 +9,7 @@ case_directory = os.path.join(parent_directory,'OpenFAST_Edits/AOC/initial_input
 aoc_input_files = [
   #AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.dat'),
   AOCTowerFile(case_directory, 'AOC_Tower.dat'),
-  #AOCBladeFile(case_directory, 'AOC_Blade.dat')
+  AOCBladeFile(case_directory, 'AOC_Blade.dat')
 ]
 
 for f in aoc_input_files:
