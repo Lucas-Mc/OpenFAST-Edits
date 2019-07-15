@@ -228,7 +228,7 @@ class BaseFile():
     """
     parsed_filename = s.split('/')[-1].replace(in_type,out_type)
 
-    if (in_type == '.inp'):
+    if ((in_type == '.inp') or (in_type == '.dat')):
     
       parsed_filename = parsed_filename.replace('.','_inp.')
     
