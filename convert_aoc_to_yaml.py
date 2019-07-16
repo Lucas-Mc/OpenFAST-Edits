@@ -1,4 +1,4 @@
-from src.aoc_files import AOCBladeADFile,AOCTowerFile,AOCBladeFile
+from src.aoc_files import AOCBladeADFile,AOCTowerFile,AOCBladeFile,AOCFstFile
 import os
 
 # this script converts the input files for a AOC driver case
@@ -7,9 +7,10 @@ import os
 parent_directory = os.path.expanduser('~')
 case_directory = os.path.join(parent_directory,'OpenFAST_Edits/AOC/initial_input_files')
 aoc_input_files = [
+  AOCFstFile(case_directory, 'AOC.fst'),
   #AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.dat'),
-  AOCTowerFile(case_directory, 'AOC_Tower.dat'),
-  AOCBladeFile(case_directory, 'AOC_Blade.dat')
+  #AOCTowerFile(case_directory, 'AOC_Tower.dat'),
+  #AOCBladeFile(case_directory, 'AOC_Blade.dat')
 ]
 
 for f in aoc_input_files:

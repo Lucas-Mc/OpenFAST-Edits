@@ -16,12 +16,15 @@
   - Date: Jun 25 2019
   - Time: 13:30:43
  Execution Info:
-  - Date: 07/15/2019
-  - Time: 13:05:16-0600
+  - Date: 07/16/2019
+  - Time: 13:29:47-0600
+
+ OpenFAST input file heading:
+     FAST Certification Test #01: AWT-27CR2 with many DOFs with fixed yaw error and steady wind
 
 
- FAST_InitializeAll:FAST_Init:FAST_ReadPrimaryFile:Invalid logical input for file "AOC_Blade.inp"
- occurred while trying to read Echo.
+ FAST_InitializeAll:FAST_Init:FAST_ReadPrimaryFile:Invalid numerical input for file "AOC.inp"
+ occurred while trying to read LinTimes.
 
  FAST encountered an error during module initialization.
   Simulation error level: FATAL ERROR
