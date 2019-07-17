@@ -324,4 +324,27 @@ class BaseFile():
 
     return file_string
 
+  def parse_filetype_twocol(self, contents, key_list, sec_start_list, length_list):
+    """
+    VALUE  DESC
+    contents: the contents of the data file
+    key_list: list of keys to be added to the dictionary
+    sec_start_list: list of starting line numbers for dictionary values
+    length_list: list of the lengths of each section
+    """
+    new_dict = {}
+    current_sec_ind = 0
+    current_line_ind = 0
 
+    for i,k in enumerate(key_list):
+
+      current_line = sec_start_list[current_sec_ind] + current_line_ind
+      new_dict[k] = self.convert_value(contents[current_line].split('  ')[0])
+      current_line_ind += 1
+
+      if (i >= sum(length_list[:(current_sec_ind+1)])):
+
+        current_sec_ind += 1
+        current_line_ind = 0
+
+    return new_dict

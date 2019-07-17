@@ -3,9 +3,9 @@ Azimuth: 0
 BlPitch(1): 1.54
 BlPitch(2): 1.54
 BlPitch(3): 1.54
-BldFile(1): '"../AOC/AOC_Blade.dat"'
-BldFile(2): '"../AOC/AOC_Blade.dat"'
-BldFile(3): '"../AOC/AOC_Blade.dat"'
+BldFile(1): '"AOC_Blade.inp"'
+BldFile(2): '"AOC_Blade.inp"'
+BldFile(3): '"AOC_Blade.inp"'
 BldGagNd:
 - 2
 - 4
@@ -13,7 +13,7 @@ BldGagNd:
 - 8
 - 9
 BldNodes: 10
-DT: 0.005
+DT: 0.004
 DTTorDmp: 100000
 DTTorSpr: 600000
 DecFact: 10
@@ -127,7 +127,7 @@ TwFADOF2: 'False'
 TwSSDOF1: 'False'
 TwSSDOF2: 'False'
 Twr2Shft: 0.6
-TwrFile: '"../AOC/AOC_Tower.dat"'
+TwrFile: '"AOC_Tower.inp"'
 TwrGagNd: 0
 TwrNodes: 11
 UndSling: 0

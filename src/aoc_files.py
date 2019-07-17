@@ -52,7 +52,7 @@ class AOCFstFile(BaseFile):
       'OutFmt',    
       'Linearize',    
       'NLinTimes',    
-      'LinTimes',    
+      # 'LinTimes',    
       'LinInputs', 
       'LinOutputs', 
       'LinOutJac', 
@@ -63,12 +63,16 @@ class AOCFstFile(BaseFile):
       'VTK_fps'
     ] 
 
-    matching = list(filter(lambda x: 'NTwInpSt' in x, self.data))
-    # data_length = self.convert_value(matching[0].split()[0])
-    sec_start_list = [3,12,21,33,42,50]
-    length_list = [7,8,11,8,7,4]
+    sec_start_list = [3,12,21,33,42,45,50]
+    length_list = [7,8,11,8,2,4,4]
     
     new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+
+    matching = list(filter(lambda x: 'LinTimes' in x, self.data))
+    # data_length = self.convert_value(matching[0].split()[0])
+    temp_ln = matching[1].split('LinTimes')[0].split(',')
+    final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
+    new_dict['LinTimes'] = final_ln
 
     return new_dict
       
@@ -198,8 +202,28 @@ class AOCFstFile(BaseFile):
 
     key_list = [
       'Linearize',
-      'NLinTimes',
-      'LinTimes',
+      'NLinTimes'
+    ]
+
+    desc_list = [
+      '- Linearization analysis (flag)',
+      '- Number of times to linearize (-) [>=1] [unused if Linearize=False]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    for i,num in enumerate(in_dict['LinTimes']):
+      if (i != len(in_dict['LinTimes'])-1):
+        temp_string = str(num) + ',  '
+        file_string += temp_string
+      else:
+        temp_string = str(num) + '  '
+        file_string += temp_string
+
+    file_string += 'LinTimes        - List of times at which to linearize (s) [1 to NLinTimes] [unused if Linearize=False]\n'
+
+    key_list = [
       'LinInputs',
       'LinOutputs',
       'LinOutJac',
@@ -207,9 +231,6 @@ class AOCFstFile(BaseFile):
     ]
 
     desc_list = [
-      '- Linearization analysis (flag)',
-      '- Number of times to linearize (-) [>=1] [unused if Linearize=False]',
-      '- List of times at which to linearize (s) [1 to NLinTimes] [unused if Linearize=False]',
       '- Inputs included in linearization (switch) {0=none; 1=standard; 2=all module inputs (debug)} [unused if Linearize=False]',
       '- Outputs included in linearization (switch) {0=none; 1=from OutList(s); 2=all module outputs (debug)} [unused if Linearize=False]',
       '- Include full Jacobians in linearization output (for debug) (flag) [unused if Linearize=False; used only if LinInputs=LinOutputs=2]',
