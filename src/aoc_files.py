@@ -240,6 +240,524 @@ class AOCFstFile(BaseFile):
 
     return file_string
 
+class AOCElastoDynFile(BaseFile):
+  """
+  Input file for the openfast driver
+  """
+
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
+
+  def read_t2y(self):
+
+    new_dict = {}
+    
+    key_list = [
+      'Echo',  
+      'Method',  
+      'DT',  
+      'Gravity',  
+      'FlapDOF1',  
+      'FlapDOF2',  
+      'EdgeDOF',  
+      'TeetDOF',  
+      'DrTrDOF',  
+      'GenDOF',  
+      'YawDOF',  
+      'TwFADOF1',  
+      'TwFADOF2',  
+      'TwSSDOF1',  
+      'TwSSDOF2',  
+      'PtfmSgDOF',  
+      'PtfmSwDOF',  
+      'PtfmHvDOF',  
+      'PtfmRDOF',  
+      'PtfmPDOF',  
+      'PtfmYDOF',  
+      'OoPDefl',  
+      'IPDefl',  
+      'BlPitch(1)',  
+      'BlPitch(2)',  
+      'BlPitch(3)',  
+      'TeetDefl',  
+      'Azimuth',  
+      'RotSpeed',  
+      'NacYaw',  
+      'TTDspFA',  
+      'TTDspSS',  
+      'PtfmSurge',  
+      'PtfmSway',  
+      'PtfmHeave',  
+      'PtfmRoll',  
+      'PtfmPitch',  
+      'PtfmYaw',  
+      'NumBl',  
+      'TipRad',  
+      'HubRad',  
+      'PreCone(1)',  
+      'PreCone(2)',  
+      'PreCone(3)',  
+      'HubCM',  
+      'UndSling',  
+      'Delta3',  
+      'AzimB1Up',  
+      'OverHang',  
+      'ShftGagL',  
+      'ShftTilt',  
+      'NacCMxn',  
+      'NacCMyn',  
+      'NacCMzn',  
+      'NcIMUxn',  
+      'NcIMUyn',  
+      'NcIMUzn',  
+      'Twr2Shft',  
+      'TowerHt',  
+      'TowerBsHt',  
+      'PtfmCMxt',  
+      'PtfmCMyt',  
+      'PtfmCMzt',  
+      'PtfmRefzt',  
+      'TipMass(1)',  
+      'TipMass(2)',  
+      'TipMass(3)',  
+      'HubMass',  
+      'HubIner',  
+      'GenIner',  
+      'NacMass',  
+      'NacYIner',  
+      'YawBrMass',  
+      'PtfmMass',  
+      'PtfmRIner',  
+      'PtfmPIner',  
+      'PtfmYIner',  
+      'BldNodes',  
+      'BldFile(1)',  
+      'BldFile(2)',  
+      'BldFile(3)',  
+      'TeetMod',  
+      'TeetDmpP',  
+      'TeetDmp',  
+      'TeetCDmp',  
+      'TeetSStP',  
+      'TeetHStP',  
+      'TeetSSSp',  
+      'TeetHSSp',  
+      'GBoxEff',  
+      'GBRatio',  
+      'DTTorSpr',  
+      'DTTorDmp',  
+      'Furling',  
+      'FurlFile',  
+      'TwrNodes',  
+      'TwrFile',  
+      'SumPrint',  
+      'OutFile',  
+      'TabDelim',  
+      'OutFmt',  
+      'TStart',  
+      'DecFact',  
+      'NTwGages',  
+      'TwrGagNd',  
+      'NBlGages'  
+    ] 
+
+    # matching = list(filter(lambda x: 'NTwInpSt' in x, self.data))
+    # data_length = self.convert_value(matching[0].split()[0])
+    sec_start_list = [3,7,9,27,45,72,86,91,100,105,108,111]
+    length_list = [2,1,17,17,26,13,4,8,4,2,2,9]
+    
+    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+
+    temp_ln = self.data[120].split('BldGagNd')[0].split(',')
+    final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
+    new_dict['BldGagNd'] = final_ln
+
+    start_ind = 122
+    end_ind = len(self.data)-2
+    temp_dict = {}
+
+    for i in range(start_ind,end_ind):
+      current_line = self.data[i]
+      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
+    
+    new_dict['OutList'] = temp_dict
+
+    return new_dict
+      
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+    file_string += '------- ELASTODYN v1.03.* INPUT FILE -------------------------------------------\n'
+    # TODO: should this be dynamic?
+    file_string += 'FAST certification Test #06: AOC 15/50 with many DOFs with gen start loss of grid and tip-brake shutdown. Many parameters are pure fiction.\n'
+    file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
+    
+    key_list = [
+      'Echo',  
+      'Method',
+      'DT' 
+    ]
+
+    desc_list = [
+      '- Echo input data to "<RootName>.ech" (flag)',
+      '- Integration method: {1: RK4, 2: AB4, or 3: ABM4} (-)',
+      '- Integration time step (s)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- ENVIRONMENTAL CONDITION ---------------------------------\n'
+
+    key_list = [
+      'Gravity'
+    ]
+
+    desc_list = [
+      '- Gravitational acceleration (m/s^2)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- DEGREES OF FREEDOM --------------------------------------\n'
+    
+    key_list = [
+      'FlapDOF1',
+      'FlapDOF2',
+      'EdgeDOF',
+      'TeetDOF',
+      'DrTrDOF',
+      'GenDOF',
+      'YawDOF',
+      'TwFADOF1',
+      'TwFADOF2',
+      'TwSSDOF1',
+      'TwSSDOF2',
+      'PtfmSgDOF',
+      'PtfmSwDOF',
+      'PtfmHvDOF',
+      'PtfmRDOF',
+      'PtfmPDOF',
+      'PtfmYDOF'
+    ]
+
+    desc_list = [
+      '- First flapwise blade mode DOF (flag)',
+      '- Second flapwise blade mode DOF (flag)',
+      '- First edgewise blade mode DOF (flag)',
+      '- Rotor-teeter DOF (flag) [unused for 3 blades]',
+      '- Drivetrain rotational-flexibility DOF (flag)',
+      '- Generator DOF (flag)',
+      '- Yaw DOF (flag)',
+      '- First fore-aft tower bending-mode DOF (flag)',
+      '- Second fore-aft tower bending-mode DOF (flag)',
+      '- First side-to-side tower bending-mode DOF (flag)',
+      '- Second side-to-side tower bending-mode DOF (flag)',
+      '- Platform horizontal surge translation DOF (flag)',
+      '- Platform horizontal sway translation DOF (flag)',
+      '- Platform vertical heave translation DOF (flag)',
+      '- Platform roll tilt rotation DOF (flag)',
+      '- Platform pitch tilt rotation DOF (flag)',
+      '- Platform yaw rotation DOF (flag)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- INITIAL CONDITIONS --------------------------------------\n'
+    
+    key_list = [
+      'OoPDefl',
+      'IPDefl',
+      'BlPitch(1)',
+      'BlPitch(2)',
+      'BlPitch(3)',
+      'TeetDefl',
+      'Azimuth',
+      'RotSpeed',
+      'NacYaw',
+      'TTDspFA',
+      'TTDspSS',
+      'PtfmSurge',
+      'PtfmSway',
+      'PtfmHeave',
+      'PtfmRoll',
+      'PtfmPitch',
+      'PtfmYaw',
+    ]
+
+    desc_list = [
+      '- Initial out-of-plane blade-tip displacement (meters)',
+      '- Initial in-plane blade-tip deflection (meters)',
+      '- Blade 1 initial pitch (degrees)',
+      '- Blade 2 initial pitch (degrees)',
+      '- Blade 3 initial pitch (degrees) [unused for 2 blades]',
+      '- Initial or fixed teeter angle (degrees) [unused for 3 blades]',
+      '- Initial azimuth angle for blade 1 (degrees)',
+      '- Initial or fixed rotor speed (rpm)',
+      '- Initial or fixed nacelle-yaw angle (degrees)',
+      '- Initial fore-aft tower-top displacement (meters)',
+      '- Initial side-to-side tower-top displacement (meters)',
+      '- Initial or fixed horizontal surge translational displacement of platform (meters)',
+      '- Initial or fixed horizontal sway translational displacement of platform (meters)',
+      '- Initial or fixed vertical heave translational displacement of platform (meters)',
+      '- Initial or fixed roll tilt rotational displacement of platform (degrees)',
+      '- Initial or fixed pitch tilt rotational displacement of platform (degrees)',
+      '- Initial or fixed yaw rotational displacement of platform (degrees)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- TURBINE CONFIGURATION -----------------------------------\n'
+
+    key_list = [
+      'NumBl',
+      'TipRad',
+      'HubRad',
+      'PreCone(1)',
+      'PreCone(2)',
+      'PreCone(3)',
+      'HubCM',
+      'UndSling',
+      'Delta3',
+      'AzimB1Up',
+      'OverHang',
+      'ShftGagL',
+      'ShftTilt',
+      'NacCMxn',
+      'NacCMyn',
+      'NacCMzn',
+      'NcIMUxn',
+      'NcIMUyn',
+      'NcIMUzn',
+      'Twr2Shft',
+      'TowerHt',
+      'TowerBsHt',
+      'PtfmCMxt',
+      'PtfmCMyt',
+      'PtfmCMzt',
+      'PtfmRefzt'
+    ]
+
+    desc_list = [
+      '- Number of blades (-)',
+      '- The distance from the rotor apex to the blade tip (meters)',
+      '- The distance from the rotor apex to the blade root (meters)',
+      '- Blade 1 cone angle (degrees)',
+      '- Blade 2 cone angle (degrees)',
+      '- Blade 3 cone angle (degrees) [unused for 2 blades]',
+      '- Distance from rotor apex to hub mass [positive downwind] (meters)',
+      '- Undersling length [distance from teeter pin to the rotor apex] (meters) [unused for 3 blades]',
+      '- Delta-3 angle for teetering rotors (degrees) [unused for 3 blades]',
+      '- Azimuth value to use for I/O when blade 1 points up (degrees)',
+      '- Distance from yaw axis to rotor apex [3 blades] or teeter pin [2 blades] (meters)',
+      '- Distance from rotor apex [3 blades] or teeter pin [2 blades] to shaft strain gages [positive for upwind rotors] (meters)',
+      '- Rotor shaft tilt angle (degrees)',
+      '- Downwind distance from the tower-top to the nacelle CM (meters)',
+      '- Lateral  distance from the tower-top to the nacelle CM (meters)',
+      '- Vertical distance from the tower-top to the nacelle CM (meters)',
+      '- Downwind distance from the tower-top to the nacelle IMU (meters)',
+      '- Lateral  distance from the tower-top to the nacelle IMU (meters)',
+      '- Vertical distance from the tower-top to the nacelle IMU (meters)',
+      '- Vertical distance from the tower-top to the rotor shaft (meters)',
+      '- Height of tower above ground level [onshore] or MSL [offshore] (meters)',
+      '- Height of tower base above ground level [onshore] or MSL [offshore] (meters)',
+      '- Downwind distance from the ground level [onshore] or MSL [offshore] to the platform CM (meters)',
+      '- Lateral distance from the ground level [onshore] or MSL [offshore] to the platform CM (meters)',
+      '- Vertical distance from the ground level [onshore] or MSL [offshore] to the platform CM (meters)',
+      '- Vertical distance from the ground level [onshore] or MSL [offshore] to the platform reference point (meters)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- MASS AND INERTIA ----------------------------------------\n'
+
+    key_list = [
+      'TipMass(1)',
+      'TipMass(2)',
+      'TipMass(3)',
+      'HubMass',
+      'HubIner',
+      'GenIner',
+      'NacMass',
+      'NacYIner',
+      'YawBrMass',
+      'PtfmMass',
+      'PtfmRIner',
+      'PtfmPIner',
+      'PtfmYIner'
+    ]
+
+    desc_list = [
+      '- Tip-brake mass, blade 1 (kg)',
+      '- Tip-brake mass, blade 2 (kg)',
+      '- Tip-brake mass, blade 3 (kg) [unused for 2 blades]',
+      '- Hub mass (kg)',
+      '- Hub inertia about rotor axis [3 blades] or teeter axis [2 blades] (kg m^2)',
+      '- Generator inertia about HSS (kg m^2)',
+      '- Nacelle mass (kg)',
+      '- Nacelle inertia about yaw axis (kg m^2)',
+      '- Yaw bearing mass (kg)',
+      '- Platform mass (kg)',
+      '- Platform inertia for roll tilt rotation about the platform CM (kg m^2)',
+      '- Platform inertia for pitch tilt rotation about the platform CM (kg m^2)',
+      '- Platform inertia for yaw rotation about the platform CM (kg m^2)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- BLADE ---------------------------------------------------\n'
+
+    key_list = [
+      'BldNodes',
+      'BldFile(1)',
+      'BldFile(2)',
+      'BldFile(3)'
+    ]
+
+    desc_list = [
+      '- Number of blade nodes (per blade) used for analysis (-)',
+      '- Name of file containing properties for blade 1 (quoted string)',
+      '- Name of file containing properties for blade 2 (quoted string)',
+      '- Name of file containing properties for blade 3 (quoted string) [unused for 2 blades]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- ROTOR-TEETER --------------------------------------------\n'
+
+    key_list = [
+      'TeetMod',
+      'TeetDmpP',
+      'TeetDmp',
+      'TeetCDmp',
+      'TeetSStP',
+      'TeetHStP',
+      'TeetSSSp',
+      'TeetHSSp'
+    ]
+
+    desc_list = [
+      '- Rotor-teeter spring/damper model {0: none, 1: standard, 2: user-defined from routine UserTeet} (switch) [unused for 3 blades]',
+      '- Rotor-teeter damper position (degrees) [used only for 2 blades and when TeetMod=1]',
+      '- Rotor-teeter damping constant (N-m/(rad/s)) [used only for 2 blades and when TeetMod=1]',
+      '- Rotor-teeter rate-independent Coulomb-damping moment (N-m) [used only for 2 blades and when TeetMod=1]',
+      '- Rotor-teeter soft-stop position (degrees) [used only for 2 blades and when TeetMod=1]',
+      '- Rotor-teeter hard-stop position (degrees) [used only for 2 blades and when TeetMod=1]',
+      '- Rotor-teeter soft-stop linear-spring constant (N-m/rad) [used only for 2 blades and when TeetMod=1]',
+      '- Rotor-teeter hard-stop linear-spring constant (N-m/rad) [used only for 2 blades and when TeetMod=1]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- DRIVETRAIN ----------------------------------------------\n'
+
+    key_list = [
+      'GBoxEff',
+      'GBRatio',
+      'DTTorSpr',
+      'DTTorDmp'
+    ]
+
+    desc_list = [
+      '- Gearbox efficiency (%)',
+      '- Gearbox ratio (-)',
+      '- Drivetrain torsional spring (N-m/rad)',
+      '- Drivetrain torsional damper (N-m/(rad/s))'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- FURLING -------------------------------------------------\n'
+
+    key_list = [
+      'Furling',
+      'FurlFile'
+    ]
+
+    desc_list = [
+      '- Read in additional model properties for furling turbine (flag) [must currently be FALSE)',
+      '- Name of file containing furling properties (quoted string) [unused when Furling=False]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- TOWER ---------------------------------------------------\n'
+
+    key_list = [
+      'TwrNodes',
+      'TwrFile'
+    ]
+
+    desc_list = [
+      '- Number of tower nodes used for analysis (-)',
+      '- Name of file containing tower properties (quoted string)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- OUTPUT --------------------------------------------------\n'
+
+    key_list = [
+      'SumPrint',
+      'OutFile',
+      'TabDelim',
+      'OutFmt',
+      'TStart',
+      'DecFact',
+      'NTwGages',
+      'TwrGagNd',
+      'NBlGages'
+    ]
+
+    desc_list = [
+      '- Print summary data to "<RootName>.sum" (flag)',
+      '- Switch to determine where output will be placed: {1: in module output file only; 2: in glue code output file only; 3: both} (currently unused)',
+      '- Use tab delimiters in text tabular output file? (flag) (currently unused)',
+      '- Format used for text tabular output (except time).  Resulting field should be 10 characters. (quoted string) (currently unused)',
+      '- Time to begin tabular output (s) (currently unused)',
+      '- Decimation factor for tabular output {1: output every time step} (-) (currently unused)',
+      '- Number of tower nodes that have strain gages for output [0 to 9] (-)',
+      '- List of tower nodes that have strain gages [1 to TwrNodes] (-) [unused if NTwGages=0]',
+      '- Number of blade nodes that have strain gages for output [0 to 9] (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    for i,num in enumerate(in_dict['BldGagNd']):
+      if (i != len(in_dict['BldGagNd'])-1):
+        temp_string = str(num) + ',  '
+        file_string += temp_string
+      else:
+        temp_string = str(num) + '  '
+        file_string += temp_string
+    
+    file_string += 'BldGagNd    - List of blade nodes that have strain gages [1 to BldNodes] (-) [unused if NBlGages=0]\n'
+
+    file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
+    for outp in in_dict['OutList'].keys():
+      file_string += outp
+      file_string += '  - '
+      file_string += in_dict['OutList'][outp]
+      file_string += '\n'
+
+    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
+    file_string += '---------------------------------------------------------------------------------------\n'
+
+    return file_string
+
 
 class AOCTowerFile(BaseFile):
   """

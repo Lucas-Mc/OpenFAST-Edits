@@ -16,15 +16,16 @@
   - Date: Jun 25 2019
   - Time: 13:30:43
  Execution Info:
-  - Date: 07/16/2019
-  - Time: 13:29:47-0600
+  - Date: 07/17/2019
+  - Time: 11:41:28-0600
 
  OpenFAST input file heading:
-     FAST Certification Test #01: AWT-27CR2 with many DOFs with fixed yaw error and steady wind
+     FAST certification Test #06: AOC 15/50 with many DOFs with gen start loss of grid and
+     tip-brake shutdown. Many parameters are pure fiction.
 
 
- FAST_InitializeAll:FAST_Init:FAST_ReadPrimaryFile:Invalid numerical input for file "AOC.inp"
- occurred while trying to read LinTimes.
+ FAST_InitializeAll:FAST_Init:FAST_ReadPrimaryFile:Invalid AbortLevel specified in FAST input
+ file. Valid entries are "WARNING", "SEVERE", or "FATAL".
 
  FAST encountered an error during module initialization.
   Simulation error level: FATAL ERROR
