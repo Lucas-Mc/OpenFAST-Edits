@@ -1347,3 +1347,695 @@ class AOCBladeADFile(BaseFile):
     return file_string
 
 
+class AOCInflowWind(BaseFile):
+  """
+  Input file for the inflow wind
+  """
+
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
+
+  def read_t2y(self):
+
+    new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+    
+    key_list = [
+      'Echo',          
+      'WindType',      
+      'PropagationDir',
+      'NWindVel',      
+      'WindVxiList',   
+      'WindVyiList',   
+      'WindVziList',   
+      'HWindSpeed',    
+      'RefHt',        
+      'PLexp',         
+      'Filename',    
+      'RefHt',       
+      'RefLength',   
+      'Filename',    
+      'FilenameRoot',
+      'TowerFile',   
+      'FileName_u',
+      'FileName_v',
+      'FileName_w',
+      'nx',         
+      'ny',         
+      'nz',         
+      'dx',         
+      'dy',         
+      'dz',         
+      'RefHt',     
+      'ScaleMethod',
+      'SFx',        
+      'SFy',        
+      'SFz',        
+      'SigmaFx',    
+      'SigmaFy',    
+      'SigmaFz',    
+      'URef',       
+      'WindProfile',
+      'PLExp',      
+      'Z0',         
+      'SumPrint'   
+    ] 
+
+    sec_start_list = [3,11,15,19,21,24,35,43,48]
+    length_list = [6,3,3,1,2,10,7,4,1]
+    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    start_ind = 50
+    end_ind = len(self.data)-2
+    temp_dict = {}
+
+    for i in range(start_ind,end_ind):
+      current_line = self.data[i]
+      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
+    
+    new_dict['OutList'] = temp_dict
+
+    return new_dict
+      
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+    file_string += in_dict['line1']
+    file_string += in_dict['line2']
+    file_string += '---------------------------------------------------------------------------------------------------------------\n'
+
+    key_list = [
+      'Echo',
+      'WindType',
+      'PropagationDir',
+      'NWindVel',
+      'WindVxiList',
+      'WindVyiList',
+      'WindVziList'
+    ]
+
+    desc_list = [
+      '- Echo input data to <RootName>.ech (flag)',
+      '- switch for wind file type (1=steady; 2=uniform; 3=binary TurbSim FF; 4=binary Bladed-style FF; 5=HAWC format; 6=User defined)',
+      '- Direction of wind propagation (meteoroligical rotation from aligned with X (positive rotates towards -Y) -- degrees)',
+      '- Number of points to output the wind velocity    (0 to 9)',
+      '- List of coordinates in the inertial X direction (m)',
+      '- List of coordinates in the inertial Y direction (m)',
+      '- List of coordinates in the inertial Z direction (m)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '================== Parameters for Steady Wind Conditions [used only for WindType = 1] =========================\n'
+
+    key_list = [
+      'HWindSpeed',
+      'RefHt',
+      'PLexp'
+    ]
+
+    desc_list = [
+      '- Horizontal windspeed                            (m/s)',
+      '- Reference height for horizontal wind speed      (m)',
+      '- Power law exponent                              (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '================== Parameters for Uniform wind file   [used only for WindType = 2] ============================\n'
+    
+    key_list = [
+      'Filename',
+      'RefHt',
+      'RefLength'
+    ]
+
+    desc_list = [
+      '- Filename of time series data for uniform wind field.      (-)',
+      '- Reference height for horizontal wind speed                (m)',
+      '- Reference length for linear horizontal and vertical sheer (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '================== Parameters for Binary TurbSim Full-Field files   [used only for WindType = 3] ==============\n'
+    
+    key_list = [
+      'Filename'
+    ]
+
+    desc_list = [
+      '- Name of the Full field wind file to use (.bts)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '================== Parameters for Binary Bladed-style Full-Field files   [used only for WindType = 4] =========\n'
+
+    key_list = [
+      'FilenameRoot',
+      'TowerFile'
+    ]
+
+    desc_list = [
+      '- Rootname of the full-field wind file to use (.wnd, .sum)',
+      '- Have tower file (.twr) (flag)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '================== Parameters for HAWC-format binary files  [Only used with WindType = 5] =====================\n'
+
+    key_list = [
+      'FileName_u',
+      'FileName_v',
+      'FileName_w',
+      'nx',
+      'ny',
+      'nz',
+      'dx',
+      'dy',
+      'dz',
+      'RefHt'
+    ]
+
+    desc_list = [
+      '- name of the file containing the u-component fluctuating wind (.bin)',
+      '- name of the file containing the v-component fluctuating wind (.bin)',
+      '- name of the file containing the w-component fluctuating wind (.bin)',
+      '- number of grids in the x direction (in the 3 files above) (-)',
+      '- number of grids in the y direction (in the 3 files above) (-)',
+      '- number of grids in the z direction (in the 3 files above) (-)',
+      '- distance (in meters) between points in the x direction    (m)',
+      '- distance (in meters) between points in the y direction    (m)',
+      '- distance (in meters) between points in the z direction    (m)',
+      '- reference height; the height (in meters) of the vertical center of the grid (m)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '  -------------   Scaling parameters for turbulence   ---------------------------------------------------------\n'
+
+    key_list = [
+      'ScaleMethod',
+      'SFx',
+      'SFy',
+      'SFz',
+      'SigmaFx',
+      'SigmaFy',
+      'SigmaFz'
+    ]
+
+    desc_list = [
+      '- Turbulence scaling method   [0 = none, 1 = direct scaling, 2 = calculate scaling factor based on a desired standard deviation]',
+      '- Turbulence scaling factor for the x direction (-)   [ScaleMethod=1]',
+      '- Turbulence scaling factor for the y direction (-)   [ScaleMethod=1]',
+      '- Turbulence scaling factor for the z direction (-)   [ScaleMethod=1]',
+      '- Turbulence standard deviation to calculate scaling from in x direction (m/s)    [ScaleMethod=2]',
+      '- Turbulence standard deviation to calculate scaling from in y direction (m/s)    [ScaleMethod=2]',
+      '- Turbulence standard deviation to calculate scaling from in z direction (m/s)    [ScaleMethod=2]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '  -------------   Mean wind profile parameters (added to HAWC-format files)   ---------------------------------\n'
+
+    key_list = [
+      'URef',
+      'WindProfile',
+      'PLExp',
+      'Z0'
+    ]
+
+    desc_list = [
+      '- Mean u-component wind speed at the reference height (m/s)',
+      '- Wind profile type (0=constant;1=logarithmic,2=power law)',
+      '- Power law exponent (-) (used for PL wind profile type only)',
+      '- Surface roughness length (m) (used for LG wind profile type only)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '====================== OUTPUT ==================================================\n'
+
+    key_list = [
+      'SumPrint'
+    ]
+
+    desc_list = [
+      '- Print summary data to <RootName>.IfW.sum (flag)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
+    for outp in in_dict['OutList'].keys():
+      file_string += outp
+      file_string += '  - '
+      file_string += in_dict['OutList'][outp]
+      file_string += '\n'
+
+    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
+    file_string += '---------------------------------------------------------------------------------------\n'
+
+    return file_string
+
+
+class AOCServoDyn(BaseFile):
+  """
+  Input file for the servodyn
+  """
+
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
+
+  def read_t2y(self):
+
+    new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+    
+    key_list = [
+      'Echo', 
+      'DT', 
+      'PCMode', 
+      'TPCOn', 
+      'TPitManS(1)', 
+      'TPitManS(2)', 
+      'TPitManS(3)', 
+      'PitManRat(1)', 
+      'PitManRat(2)', 
+      'PitManRat(3)', 
+      'BlPitchF(1)', 
+      'BlPitchF(2)', 
+      'BlPitchF(3)', 
+      'VSContrl', 
+      'GenModel', 
+      'GenEff', 
+      'GenTiStr', 
+      'GenTiStp', 
+      'SpdGenOn', 
+      'TimGenOn', 
+      'TimGenOf', 
+      'VS_RtGnSp', 
+      'VS_RtTq', 
+      'VS_Rgn2K', 
+      'VS_SlPc', 
+      'SIG_SlPc', 
+      'SIG_SySp', 
+      'SIG_RtTq', 
+      'SIG_PORt', 
+      'TEC_Freq', 
+      'TEC_NPol', 
+      'TEC_SRes', 
+      'TEC_RRes', 
+      'TEC_VLL', 
+      'TEC_SLR', 
+      'TEC_RLR', 
+      'TEC_MR', 
+      'HSSBrMode', 
+      'THSSBrDp', 
+      'HSSBrDT', 
+      'HSSBrTqF', 
+      'YCMode', 
+      'TYCOn', 
+      'YawNeut', 
+      'YawSpr', 
+      'YawDamp', 
+      'TYawManS', 
+      'YawManRat', 
+      'NacYawF', 
+      'CompNTMD', 
+      'NTMDfile', 
+      'CompTTMD', 
+      'TTMDfile', 
+      'DLL_FileName', 
+      'DLL_InFile', 
+      'DLL_ProcName', 
+      'DLL_DT', 
+      'DLL_Ramp', 
+      'BPCutoff', 
+      'NacYaw_North', 
+      'Ptch_Cntrl', 
+      'Ptch_SetPnt', 
+      'Ptch_Min', 
+      'Ptch_Max', 
+      'PtchRate_Min', 
+      'PtchRate_Max', 
+      'Gain_OM', 
+      'GenSpd_MinOM', 
+      'GenSpd_MaxOM', 
+      'GenSpd_Dem', 
+      'GenTrq_Dem', 
+      'GenPwr_Dem', 
+      'DLL_NumTrq', 
+      'SumPrint', 
+      'OutFile', 
+      'TabDelim', 
+      'OutFmt', 
+      'TStart'
+    ] 
+
+    sec_start_list = [3,6,18,27,32,37,46,51,60,65,85,89]
+    length_list = [1,11,8,4,4,8,4,8,4,19,1,5]
+    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    start_ind = 95
+    end_ind = len(self.data)-2
+    temp_dict = {}
+
+    for i in range(start_ind,end_ind):
+      current_line = self.data[i]
+      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
+    
+    new_dict['OutList'] = temp_dict
+
+    return new_dict
+      
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+    file_string += in_dict['line1']
+    file_string += in_dict['line2']
+    file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
+
+    key_list = [
+      'Echo',
+      'DT'
+    ]
+
+    desc_list = [
+      '- Echo input data to <RootName>.ech (flag)',
+      '- Communication interval for controllers (s) (or "default")'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- PITCH CONTROL -------------------------------------------\n'
+
+    key_list = [
+      'PCMode',
+      'TPCOn',
+      'TPitManS(1)',
+      'TPitManS(2)',
+      'TPitManS(3)',
+      'PitManRat(1)',
+      'PitManRat(2)',
+      'PitManRat(3)',
+      'BlPitchF(1)',
+      'BlPitchF(2)',
+      'BlPitchF(3)'
+    ]
+
+    desc_list = [
+      '- Pitch control mode {0: none, 3: user-defined from routine PitchCntrl, 4: user-defined from Simulink/Labview, 5: user-defined from Bladed-style DLL} (switch)',
+      '- Time to enable active pitch control (s) [unused when PCMode=0]',
+      '- Time to start override pitch maneuver for blade 1 and end standard pitch control (s)',
+      '- Time to start override pitch maneuver for blade 2 and end standard pitch control (s)',
+      '- Time to start override pitch maneuver for blade 3 and end standard pitch control (s) [unused for 2 blades]',
+      '- Pitch rate at which override pitch maneuver heads toward final pitch angle for blade 1 (deg/s)',
+      '- Pitch rate at which override pitch maneuver heads toward final pitch angle for blade 2 (deg/s)',
+      '- Pitch rate at which override pitch maneuver heads toward final pitch angle for blade 3 (deg/s) [unused for 2 blades]',
+      '- Blade 1 final pitch for pitch maneuvers (degrees)',
+      '- Blade 2 final pitch for pitch maneuvers (degrees)',
+      '- Blade 3 final pitch for pitch maneuvers (degrees) [unused for 2 blades]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- GENERATOR AND TORQUE CONTROL ----------------------------\n'
+    
+    key_list = [
+      'VSContrl',
+      'GenModel',
+      'GenEff',
+      'GenTiStr',
+      'GenTiStp',
+      'SpdGenOn',
+      'TimGenOn',
+      'TimGenOf'
+    ]
+
+    desc_list = [
+      '- Variable-speed control mode {0: none, 1: simple VS, 3: user-defined from routine UserVSCont, 4: user-defined from Simulink/Labview, 5: user-defined from Bladed-style DLL} (switch)',
+      '- Generator model {1: simple, 2: Thevenin, 3: user-defined from routine UserGen} (switch) [used only when VSContrl=0]',
+      '- Generator efficiency [ignored by the Thevenin and user-defined generator models] (%)',
+      '- Method to start the generator {T: timed using TimGenOn, F: generator speed using SpdGenOn} (flag)',
+      '- Method to stop the generator {T: timed using TimGenOf, F: when generator power = 0} (flag)',
+      '- Generator speed to turn on the generator for a startup (HSS speed) (rpm) [used only when GenTiStr=False]',
+      '- Time to turn on the generator for a startup (s) [used only when GenTiStr=True]',
+      '- Time to turn off the generator (s) [used only when GenTiStp=True]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- SIMPLE VARIABLE-SPEED TORQUE CONTROL --------------------\n'
+    
+    key_list = [
+      'VS_RtGnSp',
+      'VS_RtTq',
+      'VS_Rgn2K',
+      'VS_SlPc'
+    ]
+
+    desc_list = [
+      '- Rated generator speed for simple variable-speed generator control (HSS side) (rpm) [used only when VSContrl=1]',
+      '- Rated generator torque/constant generator torque in Region 3 for simple variable-speed generator control (HSS side) (N-m) [used only when VSContrl=1]',
+      '- Generator torque constant in Region 2 for simple variable-speed generator control (HSS side) (N-m/rpm^2) [used only when VSContrl=1]',
+      '- Rated generator slip percentage in Region 2 1/2 for simple variable-speed generator control (%) [used only when VSContrl=1]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- SIMPLE INDUCTION GENERATOR ------------------------------\n'
+
+    key_list = [
+      'SIG_SlPc',
+      'SIG_SySp',
+      'SIG_RtTq',
+      'SIG_PORt'
+    ]
+
+    desc_list = [
+      '- Rated generator slip percentage (%) [used only when VSContrl=0 and GenModel=1]',
+      '- Synchronous (zero-torque) generator speed (rpm) [used only when VSContrl=0 and GenModel=1]',
+      '- Rated torque (N-m) [used only when VSContrl=0 and GenModel=1]',
+      '- Pull-out ratio (Tpullout/Trated) (-) [used only when VSContrl=0 and GenModel=1]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- THEVENIN-EQUIVALENT INDUCTION GENERATOR -----------------\n'
+
+    key_list = [
+      'TEC_Freq',
+      'TEC_NPol',
+      'TEC_SRes',
+      'TEC_RRes',
+      'TEC_VLL',
+      'TEC_SLR',
+      'TEC_RLR',
+      'TEC_MR'
+    ]
+
+    desc_list = [
+      '- Line frequency [50 or 60] (Hz) [used only when VSContrl=0 and GenModel=2]',
+      '- Number of poles [even integer > 0] (-) [used only when VSContrl=0 and GenModel=2]',
+      '- Stator resistance (ohms) [used only when VSContrl=0 and GenModel=2]',
+      '- Rotor resistance (ohms) [used only when VSContrl=0 and GenModel=2]',
+      '- Line-to-line RMS voltage (volts) [used only when VSContrl=0 and GenModel=2]',
+      '- Stator leakage reactance (ohms) [used only when VSContrl=0 and GenModel=2]',
+      '- Rotor leakage reactance (ohms) [used only when VSContrl=0 and GenModel=2]',
+      '- Magnetizing reactance (ohms) [used only when VSContrl=0 and GenModel=2]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- HIGH-SPEED SHAFT BRAKE ----------------------------------\n'
+
+    key_list = [
+      'HSSBrMode',
+      'THSSBrDp',
+      'HSSBrDT',
+      'HSSBrTqF'
+    ]
+
+    desc_list = [
+      '- HSS brake model {0: none, 1: simple, 3: user-defined from routine UserHSSBr, 4: user-defined from Simulink/Labview, 5: user-defined from Bladed-style DLL} (switch)',
+      '- Time to initiate deployment of the HSS brake (s)',
+      '- Time for HSS-brake to reach full deployment once initiated (sec) [used only when HSSBrMode=1]',
+      '- Fully deployed HSS-brake torque (N-m) [unused when HSSBrMode=5]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- NACELLE-YAW CONTROL -------------------------------------\n'
+
+    key_list = [
+      'YCMode',
+      'TYCOn',
+      'YawNeut',
+      'YawSpr',
+      'YawDamp',
+      'TYawManS',
+      'YawManRat',
+      'NacYawF'
+    ]
+
+    desc_list = [
+      '- Yaw control mode {0: none, 3: user-defined from routine UserYawCont, 4: user-defined from Simulink/Labview, 5: user-defined from Bladed-style DLL} (switch)',
+      '- Time to enable active yaw control (s) [unused when YCMode=0]',
+      '- Neutral yaw position--yaw spring force is zero at this yaw (degrees)',
+      '- Nacelle-yaw spring constant (N-m/rad)',
+      '- Nacelle-yaw damping constant (N-m/(rad/s))',
+      '- Time to start override yaw maneuver and end standard yaw control (s)',
+      '- Yaw maneuver rate (in absolute value) (deg/s)',
+      '- Final yaw angle for override yaw maneuvers (degrees)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- TUNED MASS DAMPER ---------------------------------------\n'
+
+    key_list = [
+      'CompNTMD',
+      'NTMDfile',
+      'CompTTMD',
+      'TTMDfile'
+    ]
+
+    desc_list = [
+      '- Compute nacelle tuned mass damper {true/false} (flag)',
+      '- Name of the file for nacelle tuned mass damper (quoted string) [unused when CompNTMD is false]',
+      '- Compute tower tuned mass damper {true/false} (flag)',
+      '- Name of the file for tower tuned mass damper (quoted string) [unused when CompTTMD is false]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- BLADED INTERFACE ---------------------------------------- [used only with Bladed Interface]\n'
+
+    key_list = [
+      'DLL_FileName',
+      'DLL_InFile',
+      'DLL_ProcName',
+      'DLL_DT',
+      'DLL_Ramp',
+      'BPCutoff',
+      'NacYaw_North',
+      'Ptch_Cntrl',
+      'Ptch_SetPnt',
+      'Ptch_Min',
+      'Ptch_Max',
+      'PtchRate_Min',
+      'PtchRate_Max',
+      'Gain_OM',
+      'GenSpd_MinOM',
+      'GenSpd_MaxOM',
+      'GenSpd_Dem',
+      'GenTrq_Dem',
+      'GenPwr_Dem'
+    ]
+
+    desc_list = [
+      '- Name/location of the dynamic library {.dll [Windows] or .so [Linux]} in the Bladed-DLL format (-) [used only with Bladed Interface]',
+      '- Name of input file sent to the DLL (-) [used only with Bladed Interface]',
+      '- Name of procedure in DLL to be called (-) [case sensitive; used only with DLL Interface]',
+      '- Communication interval for dynamic library (s) (or "default") [used only with Bladed Interface]',
+      '- Whether a linear ramp should be used between DLL_DT time steps [introduces time shift when true] (flag) [used only with Bladed Interface]',
+      '- Cuttoff frequency for low-pass filter on blade pitch from DLL (Hz) [used only with Bladed Interface]',
+      '- Reference yaw angle of the nacelle when the upwind end points due North (deg) [used only with Bladed Interface]',
+      '- Record 28: Use individual pitch control {0: collective pitch; 1: individual pitch control} (switch) [used only with Bladed Interface]',
+      '- Record  5: Below-rated pitch angle set-point (deg) [used only with Bladed Interface]',
+      '- Record  6: Minimum pitch angle (deg) [used only with Bladed Interface]',
+      '- Record  7: Maximum pitch angle (deg) [used only with Bladed Interface]',
+      '- Record  8: Minimum pitch rate (most negative value allowed) (deg/s) [used only with Bladed Interface]',
+      '- Record  9: Maximum pitch rate  (deg/s) [used only with Bladed Interface]',
+      '- Record 16: Optimal mode gain (Nm/(rad/s)^2) [used only with Bladed Interface]',
+      '- Record 17: Minimum generator speed (rpm) [used only with Bladed Interface]',
+      '- Record 18: Optimal mode maximum speed (rpm) [used only with Bladed Interface]',
+      '- Record 19: Demanded generator speed above rated (rpm) [used only with Bladed Interface]',
+      '- Record 22: Demanded generator torque above rated (Nm) [used only with Bladed Interface]',
+      '- Record 13: Demanded power (W) [used only with Bladed Interface]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '---------------------- BLADED INTERFACE TORQUE-SPEED LOOK-UP TABLE -------------\n'
+
+    key_list = [
+      'DLL_NumTrq'
+    ]
+
+    desc_list = [
+      '- Record 26: No. of points in torque-speed look-up table {0 = none and use the optimal mode parameters; nonzero = ignore the optimal mode PARAMETERs by setting Record 16 to 0.0} (-) [used only with Bladed Interface]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += 'GenSpd_TLU   GenTrq_TLU\n'
+    file_string += '(rpm)          (Nm)\n'
+
+    file_string += '---------------------- OUTPUT --------------------------------------------------\n'
+
+    key_list = [
+      'SumPrint',
+      'OutFile',
+      'TabDelim',
+      'OutFmt',
+      'TStart'
+    ]
+
+    desc_list = [
+      '- Print summary data to <RootName>.sum (flag) (currently unused)',
+      '- Switch to determine where output will be placed: {1: in module output file only; 2: in glue code output file only; 3: both} (currently unused)',
+      '- Use tab delimiters in text tabular output file? (flag) (currently unused)',
+      '- Format used for text tabular output (except time).  Resulting field should be 10 characters. (quoted string) (currently unused)',
+      '- Time to begin tabular output (s) (currently unused)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
+    for outp in in_dict['OutList'].keys():
+      file_string += outp
+      file_string += '  - '
+      file_string += in_dict['OutList'][outp]
+      file_string += '\n'
+
+    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
+    file_string += '---------------------------------------------------------------------------------------\n'
+
+    return file_string

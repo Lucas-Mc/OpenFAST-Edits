@@ -19,9 +19,9 @@ class AOCCase(BaseCase):
     self.openfast_directory = openfast_directory
     driver = AOCDriver(openfast_directory + '/build/glue-codes/openfast/openfast')
     input_files = [
-      AeroDataFile(case_directory, 'test_AD.yml')
-      #AOCFstFile(case_directory, 'AOC.yml'),
-      #AOCElastoDynFile(case_directory, 'AOC_WSt_ElastoDyn.yml'),
+      # AeroDataFile(case_directory, 'test_AD.yml')
+      AOCFstFile(case_directory, 'AOC.yml'),
+      AOCElastoDynFile(case_directory, 'AOC_WSt_ElastoDyn.yml'),
       # AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
       #AOCTowerFile(case_directory, 'AOC_Tower.yml'),
       #AOCBladeFile(case_directory, 'AOC_Blade.yml'),
