@@ -1414,8 +1414,9 @@ class AOCInflowWind(BaseFile):
     temp_dict = {}
 
     for i in range(start_ind,end_ind):
-      current_line = self.data[i]
-      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
+      current_line = self.data[i].split('  ')
+      current_line = self.remove_whitespace_filter(current_line)
+      temp_dict[current_line[0]] = current_line[1].strip()
     
     new_dict['OutList'] = temp_dict
 
@@ -1427,7 +1428,9 @@ class AOCInflowWind(BaseFile):
 
     file_string = ''
     file_string += in_dict['line1']
+    file_string += '\n'
     file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------------------------------------------------------------------------------------------------\n'
 
     key_list = [
@@ -1606,7 +1609,7 @@ class AOCInflowWind(BaseFile):
     file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
     for outp in in_dict['OutList'].keys():
       file_string += outp
-      file_string += '  - '
+      file_string += '  '
       file_string += in_dict['OutList'][outp]
       file_string += '\n'
 
@@ -1736,7 +1739,9 @@ class AOCServoDyn(BaseFile):
 
     file_string = ''
     file_string += in_dict['line1']
+    file_string += '\n'
     file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
 
     key_list = [
@@ -2037,5 +2042,187 @@ class AOCServoDyn(BaseFile):
 
     file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
     file_string += '---------------------------------------------------------------------------------------\n'
+
+    return file_string
+
+class AOCAD(BaseFile):
+  """
+  Input file for the servodyn
+  """
+
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
+
+  def read_t2y(self):
+
+    new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+    
+    key_list = [
+      'StallMod',
+      'UseCm',
+      'InfModel',
+      'IndModel',
+      'AToler',
+      'TLModel',
+      'HLModel',
+      'TwrShad',
+      'ShadHWid',
+      'T_Shad_Refpt',
+      'AirDens',
+      'KinVisc',
+      'DTAero',
+      'NumFoil'
+    ] 
+
+    sec_start_list = [2]
+    length_list = [14]
+    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    new_dict['FoilNm'] = []
+    new_dict['FoilNm'].append(self.data[16].split('  ')[0].strip())
+
+    if (new_dict['NumFoil'] > 1):
+
+      for ln in range(17,16+new_dict['NumFoil']):
+        # print(ln)
+        new_dict['FoilNm'].append(self.data[ln].strip())
+
+    key_list = [
+      'BldNodes'
+    ] 
+
+    sec_start_list = [16+new_dict['NumFoil']]
+    length_list = [0]
+    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    temp_key_list = self.data[17+new_dict['NumFoil']].split()
+
+    temp_dict = {}
+    temp_temp_dict = {}
+    for tk in temp_key_list:
+      temp_temp_dict[tk] = []
+
+    for i in range(self.convert_value(new_dict['BldNodes'])):
+      
+      for j, tk in enumerate(temp_key_list):
+      
+        temp_value = self.data[19+new_dict['NumFoil']+i-1].split()[j]
+        temp_temp_dict[tk].append(self.convert_value(temp_value))
+        temp_dict[tk] = {
+          'Value': temp_temp_dict[tk]
+        }
+
+    new_dict['Matrix'] = temp_dict
+
+    return new_dict
+      
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
+
+    key_list = [
+      'StallMod',
+      'UseCm',
+      'InfModel',
+      'IndModel',
+      'AToler',
+      'TLModel',
+      'HLModel',
+      'TwrShad',
+      'ShadHWid',
+      'T_Shad_Refpt',
+      'AirDens',
+      'KinVisc',
+      'DTAero',
+      'NumFoil'
+    ]
+
+    desc_list = [
+      '- Dynamic stall included [BEDDOES or STEADY] (unquoted string)',
+      '- Use aerodynamic pitching moment model? [USE_CM or NO_CM] (unquoted string)',
+      '- Inflow model [DYNIN or EQUIL] (unquoted string)',
+      '- Induction-factor model [NONE or WAKE or SWIRL] (unquoted string)',
+      '- Induction-factor tolerance (convergence criteria) (-)',
+      '- Tip-loss model (EQUIL only) [PRANDtl, GTECH, or NONE] (unquoted string)',
+      '- Hub-loss model (EQUIL only) [PRANdtl or NONE] (unquoted string)',
+      '- Tower-shadow velocity deficit (-)',
+      '- Tower-shadow half width (m)',
+      '- Tower-shadow reference point (m)',
+      '- Air density (kg/m^3)',
+      '- Kinematic air viscosity [CURRENTLY IGNORED] (m^2/sec)',
+      '- Time interval for aerodynamic calculations (sec)',
+      '- Number of airfoil files (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    temp_string = in_dict['FoilNm'][0] + '  FoilNm  - Names of the airfoil files [NumFoil lines] (quoted strings)\n'
+    file_string += temp_string
+
+    for ts in in_dict['FoilNm'][1:]:
+      file_string += ts
+      file_string += '\n'
+
+    key_list = [
+      'BldNodes'
+    ]
+
+    desc_list = [
+      '- Number of blade nodes used for analysis (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    tt_keys = list(in_dict['Matrix'].keys())
+    for i,tk in enumerate(tt_keys):
+      if (tk == 'RNodes'):
+        ind1 = i
+      if (tk == 'AeroTwst'):
+        ind2 = i
+      if (tk == 'DRNodes'):
+        ind3 = i
+      if (tk == 'Chord'):
+        ind4 = i  
+      if (tk == 'NFoil'):
+        ind5 = i  
+      if (tk == 'PrnElm'):
+        ind6 = i  
+    rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6] 
+    
+    temp_keys = []
+    for i,v in enumerate(rearrange_list):
+      temp_keys.append(tt_keys[v])
+
+    temp_string = ''
+    for tk in temp_keys:
+      temp_string += '  '
+      temp_string += tk
+    file_string += temp_string
+    file_string += '\n'
+
+    num_vals = len(in_dict['Matrix']['RNodes']['Value'])
+
+    for i in range(num_vals):
+      temp_string = ''
+      for tk in temp_keys:
+        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
+        temp_string += '  '
+      file_string += temp_string
+      file_string += '\n'
 
     return file_string

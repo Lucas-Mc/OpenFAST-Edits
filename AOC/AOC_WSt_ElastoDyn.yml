@@ -1,0 +1,135 @@
+AzimB1Up: 0
+Azimuth: 0
+BlPitch(1): 1.54
+BlPitch(2): 1.54
+BlPitch(3): 1.54
+BldFile(1): '"AOC_Blade.inp"'
+BldFile(2): '"AOC_Blade.inp"'
+BldFile(3): '"AOC_Blade.inp"'
+BldGagNd:
+- 2
+- 4
+- 6
+- 8
+- 9
+BldNodes: 10
+DT: 0.005
+DTTorDmp: 100000
+DTTorSpr: 600000
+DecFact: 10
+Delta3: 0
+DrTrDOF: 'True'
+Echo: 'False'
+EdgeDOF: 'True'
+FlapDOF1: 'True'
+FlapDOF2: 'True'
+FurlFile: '"unused"'
+Furling: 'False'
+GBRatio: 28.25
+GBoxEff: 100
+GenDOF: 'True'
+GenIner: 10
+Gravity: 9.80665
+HubCM: 0
+HubIner: 9
+HubMass: 247.3
+HubRad: 0.28
+IPDefl: 0
+Method: 3
+NBlGages: 5
+NTwGages: 0
+NacCMxn: 0
+NacCMyn: 0
+NacCMzn: 0.6
+NacMass: 1747
+NacYIner: 976.3
+NacYaw: 0
+NcIMUxn: 0
+NcIMUyn: 0
+NcIMUzn: 0
+NumBl: 3
+OoPDefl: 0
+OutFile: 1
+OutFmt: '"ES10.3E2"'
+OutList:
+  '"HSShftPwr"': LSS, HSS, and generator power
+  '"HSShftTq"': LSS, HSS, and generator torque
+  '"HSShftV"': Rotor, LSS (GBox side), and HSS speed
+  '"LSSGagFxs"': Non-rotating LSS thrust and shear forces
+  '"LSSGagFys"': Non-rotating LSS thrust and shear forces
+  '"LSSGagFzs"': Non-rotating LSS thrust and shear forces
+  '"LSSGagV"': Rotor, LSS (GBox side), and HSS speed
+  '"LSShftPwr"': LSS, HSS, and generator power
+  '"LSShftTq"': LSS, HSS, and generator torque
+  '"RootFxb3"': Blade 3 root flapwise and edgewise shear forces
+  '"RootFyb3"': Blade 3 root flapwise and edgewise shear forces
+  '"RootMEdg3"': Blade 3 root edgewise and flapwise bending moments
+  '"RootMFlp3"': Blade 3 root edgewise and flapwise bending moments
+  '"RotSpeed"': Rotor, LSS (GBox side), and HSS speed
+  '"Spn4MLxb1"': 'Blade 1 Gage #4 (Node 8) local edgewise and flapwise bending moments'
+  '"Spn4MLyb1"': 'Blade 1 Gage #4 (Node 8) local edgewise and flapwise bending moments'
+  '"Spn5ALxb1"': 'Blade 1 Gage #5 (Node 9) local flapwise and edgewise accelerations'
+  '"Spn5ALyb1"': 'Blade 1 Gage #5 (Node 9) local flapwise and edgewise accelerations'
+  '"TipDxb3"': Blade 3 flapwise and edgewise tip deflections
+  '"TipDyb3"': Blade 3 flapwise and edgewise tip deflections
+  '"TipRDxb3"': Blade 3 roll and pitch tip deflections
+  '"TipRDyb3"': Blade 3 roll and pitch tip deflections
+OverHang: 1.341
+PreCone(1): 6
+PreCone(2): 6
+PreCone(3): 6
+PtfmCMxt: 0
+PtfmCMyt: 0
+PtfmCMzt: 0
+PtfmHeave: 0
+PtfmHvDOF: 'False'
+PtfmMass: 0
+PtfmPDOF: 'False'
+PtfmPIner: 0
+PtfmPitch: 0
+PtfmRDOF: 'False'
+PtfmRIner: 0
+PtfmRefzt: 0
+PtfmRoll: 0
+PtfmSgDOF: 'False'
+PtfmSurge: 0
+PtfmSwDOF: 'False'
+PtfmSway: 0
+PtfmYDOF: 'False'
+PtfmYIner: 0
+PtfmYaw: 0
+RotSpeed: 0
+ShftGagL: 0.5
+ShftTilt: 0
+SumPrint: 'True'
+TStart: 5
+TTDspFA: 0
+TTDspSS: 0
+TabDelim: 'True'
+TeetCDmp: 0
+TeetDOF: 'False'
+TeetDefl: 0
+TeetDmp: 0
+TeetDmpP: 0
+TeetHSSp: 0
+TeetHStP: 0
+TeetMod: 0
+TeetSSSp: 0
+TeetSStP: 0
+TipMass(1): 5.9
+TipMass(2): 5.9
+TipMass(3): 5.9
+TipRad: 7.49
+TowerBsHt: 0
+TowerHt: 24.4
+TwFADOF1: 'False'
+TwFADOF2: 'False'
+TwSSDOF1: 'False'
+TwSSDOF2: 'False'
+Twr2Shft: 0.6
+TwrFile: '"AOC_Tower.inp"'
+TwrGagNd: 0
+TwrNodes: 11
+UndSling: 0
+YawBrMass: 0
+YawDOF: 'False'

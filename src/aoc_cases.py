@@ -5,6 +5,9 @@ from src.aoc_files import AOCBladeFile
 from src.aoc_files import AOCBladeADFile
 from src.aoc_files import AOCFstFile
 from src.aoc_files import AOCElastoDynFile
+from src.aoc_files import AOCServoDyn
+from src.aoc_files import AOCInflowWind
+from src.aoc_files import AOCAD
 from src.all_files import AeroDataFile
 from src.output_files import OutputPrimaryFile
 
@@ -20,14 +23,17 @@ class AOCCase(BaseCase):
     driver = AOCDriver(openfast_directory + '/build/glue-codes/openfast/openfast')
     input_files = [
       # AeroDataFile(case_directory, 'test_AD.yml')
-      AOCFstFile(case_directory, 'AOC.yml'),
+      AOCFstFile(case_directory, 'AOC_WSt.yml'),
       AOCElastoDynFile(case_directory, 'AOC_WSt_ElastoDyn.yml'),
+      AOCInflowWind(case_directory, 'AOC_WSt_InflowWind.yml'),
+      AOCAD(case_directory, 'AOC_WSt_AD.yml'),
+      AOCServoDyn(case_directory, 'AOC_WSt_ServoDyn.yml'),
       # AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
-      #AOCTowerFile(case_directory, 'AOC_Tower.yml'),
-      #AOCBladeFile(case_directory, 'AOC_Blade.yml'),
+      AOCTowerFile(case_directory, 'AOC_Tower.yml'),
+      AOCBladeFile(case_directory, 'AOC_Blade.yml'),
     ]
     self.expected_output_files = [
-      'AOC.out'
+      'AOC_WSt.out'
     ]
     super().__init__(driver, case_directory, input_files)
 

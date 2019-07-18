@@ -7,9 +7,9 @@ FilenameRoot: '"Wind/NoShr_12"'
 HWindSpeed: 0
 NWindVel: 1
 OutList:
-  '"Wind1VelX"': direction wind velocity at point WindList(1)
-  '"Wind1VelY"': direction wind velocity at point WindList(1)
-  '"Wind1VelZ"': direction wind velocity at point WindList(1)
+  '"Wind1VelX"': X-direction wind velocity at point WindList(1)
+  '"Wind1VelY"': Y-direction wind velocity at point WindList(1)
+  '"Wind1VelZ"': Z-direction wind velocity at point WindList(1)
 PLExp: 0.2
 PLexp: 0.2
 PropagationDir: 0.0
