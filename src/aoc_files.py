@@ -885,18 +885,14 @@ class AOCTowerFile(BaseFile):
     file_string += '---------------------- DISTRIBUTED TOWER PROPERTIES ----------------------------\n'
     
     tt_keys = list(in_dict['Matrix'].keys())
-    for i,tk in enumerate(tt_keys):
-      if (tk == 'HtFract'):
-        ind1 = i
-      if (tk == 'TMassDen'):
-        ind2 = i
-      if (tk == 'TwFAStif'):
-        ind3 = i
-      if (tk == 'TwSSStif'):
-        ind4 = i  
-    rearrange_list = [ind1,ind2,ind3,ind4] 
-    
-    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'HtFract')
+    ord_keys = [
+      'HtFract',
+      'TMassDen',
+      'TwFAStif',
+      'TwSSStif'
+    ]
+
+    temp_string = self.write_val_un_table(in_dict, tt_keys, ord_keys, 'HtFract')
     file_string += temp_string
       
     file_string += '---------------------- TOWER FORE-AFT MODE SHAPES ------------------------------\n'
@@ -1069,22 +1065,16 @@ class AOCBladeFile(BaseFile):
     file_string += '---------------------- DISTRIBUTED BLADE PROPERTIES ----------------------------\n'
     
     tt_keys = list(in_dict['Matrix'].keys())
-    for i,tk in enumerate(tt_keys):
-      if (tk == 'BlFract'):
-        ind1 = i
-      if (tk == 'PitchAxis'):
-        ind2 = i
-      if (tk == 'StrcTwst'):
-        ind3 = i
-      if (tk == 'BMassDen'):
-        ind4 = i  
-      if (tk == 'FlpStff'):
-        ind5 = i  
-      if (tk == 'EdgStff'):
-        ind6 = i  
-    rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6] 
+    ord_keys = [
+      'BlFract',
+      'PitchAxis',
+      'StrcTwst',
+      'BMassDen',
+      'FlpStff',
+      'EdgStff'
+    ]
     
-    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'BlFract')
+    temp_string = self.write_val_un_table(in_dict, tt_keys, ord_keys, 'BlFract')
     file_string += temp_string
       
     file_string += '---------------------- BLADE MODE SHAPES ---------------------------------------\n'
@@ -1199,24 +1189,17 @@ class AOCBladeADFile(BaseFile):
     file_string += temp_string
 
     tt_keys = list(in_dict['Matrix'].keys())
-    for i,tk in enumerate(tt_keys):
-      if (tk == 'BlSpn'):
-        ind1 = i
-      if (tk == 'BlCrvAC'):
-        ind2 = i
-      if (tk == 'BlSwpAC'):
-        ind3 = i
-      if (tk == 'BlCrvAng'):
-        ind4 = i  
-      if (tk == 'BlTwist'):
-        ind5 = i  
-      if (tk == 'BlChord'):
-        ind6 = i  
-      if (tk == 'BlAFID'):
-        ind7 = i 
-    rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6,ind7] 
+    ord_keys = [
+      'BlSpn',
+      'BlCrvAC',
+      'BlSwpAC',
+      'BlCrvAng',
+      'BlTwist',
+      'BlChord',
+      'BlAFID'
+    ]
     
-    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'BlSpn')
+    temp_string = self.write_val_un_table(in_dict, tt_keys, ord_keys, 'BlSpn')
     file_string += temp_string
 
     return file_string
@@ -2043,22 +2026,18 @@ class AOCAD(BaseFile):
     file_string += temp_string
 
     tt_keys = list(in_dict['Matrix'].keys())
-    for i,tk in enumerate(tt_keys):
-      if (tk == 'RNodes'):
-        ind1 = i
-      if (tk == 'AeroTwst'):
-        ind2 = i
-      if (tk == 'DRNodes'):
-        ind3 = i
-      if (tk == 'Chord'):
-        ind4 = i  
-      if (tk == 'NFoil'):
-        ind5 = i  
-      if (tk == 'PrnElm'):
-        ind6 = i  
-    rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6] 
+    ord_keys = [
+      'RNodes',
+      'AeroTwst',
+      'DRNodes',
+      'Chord',
+      'NFoil',
+      'PrnElm'
+    ] 
     
-    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'RNodes', has_un=False)
+    temp_string = self.write_val_un_table(in_dict, tt_keys, ord_keys, 'RNodes', has_un=False)
     file_string += temp_string
 
     return file_string
+
+  

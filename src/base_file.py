@@ -375,14 +375,21 @@ class BaseFile():
 
     return temp_dict
 
-  def write_val_un_table(self, in_dict, rearrange_list, tt_keys, key_val, has_un=True):
+  def write_val_un_table(self, in_dict, tt_keys, ord_keys, key_val, has_un=True):
     """
     in_dict,
-    rearrange_list,
     tt_keys,
+    ord_keys,
     key_val,
     has_un
     """
+    rearrange_list = [0]*len(tt_keys)
+
+    for i,ok in enumerate(ord_keys):
+      for _,tk in enumerate(tt_keys):
+        if (tk == ok):
+          rearrange_list[i] = tk
+
     end_string = ''
     temp_keys = []
     for i,v in enumerate(rearrange_list):
