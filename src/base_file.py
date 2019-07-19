@@ -348,3 +348,104 @@ class BaseFile():
         current_line_ind = 0
 
     return new_dict
+
+  def create_val_un_dict(self, contents, new_dict, temp_key_list, temp_unit_list, key_val):
+    """
+    contents,
+    new_dict,
+    temp_key_list,
+    temp_unit_list,
+    key_val
+    """
+    temp_dict = {}
+    temp_temp_dict = {}
+    for tk in temp_key_list:
+      temp_temp_dict[tk] = []
+
+    for i in range(self.convert_value(new_dict[key_val])):
+      
+      for j, tk in enumerate(temp_key_list):
+      
+        temp_value = contents[17+i-1].split()[j]
+        temp_temp_dict[tk].append(self.convert_value(temp_value))
+        temp_dict[tk] = {
+          'Value': temp_temp_dict[tk],
+          'Unit': temp_unit_list[j]
+        }
+
+    return temp_dict
+
+  def write_val_un_table(self, in_dict, rearrange_list, tt_keys, key_val, has_un=True):
+    """
+    in_dict,
+    rearrange_list,
+    tt_keys,
+    key_val,
+    has_un
+    """
+    end_string = ''
+    temp_keys = []
+    for i,v in enumerate(rearrange_list):
+      temp_keys.append(tt_keys[v])
+
+    temp_string = ''
+    for tk in temp_keys:
+      temp_string += '  '
+      temp_string += tk
+    end_string += temp_string
+    end_string += '\n'
+
+    if (has_un):
+
+      temp_string = ''
+      for tk in temp_keys:
+        tu = in_dict['Matrix'][tk]['Unit']
+        temp_string += '  '
+        ind_string = '(' + tu + ')'
+        temp_string +=ind_string
+      end_string += temp_string
+      end_string += '\n'
+
+    num_vals = len(in_dict['Matrix'][key_val]['Value'])
+
+    for i in range(num_vals):
+      temp_string = ''
+      for tk in temp_keys:
+        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
+        temp_string += '  '
+      end_string += temp_string
+      end_string += '\n'
+
+    return end_string
+
+  def create_outlist(self, contents, start_ind):
+    """
+    contents,
+    start_ind
+    """
+    end_ind = len(contents)-2
+    temp_dict = {}
+
+    for i in range(start_ind,end_ind):
+      current_line = contents[i]
+      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
+
+    return temp_dict
+    
+  def write_outlist(self, in_dict, delim):
+    """
+    in_dict,
+    delim
+    """
+    end_string = ''
+    end_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
+    for outp in in_dict['OutList'].keys():
+      end_string += outp
+      end_string += delim
+      end_string += in_dict['OutList'][outp]
+      end_string += '\n'
+
+    end_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
+    end_string += '---------------------------------------------------------------------------------------\n'
+
+    return end_string

@@ -393,14 +393,7 @@ class AOCElastoDynFile(BaseFile):
     final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
     new_dict['BldGagNd'] = final_ln
 
-    start_ind = 122
-    end_ind = len(self.data)-2
-    temp_dict = {}
-
-    for i in range(start_ind,end_ind):
-      current_line = self.data[i]
-      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
-    
+    temp_dict = self.create_outlist(self.data, 122)
     new_dict['OutList'] = temp_dict
 
     return new_dict
@@ -767,15 +760,8 @@ class AOCElastoDynFile(BaseFile):
     
     file_string += 'BldGagNd    - List of blade nodes that have strain gages [1 to BldNodes] (-) [unused if NBlGages=0]\n'
 
-    file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
-    for outp in in_dict['OutList'].keys():
-      file_string += outp
-      file_string += '  - '
-      file_string += in_dict['OutList'][outp]
-      file_string += '\n'
-
-    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
-    file_string += '---------------------------------------------------------------------------------------\n'
+    temp_string = self.write_outlist(in_dict, '  - ')
+    file_string += temp_string
 
     return file_string
 
@@ -837,22 +823,7 @@ class AOCTowerFile(BaseFile):
     temp_key_list = self.data[17].split()
     temp_unit_list = self.remove_parens(self.data[18].split())
    
-    temp_dict = {}
-    temp_temp_dict = {}
-    for tk in temp_key_list:
-      temp_temp_dict[tk] = []
-
-    for i in range(self.convert_value(new_dict['NTwInpSt'])):
-      
-      for j, tk in enumerate(temp_key_list):
-      
-        temp_value = self.data[20+i-1].split()[j]
-        temp_temp_dict[tk].append(self.convert_value(temp_value))
-        temp_dict[tk] = {
-          'Value': temp_temp_dict[tk],
-          'Unit': temp_unit_list[j]
-        }
-
+    temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'NTwInpSt')
     new_dict['Matrix'] = temp_dict
 
     return new_dict
@@ -925,35 +896,8 @@ class AOCTowerFile(BaseFile):
         ind4 = i  
     rearrange_list = [ind1,ind2,ind3,ind4] 
     
-    temp_keys = []
-    for i,v in enumerate(rearrange_list):
-      temp_keys.append(tt_keys[v])
-
-    temp_string = ''
-    for tk in temp_keys:
-      temp_string += '  '
-      temp_string += tk
+    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'HtFract')
     file_string += temp_string
-    file_string += '\n'
-
-    temp_string = ''
-    for tk in temp_keys:
-      tu = in_dict['Matrix'][tk]['Unit']
-      temp_string += '  '
-      ind_string = '(' + tu + ')'
-      temp_string +=ind_string
-    file_string += temp_string
-    file_string += '\n'
-
-    num_vals = len(in_dict['Matrix']['HtFract']['Value'])
-
-    for i in range(num_vals):
-      temp_string = ''
-      for tk in temp_keys:
-        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
-        temp_string += '  '
-      file_string += temp_string
-      file_string += '\n'
       
     file_string += '---------------------- TOWER FORE-AFT MODE SHAPES ------------------------------\n'
     
@@ -1069,22 +1013,7 @@ class AOCBladeFile(BaseFile):
     temp_key_list = self.data[14].split()
     temp_unit_list = self.remove_parens(self.data[15].split())
    
-    temp_dict = {}
-    temp_temp_dict = {}
-    for tk in temp_key_list:
-      temp_temp_dict[tk] = []
-
-    for i in range(self.convert_value(new_dict['NBlInpSt'])):
-      
-      for j, tk in enumerate(temp_key_list):
-      
-        temp_value = self.data[17+i-1].split()[j]
-        temp_temp_dict[tk].append(self.convert_value(temp_value))
-        temp_dict[tk] = {
-          'Value': temp_temp_dict[tk],
-          'Unit': temp_unit_list[j]
-        }
-
+    temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'NBlInpSt')
     new_dict['Matrix'] = temp_dict
 
     return new_dict
@@ -1155,35 +1084,8 @@ class AOCBladeFile(BaseFile):
         ind6 = i  
     rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6] 
     
-    temp_keys = []
-    for i,v in enumerate(rearrange_list):
-      temp_keys.append(tt_keys[v])
-
-    temp_string = ''
-    for tk in temp_keys:
-      temp_string += '  '
-      temp_string += tk
+    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'BlFract')
     file_string += temp_string
-    file_string += '\n'
-
-    temp_string = ''
-    for tk in temp_keys:
-      tu = in_dict['Matrix'][tk]['Unit']
-      temp_string += '  '
-      ind_string = '(' + tu + ')'
-      temp_string +=ind_string
-    file_string += temp_string
-    file_string += '\n'
-
-    num_vals = len(in_dict['Matrix']['BlFract']['Value'])
-
-    for i in range(num_vals):
-      temp_string = ''
-      for tk in temp_keys:
-        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
-        temp_string += '  '
-      file_string += temp_string
-      file_string += '\n'
       
     file_string += '---------------------- BLADE MODE SHAPES ---------------------------------------\n'
     
@@ -1314,36 +1216,9 @@ class AOCBladeADFile(BaseFile):
         ind7 = i 
     rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6,ind7] 
     
-    temp_keys = []
-    for i,v in enumerate(rearrange_list):
-      temp_keys.append(tt_keys[v])
-
-    temp_string = ''
-    for tk in temp_keys:
-      temp_string += '  '
-      temp_string += tk
+    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'BlSpn')
     file_string += temp_string
-    file_string += '\n'
 
-    temp_string = ''
-    for tk in temp_keys:
-      tu = in_dict['Matrix'][tk]['Unit']
-      temp_string += '  '
-      ind_string = '(' + tu + ')'
-      temp_string +=ind_string
-    file_string += temp_string
-    file_string += '\n'
-
-    num_vals = len(in_dict['Matrix']['BlSpn']['Value'])
-
-    for i in range(num_vals):
-      temp_string = ''
-      for tk in temp_keys:
-        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
-        temp_string += '  '
-      file_string += temp_string
-      file_string += '\n'
-      
     return file_string
 
 
@@ -1606,15 +1481,8 @@ class AOCInflowWind(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
-    for outp in in_dict['OutList'].keys():
-      file_string += outp
-      file_string += '  '
-      file_string += in_dict['OutList'][outp]
-      file_string += '\n'
-
-    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
-    file_string += '---------------------------------------------------------------------------------------\n'
+    temp_string = self.write_outlist(in_dict, '  ')
+    file_string += temp_string
 
     return file_string
 
@@ -1721,14 +1589,7 @@ class AOCServoDyn(BaseFile):
     temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     new_dict.update(temp_dict)
 
-    start_ind = 95
-    end_ind = len(self.data)-2
-    temp_dict = {}
-
-    for i in range(start_ind,end_ind):
-      current_line = self.data[i]
-      temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
-    
+    temp_dict = self.create_outlist(self.data, 95)
     new_dict['OutList'] = temp_dict
 
     return new_dict
@@ -2033,15 +1894,8 @@ class AOCServoDyn(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    file_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
-    for outp in in_dict['OutList'].keys():
-      file_string += outp
-      file_string += '  - '
-      file_string += in_dict['OutList'][outp]
-      file_string += '\n'
-
-    file_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
-    file_string += '---------------------------------------------------------------------------------------\n'
+    temp_string = self.write_outlist(in_dict, '  - ')
+    file_string += temp_string
 
     return file_string
 
@@ -2204,25 +2058,7 @@ class AOCAD(BaseFile):
         ind6 = i  
     rearrange_list = [ind1,ind2,ind3,ind4,ind5,ind6] 
     
-    temp_keys = []
-    for i,v in enumerate(rearrange_list):
-      temp_keys.append(tt_keys[v])
-
-    temp_string = ''
-    for tk in temp_keys:
-      temp_string += '  '
-      temp_string += tk
+    temp_string = self.write_val_un_table(in_dict, rearrange_list, tt_keys, 'RNodes', has_un=False)
     file_string += temp_string
-    file_string += '\n'
-
-    num_vals = len(in_dict['Matrix']['RNodes']['Value'])
-
-    for i in range(num_vals):
-      temp_string = ''
-      for tk in temp_keys:
-        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
-        temp_string += '  '
-      file_string += temp_string
-      file_string += '\n'
 
     return file_string
