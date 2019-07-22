@@ -62,22 +62,7 @@ class BeamdynPrimaryFile(BaseFile):
     temp_key_list = self.data[22].split()
     temp_unit_list = self.remove_parens(self.data[23].split())
    
-    temp_dict = {}
-    temp_temp_dict = {}
-    for tk in temp_key_list:
-      temp_temp_dict[tk] = []
-
-    for i in range(self.convert_value(new_dict['kp_total'])):
-      
-      for j, tk in enumerate(temp_key_list):
-      
-        temp_value = self.data[25+i-1].split()[j]
-        temp_temp_dict[tk].append(self.convert_value(temp_value))
-        temp_dict[tk] = {
-          'Value': temp_temp_dict[tk],
-          'Unit': temp_unit_list[j]
-        }
-
+    temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'kp_total', sv=25)
     new_dict['Matrix'] = temp_dict
 
     ci = 5
@@ -168,46 +153,10 @@ class BeamdynPrimaryFile(BaseFile):
     file_string += '\n'
 
     tt_keys = list(in_dict['Matrix'].keys())
-    for i,tk in enumerate(tt_keys):
-      if (tk == 'kp_xr'):
-        ind_xr = i
-      if (tk == 'kp_yr'):
-        ind_yr = i
-      if (tk == 'kp_zr'):
-        ind_zr = i
-      if (tk == 'initial_twist'):
-        ind_tw = i  
-    rearrange_list = [ind_xr,ind_yr,ind_zr,ind_tw] 
+    ord_keys = ['kp_xr','kp_yr','kp_zr','initial_twist']
     
-    temp_keys = []
-    for i,v in enumerate(rearrange_list):
-      temp_keys.append(tt_keys[v])
-
-    temp_string = ''
-    for tk in temp_keys:
-      temp_string += '  '
-      temp_string += tk
+    temp_string = self.write_val_un_table(in_dict, tt_keys, ord_keys, 'kp_xr')
     file_string += temp_string
-    file_string += '\n'
-
-    temp_string = ''
-    for tk in temp_keys:
-      tu = in_dict['Matrix'][tk]['Unit']
-      temp_string += '  '
-      ind_string = '(' + tu + ')'
-      temp_string +=ind_string
-    file_string += temp_string
-    file_string += '\n'
-
-    num_vals = len(in_dict['Matrix']['kp_xr']['Value'])
-
-    for i in range(num_vals):
-      temp_string = ''
-      for tk in temp_keys:
-        temp_string += str(in_dict['Matrix'][tk]['Value'][i])
-        temp_string += '  '
-      file_string += temp_string
-      file_string += '\n'
       
     file_string += '---------------------- MESH PARAMETER ------------------------------------------\n'
     
@@ -732,27 +681,10 @@ class BeamdynInputSummaryFile(BaseFile):
     num_nodes = new_dict['Number of nodes']
 
     temp_dict = self.parse_xyz(self.data,node_section_start+4,2,num_nodes,'Node ')
-    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
-
-    node_section_start = node_section_start+num_nodes+5
-    new_dict[self.data[node_section_start].strip()] = {}
-    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+    [new_dict,current_element,node_section_start] = self.create_node_dict(new_dict, node_section_start, current_element, temp_dict, num_nodes)
     
-    temp_dict = {}
-
-    for i in range(num_nodes):
-
-      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
-      x_val = self.convert_value(cl_split[2].strip())
-      y_val = self.convert_value(cl_split[3].strip())
-      z_val = self.convert_value(cl_split[4].strip())
-      temp_dict['Node '+str(i)] = {'WM_x':x_val,'WM_y':y_val,'WM_z':z_val}
-
-    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
-
-    node_section_start = node_section_start+num_nodes+5
-    new_dict[self.data[node_section_start].strip()] = {}
-    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+    temp_dict = self.parse_xyz(self.data, node_section_start+4, 2, num_nodes, 'Node ', ok=['WM_x','WM_y','WM_z'])
+    [new_dict,current_element,node_section_start] = self.create_node_dict(new_dict, node_section_start, current_element, temp_dict, num_nodes)
     
     in_file = '/'.join(self.filename.split('/')[:-1]) + '/bd_primary_inp.yml'
     in_dict = yaml.load(open(in_file))
@@ -787,17 +719,8 @@ class BeamdynInputSummaryFile(BaseFile):
     node_section_start = node_section_start+num_elems+5
     new_dict[self.data[node_section_start].strip()] = {}
     current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
-    
-    temp_dict = {}
 
-    for i in range(num_elems):
-
-      cl_split = self.remove_whitespace(self.data[node_section_start+4+i])
-      x_val = self.convert_value(cl_split[2].strip())
-      y_val = self.convert_value(cl_split[3].strip())
-      z_val = self.convert_value(cl_split[4].strip())
-      temp_dict['QP '+str(i)] = {'WM_x':x_val,'WM_y':y_val,'WM_z':z_val}
-
+    temp_dict = self.parse_xyz(self.data, node_section_start+4, 2, num_elems, 'QP ', ok=['WM_x','WM_y','WM_z'])
     new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
 
     node_section_start = node_section_start+num_elems + 5

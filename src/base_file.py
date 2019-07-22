@@ -284,7 +284,7 @@ class BaseFile():
 
     return new_dict
 
-  def parse_xyz(self, s, d, i, n, k):
+  def parse_xyz(self, s, d, i, n, k, ok=None):
     """
     s: string to be parsed
     d: data starting index
@@ -300,7 +300,10 @@ class BaseFile():
       x_val = self.convert_value(cl_split[i].strip())
       y_val = self.convert_value(cl_split[i+1].strip())
       z_val = self.convert_value(cl_split[i+2].strip())
-      temp_dict[k+str(j)] = {'X':x_val,'Y':y_val,'Z':z_val}
+      if (None):
+        temp_dict[k+str(j)] = {'X':x_val,'Y':y_val,'Z':z_val}
+      else:
+        temp_dict[k+str(j)] = {ok[0]:x_val,ok[1]:y_val,ok[2]:z_val}
 
     return temp_dict
 
@@ -349,13 +352,14 @@ class BaseFile():
 
     return new_dict
 
-  def create_val_un_dict(self, contents, new_dict, temp_key_list, temp_unit_list, key_val):
+  def create_val_un_dict(self, contents, new_dict, temp_key_list, temp_unit_list, key_val, sv = 17):
     """
-    contents,
-    new_dict,
-    temp_key_list,
-    temp_unit_list,
-    key_val
+    contents:
+    new_dict:
+    temp_key_list:
+    temp_unit_list:
+    key_val:
+    sv:
     """
     temp_dict = {}
     temp_temp_dict = {}
@@ -366,7 +370,7 @@ class BaseFile():
       
       for j, tk in enumerate(temp_key_list):
       
-        temp_value = contents[17+i-1].split()[j]
+        temp_value = contents[sv+i-1].split()[j]
         temp_temp_dict[tk].append(self.convert_value(temp_value))
         temp_dict[tk] = {
           'Value': temp_temp_dict[tk],
@@ -456,3 +460,20 @@ class BaseFile():
     end_string += '---------------------------------------------------------------------------------------\n'
 
     return end_string
+
+  def create_node_dict(self, new_dict, node_section_start, current_element, temp_dict, num_nodes):
+    """
+    new_dict:
+    node_section_start:
+    current_element:
+    temp_dict:
+    num_nodes:
+    """
+    new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
+
+    node_section_start = node_section_start+num_nodes+5
+    new_dict[self.data[node_section_start].strip()] = {}
+    current_element = self.convert_value(self.data[node_section_start+1].split(':')[1].strip())
+
+    return new_dict, current_element, node_section_start
+    
