@@ -300,7 +300,7 @@ class BaseFile():
       x_val = self.convert_value(cl_split[i].strip())
       y_val = self.convert_value(cl_split[i+1].strip())
       z_val = self.convert_value(cl_split[i+2].strip())
-      if (None):
+      if (ok is None):
         temp_dict[k+str(j)] = {'X':x_val,'Y':y_val,'Z':z_val}
       else:
         temp_dict[k+str(j)] = {ok[0]:x_val,ok[1]:y_val,ok[2]:z_val}
