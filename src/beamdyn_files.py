@@ -277,34 +277,8 @@ class BeamdynBladeFile(BaseFile):
     line_start = 11
     line_interval = 15
     num_intervals = self.convert_value(new_dict['Blade Parameters']['station_total'])
-    temp_dict = {}
-
-    for line_num in range(line_start-1,(line_start+line_interval*num_intervals)-1,line_interval):
-      
-      station_loc = self.convert_value(self.data[line_num].strip())
-      current_row = 1
-      temp_temp_dict = {}
-      temp_temp_dict['Stiffness Matrix'] = []
-
-      for j in range(1,7):
-        
-        current_mat = 'matrix1'
-        current_name = current_mat + '_row' + str(current_row)
-        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
-        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-        current_row += 1
-
-      current_row = 1
-
-      for j in range(8,14):
-        
-        current_mat = 'matrix2'
-        current_name = current_mat + '_row' + str(current_row)
-        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
-        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-        current_row += 1   
-
-      temp_dict[station_loc] = temp_temp_dict
+    
+    temp_dict,_ = self.convert_double_matrix(self.data, line_start, line_interval, type='station', num_intervals=num_intervals)
 
     new_dict['Distributed Properties'] = temp_dict
 
@@ -727,35 +701,9 @@ class BeamdynInputSummaryFile(BaseFile):
     new_header = self.data[node_section_start].strip()
     line_start = node_section_start + 3
     line_interval = 15
-    temp_dict = {}
+
+    temp_dict,line_num = self.convert_double_matrix(self.data, line_start, line_interval, type='point', num_elems=num_elems)
     
-    for line_num in range(line_start-1,(line_start+line_interval*num_elems)-1,line_interval):
-      
-      point_num = self.convert_value(self.data[line_num].split(':')[1].strip())
-      current_row = 1
-      temp_temp_dict = {}
-      temp_temp_dict['Stiffness Matrix'] = []
-
-      for j in range(1,7):
-        
-        current_mat = 'matrix1'
-        current_name = current_mat + '_row' + str(current_row)
-        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
-        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-        current_row += 1
-
-      current_row = 1
-
-      for j in range(8,14):
-        
-        current_mat = 'matrix2'
-        current_name = current_mat + '_row' + str(current_row)
-        temp_row_vals = self.convert_value(self.data[line_num+j].split())      
-        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
-        current_row += 1   
-
-      temp_dict[point_num] = temp_temp_dict
-
     new_dict[new_header] = temp_dict
 
     new_start = line_num + j + 2

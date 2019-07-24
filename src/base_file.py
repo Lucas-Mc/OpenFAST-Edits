@@ -259,7 +259,7 @@ class BaseFile():
 
     return parsed_filename
 
-  def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list):
+  def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list, sep=''):
     """
     VALUE   KEY   - DESC
     contents: the contents of the data file
@@ -274,7 +274,7 @@ class BaseFile():
     for i,k in enumerate(key_list):
 
       current_line = sec_start_list[current_sec_ind] + current_line_ind
-      new_dict[k] = self.convert_value(contents[current_line].split()[0])
+      new_dict[k] = self.convert_value(contents[current_line].split(sep)[0])
       current_line_ind += 1
 
       if (i >= sum(length_list[:(current_sec_ind+1)])):
@@ -327,31 +327,6 @@ class BaseFile():
 
     return file_string
 
-  def parse_filetype_twocol(self, contents, key_list, sec_start_list, length_list):
-    """
-    VALUE  DESC
-    contents: the contents of the data file
-    key_list: list of keys to be added to the dictionary
-    sec_start_list: list of starting line numbers for dictionary values
-    length_list: list of the lengths of each section
-    """
-    new_dict = {}
-    current_sec_ind = 0
-    current_line_ind = 0
-
-    for i,k in enumerate(key_list):
-
-      current_line = sec_start_list[current_sec_ind] + current_line_ind
-      new_dict[k] = self.convert_value(contents[current_line].split('  ')[0])
-      current_line_ind += 1
-
-      if (i >= sum(length_list[:(current_sec_ind+1)])):
-
-        current_sec_ind += 1
-        current_line_ind = 0
-
-    return new_dict
-
   def create_val_un_dict(self, contents, new_dict, temp_key_list, temp_unit_list, key_val, sv = 17):
     """
     contents:
@@ -397,7 +372,7 @@ class BaseFile():
     end_string = ''
     temp_keys = []
     for i,v in enumerate(rearrange_list):
-      temp_keys.append(tt_keys[v])
+      temp_keys.append(v)
 
     temp_string = ''
     for tk in temp_keys:
@@ -477,3 +452,56 @@ class BaseFile():
 
     return new_dict, current_element, node_section_start
     
+  def convert_double_matrix(self, contents, line_start, line_interval, type, num_intervals=0, num_elems=0):
+    """
+    line_start, 
+    line_interval, 
+    num_intervals, 
+    type
+    """
+    temp_dict = {}
+
+    if (type=='station'):
+    
+      itter_cond = line_start-1,(line_start+line_interval*num_intervals)-1,line_interval
+    
+    elif (type == 'point'):
+      
+      itter_cond = line_start-1,(line_start+line_interval*num_elems)-1,line_interval
+
+    for line_num in range(itter_cond):
+      
+      if (type=='station'):
+
+        station_loc = self.convert_value(contents[line_num].strip())
+
+      elif (type == 'point'):
+
+        station_loc = self.convert_value(contents[line_num].split(':')[1].strip())
+      
+      current_row = 1
+      temp_temp_dict = {}
+      temp_temp_dict['Stiffness Matrix'] = []
+
+      for j in range(1,7):
+        
+        current_mat = 'matrix1'
+        current_name = current_mat + '_row' + str(current_row)
+        temp_row_vals = self.convert_value(contents[line_num+j].split())      
+        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+        current_row += 1
+
+      current_row = 1
+
+      for j in range(8,14):
+        
+        current_mat = 'matrix2'
+        current_name = current_mat + '_row' + str(current_row)
+        temp_row_vals = self.convert_value(contents[line_num+j].split())      
+        temp_temp_dict['Stiffness Matrix'].append({current_name: temp_row_vals})
+        current_row += 1   
+
+      temp_dict[station_loc] = temp_temp_dict
+
+    return temp_dict, line_num
+

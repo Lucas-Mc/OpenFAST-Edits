@@ -35,7 +35,7 @@ class AeroDataFile(BaseFile):
     sec_start_list = [2]
     length_list = [12]
     
-    temp_dict = self.parse_filetype_twocol(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list,sep='  ')
     new_dict.update(temp_dict)
 
     sec_start = 14
