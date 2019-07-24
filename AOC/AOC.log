@@ -16,8 +16,8 @@
   - Date: Jun 25 2019
   - Time: 13:30:43
  Execution Info:
-  - Date: 07/18/2019
-  - Time: 15:36:13-0600
+  - Date: 07/24/2019
+  - Time: 14:04:32-0600
 
  OpenFAST input file heading:
      FAST Certification Test #01: AWT-27CR2 with many DOFs with fixed yaw error and steady wind
@@ -27,12 +27,12 @@
  Running InflowWind.
  Running ServoDyn.
   Time: 0 of 35 seconds.
-                                                                                                   Time: 5 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                      Time: 10 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                     Time: 15 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                     Time: 20 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                     Time: 25 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                     Time: 30 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                     Time: 35 of 35 seconds. Estimated final completion at 15:36:30.                                                                                                                                    
-  Total Real Time:       16.888 seconds
-  Total CPU Time:        16.866 seconds
-  Simulation CPU Time:   16.858 seconds
+                                                                                                   Time: 5 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                      Time: 10 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                     Time: 15 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                     Time: 20 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                     Time: 25 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                     Time: 30 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                     Time: 35 of 35 seconds. Estimated final completion at 14:04:49.                                                                                                                                    
+  Total Real Time:       16.904 seconds
+  Total CPU Time:        16.842 seconds
+  Simulation CPU Time:   16.822 seconds
   Simulated Time:        35 seconds
-  Time Ratio (Sim/CPU):  2.0762
+  Time Ratio (Sim/CPU):  2.0806
 
   OpenFAST terminated normally.
 
