@@ -63,25 +63,10 @@ class BeamdynPrimaryFile(BaseFile):
     temp_unit_list = self.remove_parens(self.data[23].split())
    
     temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'kp_total', sv=25)
-    new_dict['Matrix'] = temp_dict
+    new_dict['Matrix'] = temp_dict  
 
-    ci = 5
-    outlist_param = []
-    while (self.data[sec_start_list[-1]+ci][0] == '"'):
-      outlist_param.append(self.data[sec_start_list[-1]+ci].strip())
-      ci += 1
-    
-    # Add values to the list
-    outlist_temp = []
-    [outlist_temp.append(ele.split(',')) for ele in outlist_param]
-    # Flatten list
-    outlist_temp = sum(outlist_temp, [])
-    
-    # Remove junk from each element in the list
-    outlist_final = []
-    [outlist_final.append(ele.strip().replace('"',''))  for ele in outlist_temp]
-    
-    new_dict['OutList'] = outlist_final 
+    temp_dict = self.create_outlist_multiple(self.data, sec_start_list[-1]+5)
+    new_dict.update(temp_dict)
 
     return new_dict
       

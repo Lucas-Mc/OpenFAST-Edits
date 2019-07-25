@@ -39,6 +39,7 @@ class BaseFile():
     self.file_handle.close()
 
   def to_yaml(self, new_dict):
+    print(self.yaml_filename)
     outfile = open(self.yaml_filename, 'w')
     yaml.safe_dump(new_dict, outfile)
     outfile.close()
@@ -259,7 +260,7 @@ class BaseFile():
 
     return parsed_filename
 
-  def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list, sep=''):
+  def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list, sep='  '):
     """
     VALUE   KEY   - DESC
     contents: the contents of the data file
@@ -274,7 +275,8 @@ class BaseFile():
     for i,k in enumerate(key_list):
 
       current_line = sec_start_list[current_sec_ind] + current_line_ind
-      new_dict[k] = self.convert_value(contents[current_line].split(sep)[0])
+      temp_ln = self.remove_whitespace_filter(contents[current_line].split(sep))
+      new_dict[k] = self.convert_value(temp_ln[0])
       current_line_ind += 1
 
       if (i >= sum(length_list[:(current_sec_ind+1)])):
@@ -417,8 +419,25 @@ class BaseFile():
       temp_dict[current_line.split('  ')[0]] = current_line.split('-',1)[1].strip()
 
     return temp_dict
-    
-  def write_outlist(self, in_dict, delim):
+
+  def write_outlist(self, in_dict):
+    """
+    in_dict
+    """
+    end_string = ''
+    end_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
+    for outp in in_dict['OutList'].keys():
+      end_string += '"'
+      end_string += outp
+      end_string += '"'
+      end_string += '\n'
+
+    end_string += 'END of input file (the word "END" must appear in the first 3 columns of this last OutList line)\n'
+    end_string += '---------------------------------------------------------------------------------------\n'
+
+    return end_string
+
+  def write_outlist_kv(self, in_dict, delim):
     """
     in_dict,
     delim
@@ -505,3 +524,86 @@ class BaseFile():
 
     return temp_dict, line_num
 
+  def parse_mulitple_first(self, contents, key_list, key_num, line_start):
+    """
+    contents, 
+    key_list, 
+    key_num,
+    line_start
+    """
+    temp_dict = {}
+    temp_dict[key_list] = []
+    temp_dict[key_list].append(self.data[line_start].split('  ')[0].strip())
+
+    if (temp_dict[key_num] > 1):
+
+      for ln in range(line_start+1,line_start+temp_dict[key_num]):
+        temp_dict[key_list].append(self.data[ln].strip())
+
+    return temp_dict
+
+  def write_multiple_first(self, contents, key_val, desc_val):
+    """
+    """
+    temp_string = ''
+    final_string = ''
+    temp_string = contents[key_val][0] + '  ' + key_val + '  ' + desc_val + '\n'
+    final_string += temp_string
+
+    for ts in contents[key_val][1:]:
+      final_string += ts
+      final_string += '\n'
+
+    return final_string
+
+  def create_comma_dict(self, matching_list):
+    """
+    matching_list
+    """
+    temp_dict = {}
+    for mk in matching_list:
+      matching = list(filter(lambda x: mk in x, self.data))
+      temp_ln = matching[0].split(mk)[0].split(',')
+      final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
+      temp_dict[mk] = final_ln
+
+    return temp_dict
+
+  def create_outlist_multiple(self, contents, current_ind):
+    """
+    contents:
+    current_ind:
+    """
+    temp_dict = {}
+    outlist_param = []
+    while (contents[current_ind][0] == '"'):
+      outlist_param.append(contents[current_ind].strip())
+      current_ind += 1
+    
+    # Add values to the list
+    outlist_temp = []
+    [outlist_temp.append(ele.split(',')) for ele in outlist_param]
+    # Flatten list
+    outlist_temp = sum(outlist_temp, [])
+    
+    # Remove junk from each element in the list
+    outlist_final = []
+    [outlist_final.append(ele.strip().replace('"',''))  for ele in outlist_temp]
+    
+    temp_dict['OutList'] = outlist_final 
+
+    return temp_dict
+
+  def write_comma_list(self, contents, key_val):
+    """
+    """
+    final_string = ''
+    for i,num in enumerate(contents[key_val]):
+      if (i != len(contents[key_val])-1):
+        temp_string = str(num) + ',  '
+        final_string += temp_string
+      else:
+        temp_string = str(num) + '  '
+        final_string += temp_string
+
+    return final_string

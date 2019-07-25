@@ -1,0 +1,124 @@
+ADBlFile(1): 'False'
+ADBlFile(2): '"../AOC/AOC_AeroDyn_blade.dat"'
+ADBlFile(3)SumPrint: '"../AOC/AOC_AeroDyn_blade.dat"'
+AFAeroMod: 2
+AIDrag: 'False'
+AirDens: 0.9526
+BlOutNd:
+- 4
+- 6
+- 8
+- 10
+CavitCheck: 'False'
+DBEMT_Mod: 2
+DTAero: '"DEFAULT"'
+Echo: 'False'
+FLookup: 'True'
+FluidDepth: 0.5
+FrozenWake: 'False'
+HubLoss: 'False'
+InCol_Alfa: 1
+InCol_Cd: 3
+InCol_Cl: 2
+InCol_Cm: 0
+InCol_CpminUseBlCm: 0
+IndToler: '"Default"'
+KinVisc: 1.4639e-05
+Matrix:
+  TwrCd:
+    Unit: '-'
+    Value:
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+  TwrDiam:
+    Unit: m
+    Value:
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+  TwrElev:
+    Unit: m
+    Value:
+    - 16.0
+    - 17.0
+    - 18.0
+    - 19.0
+    - 20.0
+    - 21.0
+    - 22.0
+    - 23.0
+    - 24.0
+    - 24.4
+MaxIter: 100
+NBlOuts: '"../AOC/AOC_AeroDyn_blade.dat"'
+NTwOuts: 'True'
+NumAFfiles: 5
+NumTwrNds: 10
+OutList:
+- RtSpeed
+- RtSkew
+- B1N1Theta
+- B1N2Theta
+- B1N3Theta
+- B1N4Theta
+- B1N1AxInd
+- B1N2AxInd
+- B1N3AxInd
+- B1N4AxInd
+- B1N1Alpha
+- B1N2Alpha
+- B1N3Alpha
+- B1N4Alpha
+- B1N1Vrel
+- B1N2Vrel
+- B1N3Vrel
+- B1N4Vrel
+- B1N1Cl
+- B1N2Cl
+- B1N3Cl
+- B1N4Cl
+- B1N1Cd
+- B1N2Cd
+- B1N3Cd
+- B1N4Cd
+- B1N1Cm
+- B1N2Cm
+- B1N3Cm
+- B1N4Cm
+Patm: 103500
+Pvap: 1700
+SkewMod: 2
+SkewModFactor: '"default"'
+SpdSound: 335
+TIDrag: 'False'
+TanInd: 'true'
+TipLoss: 'True'
+TwOutNd:
+- 1
+- 2
+- 3
+- 4
+- 5
+TwrAero: 'False'
+TwrPotent: 0
+TwrShadow: 'True'
+UAMod: 3
+WakeMod: 1
+line1: '------- AERODYN v15 for OpenFAST INPUT FILE -----------------------------------------------'
+line2: 'AOC aerodynamic parameters for FAST Certification Test #8.'
+tau1_const: 4

@@ -68,11 +68,8 @@ class AOCFstFile(BaseFile):
     
     new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
 
-    matching = list(filter(lambda x: 'LinTimes' in x, self.data))
-    # data_length = self.convert_value(matching[0].split()[0])
-    temp_ln = matching[1].split('LinTimes')[0].split(',')
-    final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
-    new_dict['LinTimes'] = final_ln
+    temp_dict = self.create_comma_dict(['LinTimes'])
+    new_dict.update(temp_dict)
 
     return new_dict
       
@@ -213,13 +210,7 @@ class AOCFstFile(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    for i,num in enumerate(in_dict['LinTimes']):
-      if (i != len(in_dict['LinTimes'])-1):
-        temp_string = str(num) + ',  '
-        file_string += temp_string
-      else:
-        temp_string = str(num) + '  '
-        file_string += temp_string
+    file_string += self.write_comma_list(self.data, 'LinTimes')
 
     file_string += 'LinTimes        - List of times at which to linearize (s) [1 to NLinTimes] [unused if Linearize=False]\n'
 
@@ -760,7 +751,7 @@ class AOCElastoDynFile(BaseFile):
     
     file_string += 'BldGagNd    - List of blade nodes that have strain gages [1 to BldNodes] (-) [unused if NBlGages=0]\n'
 
-    temp_string = self.write_outlist(in_dict, '  - ')
+    temp_string = self.write_outlist_kv(in_dict, '  - ')
     file_string += temp_string
 
     return file_string
@@ -1137,7 +1128,7 @@ class AOCBladeADFile(BaseFile):
       'NumBlNds'
     ]
     
-    matching = list(filter(lambda x: 'NumBlNds' in x, self.data))
+    # matching = list(filter(lambda x: 'NumBlNds' in x, self.data))
     # data_length = self.convert_value(matching[0].split()[0])
     sec_start_list = [3]
     length_list = [0]
@@ -1464,7 +1455,7 @@ class AOCInflowWind(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    temp_string = self.write_outlist(in_dict, '  ')
+    temp_string = self.write_outlist_kv(in_dict, '  ')
     file_string += temp_string
 
     return file_string
@@ -1877,7 +1868,7 @@ class AOCServoDyn(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    temp_string = self.write_outlist(in_dict, '  - ')
+    temp_string = self.write_outlist_kv(in_dict, '  - ')
     file_string += temp_string
 
     return file_string
@@ -1920,14 +1911,8 @@ class AOCAD(BaseFile):
     temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     new_dict.update(temp_dict)
 
-    new_dict['FoilNm'] = []
-    new_dict['FoilNm'].append(self.data[16].split('  ')[0].strip())
-
-    if (new_dict['NumFoil'] > 1):
-
-      for ln in range(17,16+new_dict['NumFoil']):
-        # print(ln)
-        new_dict['FoilNm'].append(self.data[ln].strip())
+    temp_dict = self.parse_mulitple_first(self.data, 'FoilNm', 'NumFoil', 16)
+    new_dict.update(temp_dict)
 
     key_list = [
       'BldNodes'
@@ -2007,12 +1992,8 @@ class AOCAD(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    temp_string = in_dict['FoilNm'][0] + '  FoilNm  - Names of the airfoil files [NumFoil lines] (quoted strings)\n'
+    temp_string = self.write_multiple_first(self.data, 'FoilNm', '- Names of the airfoil files [NumFoil lines] (quoted strings)')
     file_string += temp_string
-
-    for ts in in_dict['FoilNm'][1:]:
-      file_string += ts
-      file_string += '\n'
 
     key_list = [
       'BldNodes'
@@ -2040,4 +2021,327 @@ class AOCAD(BaseFile):
 
     return file_string
 
+
+class AOCAD15(BaseFile):
+  """
+  Input file for the servodyn
+  """
+
+  def __init__(self, parent_directory, filename):
+    super().__init__(parent_directory, filename)
+
+  def read_t2y(self):
+
+    new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+
+    key_list = [
+      'NumAFfiles'
+    ]
+
+    sec_start_list = [41]
+    length_list = [0]    
+
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    key_list = [
+      'NumTwrNds'
+    ]
+
+    sec_start_list = [48+int(new_dict['NumAFfiles'])]
+    length_list = [0]    
+
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    key_list = [
+      'Echo',
+      'DTAero',
+      'WakeMod',
+      'AFAeroMod',
+      'TwrPotent',
+      'TwrShadow',
+      'TwrAero',
+      'FrozenWake',
+      'CavitCheck',
+      'AirDens',
+      'KinVisc',
+      'SpdSound',
+      'Patm',
+      'Pvap',
+      'FluidDepth',
+      'SkewMod',
+      'SkewModFactor',
+      'TipLoss',
+      'HubLoss',
+      'TanInd',
+      'AIDrag',
+      'TIDrag',
+      'IndToler',
+      'MaxIter',
+      'DBEMT_Mod',
+      'tau1_const',
+      'UAMod',
+      'FLookup',
+      'InCol_Alfa',
+      'InCol_Cl',
+      'InCol_Cd',
+      'InCol_Cm',
+      'InCol_Cpmin'
+      'UseBlCm',
+      'ADBlFile(1)',
+      'ADBlFile(2)',
+      'ADBlFile(3)'
+      'SumPrint',
+      'NBlOuts', 
+      'NTwOuts' 
+    ]
+
+    sec_start_list = [3,13,20,30,33,36,
+      43+new_dict['NumAFfiles'],
+      52+new_dict['NumAFfiles']+new_dict['NumTwrNds'],
+      55+new_dict['NumAFfiles']+new_dict['NumTwrNds']
+    ]
+    length_list = [8,6,9,2,2,5,4,2,1]
+    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
+    temp_key_list = self.data[49+new_dict['NumAFfiles']].split()
+    temp_unit_list = self.remove_parens(self.data[50+new_dict['NumAFfiles']].split())
+
+    temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'NumTwrNds', sv=52+new_dict['NumAFfiles'])
+    new_dict['Matrix'] = temp_dict
+
+    temp_dict = self.create_comma_dict(['BlOutNd','TwOutNd'])
+    new_dict.update(temp_dict)
+
+    temp_dict = self.create_outlist_multiple(self.data, 58+new_dict['NumAFfiles']+new_dict['NumTwrNds'])
+    new_dict.update(temp_dict)
+
+    return new_dict
+      
+  def read_y2t(self):
+
+    in_dict = self.data
+
+    file_string = ''
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
+    file_string += '======  General Options  ============================================================================\n'
+
+    key_list = [
+      'Echo',
+      'DTAero',
+      'WakeMod',
+      'AFAeroMod',
+      'TwrPotent',
+      'TwrShadow',
+      'TwrAero',
+      'FrozenWake',
+      'CavitCheck',
+    ]
+
+    desc_list = [
+      '- Echo the input to "<rootname>.AD.ech"?  (flag)',
+      '- Time interval for aerodynamic calculations {or "default"} (s)',
+      '- Type of wake/induction model (switch) {0=none, 1=BEMT, 2=DBEMT} [WakeMod cannot be 2 when linearizing]',
+      '- Type of blade airfoil aerodynamics model (switch) {1=steady model, 2=Beddoes-Leishman unsteady model} [AFAeroMod must be 1 when linearizing]',
+      '- Type tower influence on wind based on potential flow around the tower (switch) {0=none, 1=baseline potential flow, 2=potential flow with Bak correction}',
+      '- Calculate tower influence on wind based on downstream tower shadow? (flag)',
+      '- Calculate tower aerodynamic loads? (flag)',
+      '- Assume frozen wake during linearization? (flag) [used only when WakeMod=1 and when linearizing]',
+      '- Perform cavitation check? (flag) [AFAeroMod must be 1 when CavitCheck=true]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '======  Environmental Conditions  ===================================================================\n'
+
+    key_list = [
+      'AirDens',
+      'KinVisc',
+      'SpdSound',
+      'Patm',
+      'Pvap',
+      'FluidDepth'
+    ]
+
+    desc_list = [
+      '- Air density (kg/m^3)',
+      '- Kinematic air viscosity (m^2/s)',
+      '- Speed of sound (m/s)',
+      '- Atmospheric pressure (Pa) [used only when CavitCheck=True]',
+      '- Vapour pressure of fluid (Pa) [used only when CavitCheck=True]',
+      '- Water depth above mid-hub height (m) [used only when CavitCheck=True]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '======  Blade-Element/Momentum Theory Options  ====================================================== [unused when WakeMod=0]\n'
+
+    key_list = [
+      'SkewMod',
+      'SkewModFactor',
+      'TipLoss',
+      'HubLoss',
+      'TanInd',
+      'AIDrag',
+      'TIDrag',
+      'IndToler',
+      'MaxIter'
+    ]
+
+    desc_list = [
+      '- Type of skewed-wake correction model (switch) {1=uncoupled, 2=Pitt/Peters, 3=coupled} [unused when WakeMod=0]',
+      '- Constant used in Pitt/Peters skewed wake model {or "default" is 15/32*pi} (-) [used only when SkewMod=2; unused when WakeMod=0]',
+      '- Use the Prandtl tip-loss model? (flag) [unused when WakeMod=0]',
+      '- Use the Prandtl hub-loss model? (flag) [unused when WakeMod=0]',
+      '- Include tangential induction in BEMT calculations? (flag) [unused when WakeMod=0]',
+      '- Include the drag term in the axial-induction calculation? (flag) [unused when WakeMod=0]',
+      '- Include the drag term in the tangential-induction calculation? (flag) [unused when WakeMod=0 or TanInd=FALSE]',
+      '- Convergence tolerance for BEMT nonlinear solve residual equation {or "default"} (-) [unused when WakeMod=0]',
+      '- Maximum number of iteration steps (-) [unused when WakeMod=0]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '======  Dynamic Blade-Element/Momentum Theory Options  ============================================== [used only when WakeMod=2]\n'
+
+    key_list = [
+      'DBEMT_Mod',
+      'tau1_const'
+    ]
+
+    desc_list = [
+      '- Type of dynamic BEMT (DBEMT) model {1=constant tau1, 2=time-dependent tau1} (-) [used only when WakeMod=2]',
+      '- Time constant for DBEMT (s) [used only when WakeMod=2 and DBEMT_Mod=1]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string
+
+    file_string += '======  Beddoes-Leishman Unsteady Airfoil Aerodynamics Options  ===================================== [used only when AFAeroMod=2]\n'
+
+    key_list = [
+      'UAMod',
+      'FLookup'
+    ]
+
+    desc_list = [
+      "- Unsteady Aero Model Switch (switch) {1=Baseline model (Original), 2=Gonzalez's variant (changes in Cn,Cc,Cm), 3=Minemma/Pierce variant (changes in Cc and Cm)} [used only when AFAeroMod=2]",
+      "- Flag to indicate whether a lookup for f' will be calculated (TRUE) or whether best-fit exponential equations will be used (FALSE); if FALSE S1-S4 must be provided in airfoil input files (flag) [used only when AFAeroMod=2]"
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string 
+
+    file_string += '======  Airfoil Information =========================================================================\n'
+
+    key_list = [
+      'InCol_Alfa',
+      'InCol_Cl',
+      'InCol_Cd',
+      'InCol_Cm',
+      'InCol_Cpmin',
+      'NumAFfiles'
+    ]
+
+    desc_list = [
+      '- The column in the airfoil tables that contains the angle of attack (-)',
+      '- The column in the airfoil tables that contains the lift coefficient (-)',
+      '- The column in the airfoil tables that contains the drag coefficient (-)',
+      '- The column in the airfoil tables that contains the pitching-moment coefficient; use zero if there is no Cm column (-)',
+      '- The column in the airfoil tables that contains the Cpmin coefficient; use zero if there is no Cpmin column (-)',
+      '- Number of airfoil files used (-)'     
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string 
+
+    temp_string = self.write_multiple_first(self.data, 'AFNames', '- Airfoil file names (NumAFfiles lines) (quoted strings)')
+    file_string += temp_string
+
+    file_string += '======  Rotor/Blade Properties  =====================================================================\n'
+
+    key_list = [
+      'UseBlCm',
+      'ADBlFile(1)',
+      'ADBlFile(2)',
+      'ADBlFile(3)'
+    ]
+
+    desc_list = [
+      '- Include aerodynamic pitching moment in calculations?  (flag)',
+      '- Name of file containing distributed aerodynamic properties for Blade #1 (-)',
+      '- Name of file containing distributed aerodynamic properties for Blade #2 (-) [unused if NumBl < 2]',
+      '- Name of file containing distributed aerodynamic properties for Blade #3 (-) [unused if NumBl < 3]'     
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string 
+
+    file_string += '======  Tower Influence and Aerodynamics ============================================================= [used only when TwrPotent/=0, TwrShadow=True, or TwrAero=True]\n'
+
+    key_list = [
+      'NumTwrNds'
+    ]
+
+    desc_list = [
+      '- Number of tower nodes used in the analysis  (-) [used only when TwrPotent/=0, TwrShadow=True, or TwrAero=True]'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string 
+
+    tt_keys = list(in_dict['Matrix'].keys())
+    ord_keys = [
+      'TwrElev',        
+      'TwrDiam',        
+      'TwrCd'      
+    ]
+
+    temp_string = self.write_val_un_table(in_dict, tt_keys, ord_keys, 'TwrElev')
+    file_string += temp_string
+
+    file_string += '======  Outputs  ====================================================================================\n'
+
+    key_list = [
+      'SumPrint',
+      'NBlOuts'
+    ]
+
+    desc_list = [
+      '- Generate a summary file listing input options and interpolated properties to "<rootname>.AD.sum"?  (flag)',
+      '- Number of blade node outputs [0 - 9] (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string 
+
+    file_string += self.write_comma_list(self.data, 'BlOutNd')
+
+    key_list = [
+      'NTwOuts'
+    ]
+
+    desc_list = [
+      '- Number of tower node outputs [0 - 9]  (-)'
+    ]
+
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    file_string += temp_string 
+
+    file_string += self.write_comma_list(self.data, 'TwOutNd')
+    file_string += self.write_outlist(in_dict)
+   
+    return file_string
   
