@@ -25,15 +25,13 @@ class AOC_WSt_Case(BaseCase):
     self.openfast_directory = openfast_directory
     driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
     input_files = [
-      # AeroDataFile(case_directory, 'test_AD.yml')
       AOCFstFile(case_directory, 'AOC_WSt.yml'),
       AOCElastoDynFile(case_directory, 'AOC_WSt_ElastoDyn.yml'),
       AOCInflowWind(case_directory, 'AOC_WSt_InflowWind.yml'),
       AOCAD(case_directory, 'AOC_WSt_AD.yml'),
       AOCServoDyn(case_directory, 'AOC_WSt_ServoDyn.yml'),
-      # AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
       AOCTowerFile(case_directory, 'AOC_Tower.yml'),
-      AOCBladeFile(case_directory, 'AOC_Blade.yml'),
+      AOCBladeFile(case_directory, 'AOC_Blade.yml')
     ]
     self.expected_output_files = [
       'AOC_WSt.out'
@@ -137,7 +135,6 @@ class AOC_YFix_WSt_Case(BaseCase):
     self.openfast_directory = openfast_directory
     driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
     input_files = [
-      # AeroDataFile(case_directory, 'test_AD.yml')
       AOCFstFile(case_directory, 'AOC_YFix_WSt.yml'),
       AOCElastoDynFile(case_directory, 'AOC_YFix_WSt_ElastoDyn.yml'),
       AOCInflowWind(case_directory, 'AOC_YFix_WSt_InflowWind.yml'),
@@ -145,7 +142,7 @@ class AOC_YFix_WSt_Case(BaseCase):
       AOCServoDyn(case_directory, 'AOC_YFix_WSt_ServoDyn.yml'),
       AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
       AOCTowerFile(case_directory, 'AOC_Tower.yml'),
-      AOCBladeFile(case_directory, 'AOC_Blade.yml'),
+      AOCBladeFile(case_directory, 'AOC_Blade.yml')
     ]
     self.expected_output_files = [
       'AOC_YFix_WSt.out'
@@ -249,18 +246,17 @@ class AOC_YFree_WTurb_Case(BaseCase):
     self.openfast_directory = openfast_directory
     driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
     input_files = [
-      # AeroDataFile(case_directory, 'test_AD.yml')
-      AOCFstFile(case_directory, 'AOC_WSt.yml'),
-      AOCElastoDynFile(case_directory, 'AOC_WSt_ElastoDyn.yml'),
-      AOCInflowWind(case_directory, 'AOC_WSt_InflowWind.yml'),
-      AOCAD(case_directory, 'AOC_WSt_AD.yml'),
-      AOCServoDyn(case_directory, 'AOC_WSt_ServoDyn.yml'),
-      # AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
+      AOCFstFile(case_directory, 'AOC_YFree_WTurb.yml'),
+      AOCElastoDynFile(case_directory, 'AOC_YFree_WTurb_ElastoDyn.yml'),
+      AOCInflowWind(case_directory, 'AOC_YFree_WTurb_InflowWind.yml'),
+      AOCAD15(case_directory, 'AOC_YFree_WTurb_AD15.yml'),
+      AOCServoDyn(case_directory, 'AOC_YFree_WTurb_ServoDyn.yml'),
+      AOCBladeADFile(case_directory, 'AOC_AeroDyn_blade.yml'),
       AOCTowerFile(case_directory, 'AOC_Tower.yml'),
-      AOCBladeFile(case_directory, 'AOC_Blade.yml'),
+      AOCBladeFile(case_directory, 'AOC_Blade.yml')
     ]
     self.expected_output_files = [
-      'AOC_WSt.out'
+      'AOC_YFree_WTurb.out'
     ]
     super().__init__(driver, case_directory, input_files)
 

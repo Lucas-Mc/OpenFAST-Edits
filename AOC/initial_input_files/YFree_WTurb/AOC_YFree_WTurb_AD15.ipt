@@ -47,9 +47,9 @@ True          FLookup            - Flag to indicate whether a lookup for f' will
 "../AOC/Airfoils/S813_15.dat"
 ======  Rotor/Blade Properties  =====================================================================
 False         UseBlCm            - Include aerodynamic pitching moment in calculations?  (flag)
-"../AOC/AOC_AeroDyn_blade.dat"    ADBlFile(1)        - Name of file containing distributed aerodynamic properties for Blade #1 (-)
-"../AOC/AOC_AeroDyn_blade.dat"    ADBlFile(2)        - Name of file containing distributed aerodynamic properties for Blade #2 (-) [unused if NumBl < 2]
-"../AOC/AOC_AeroDyn_blade.dat"    ADBlFile(3)        - Name of file containing distributed aerodynamic properties for Blade #3 (-) [unused if NumBl < 3]
+"AOC_AeroDyn_blade.inp"    ADBlFile(1)        - Name of file containing distributed aerodynamic properties for Blade #1 (-)
+"AOC_AeroDyn_blade.inp"    ADBlFile(2)        - Name of file containing distributed aerodynamic properties for Blade #2 (-) [unused if NumBl < 2]
+"AOC_AeroDyn_blade.inp"    ADBlFile(3)        - Name of file containing distributed aerodynamic properties for Blade #3 (-) [unused if NumBl < 3]
 ======  Tower Influence and Aerodynamics ============================================================= [used only when TwrPotent/=0, TwrShadow=True, or TwrAero=True]
          10   NumTwrNds         - Number of tower nodes used in the analysis  (-) [used only when TwrPotent/=0, TwrShadow=True, or TwrAero=True]
 TwrElev        TwrDiam        TwrCd

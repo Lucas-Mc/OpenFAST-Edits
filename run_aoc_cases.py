@@ -1,7 +1,7 @@
 import os
 from src.aoc_cases import AOC_WSt_Case
 from src.aoc_cases import AOC_YFix_WSt_Case
-# from src.aoc_cases import AOC_YFree_WTurb_Case
+from src.aoc_cases import AOC_YFree_WTurb_Case
 from src.aoc_driver import AOCDriver
 
 # Set a common home directory
@@ -13,8 +13,8 @@ openfast_directory = homedir + '/openfast'
 # Build the cases
 aoc_cases = [
     # AOC_WSt_Case(openfast_directory, './AOC/'),
-    AOC_YFix_WSt_Case(openfast_directory, './AOC/'),
-    # AOC_YFree_WTurb_Case(openfast_directory, './AOC/')
+    # AOC_YFix_WSt_Case(openfast_directory, './AOC/'),
+    AOC_YFree_WTurb_Case(openfast_directory, './AOC/')
 ]
 
 # Run each case

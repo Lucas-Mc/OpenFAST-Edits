@@ -1,0 +1,96 @@
+ADBlFile(1): '"AOC_AeroDyn_blade.inp"'
+ADBlFile(2): '"AOC_AeroDyn_blade.inp"'
+ADBlFile(3): '"AOC_AeroDyn_blade.inp"'
+AFAeroMod: 2
+AFNames:
+- '"../AOC/Airfoils/S814_1.dat"'
+- '"../AOC/Airfoils/S814_15.dat"'
+- '"../AOC/Airfoils/S812_15.dat"'
+- '"../AOC/Airfoils/S812_2.dat"'
+- '"../AOC/Airfoils/S813_15.dat"'
+AIDrag: 'False'
+AirDens: 0.9526
+BlOutNd:
+- 4
+CavitCheck: 'False'
+DBEMT_Mod: 2
+DTAero: '"DEFAULT"'
+Echo: 'False'
+FLookup: 'True'
+FluidDepth: 0.5
+FrozenWake: 'False'
+HubLoss: 'True'
+InCol_Alfa: 1
+InCol_Cd: 3
+InCol_Cl: 2
+InCol_Cm: 0
+InCol_Cpmin: 0
+IndToler: '"Default"'
+KinVisc: 1.4639e-05
+Matrix:
+  TwrCd:
+    Unit: '-'
+    Value:
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+    - 2.0115
+  TwrDiam:
+    Unit: m
+    Value:
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+    - 0.059656972
+  TwrElev:
+    Unit: m
+    Value:
+    - 16.0
+    - 17.0
+    - 18.0
+    - 19.0
+    - 20.0
+    - 21.0
+    - 22.0
+    - 23.0
+    - 24.0
+    - 24.4
+MaxIter: 100
+NBlOuts: 0
+NTwOuts: 0
+NumAFfiles: 5
+NumTwrNds: 10
+OutList:
+- RtTSR
+Patm: 103500
+Pvap: 1700
+SkewMod: 2
+SkewModFactor: '"default"'
+SpdSound: 335
+SumPrint: 'True'
+TIDrag: 'False'
+TanInd: 'true'
+TipLoss: 'True'
+TwOutNd:
+- 1
+TwrAero: 'False'
+TwrPotent: 0
+TwrShadow: 'True'
+UAMod: 3
+UseBlCm: 'False'
+WakeMod: 1
+line1: '------- AERODYN v15 for OpenFAST INPUT FILE -----------------------------------------------'
+line2: 'AOC aerodynamic parameters for FAST Certification Test #7.'
+tau1_const: 4
