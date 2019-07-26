@@ -426,7 +426,7 @@ class BaseFile():
     """
     end_string = ''
     end_string += 'OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)\n'
-    for outp in in_dict['OutList'].keys():
+    for outp in in_dict['OutList']:
       end_string += '"'
       end_string += outp
       end_string += '"'
@@ -524,20 +524,20 @@ class BaseFile():
 
     return temp_dict, line_num
 
-  def parse_mulitple_first(self, contents, key_list, key_num, line_start):
+  def parse_mulitple_first(self, contents, key_list, num_entry, line_start):
     """
     contents, 
     key_list, 
-    key_num,
+    num_entry,
     line_start
     """
     temp_dict = {}
     temp_dict[key_list] = []
     temp_dict[key_list].append(self.data[line_start].split('  ')[0].strip())
 
-    if (temp_dict[key_num] > 1):
+    if (num_entry > 1):
 
-      for ln in range(line_start+1,line_start+temp_dict[key_num]):
+      for ln in range(line_start+1,line_start+num_entry):
         temp_dict[key_list].append(self.data[ln].strip())
 
     return temp_dict
@@ -563,7 +563,11 @@ class BaseFile():
     temp_dict = {}
     for mk in matching_list:
       matching = list(filter(lambda x: mk in x, self.data))
-      temp_ln = matching[0].split(mk)[0].split(',')
+      # Make this better
+      try:
+        temp_ln = matching[1].split(mk)[0].split(',')
+      except:
+        temp_ln = matching[0].split(mk)[0].split(',')
       final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
       temp_dict[mk] = final_ln
 
@@ -594,8 +598,11 @@ class BaseFile():
 
     return temp_dict
 
-  def write_comma_list(self, contents, key_val):
+  def write_comma_list(self, contents, key_val, desc_val):
     """
+    contents, 
+    key_val, 
+    desc_val
     """
     final_string = ''
     for i,num in enumerate(contents[key_val]):
@@ -603,7 +610,7 @@ class BaseFile():
         temp_string = str(num) + ',  '
         final_string += temp_string
       else:
-        temp_string = str(num) + '  '
+        temp_string = str(num) + '  ' + key_val + '  ' + desc_val + '\n'
         final_string += temp_string
 
     return final_string

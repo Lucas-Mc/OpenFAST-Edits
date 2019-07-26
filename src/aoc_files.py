@@ -210,9 +210,8 @@ class AOCFstFile(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string
 
-    file_string += self.write_comma_list(self.data, 'LinTimes')
-
-    file_string += 'LinTimes        - List of times at which to linearize (s) [1 to NLinTimes] [unused if Linearize=False]\n'
+    temp_string = self.write_comma_list(self.data, 'LinTimes', '- List of times at which to linearize (s) [1 to NLinTimes] [unused if Linearize=False]')
+    file_string += temp_string
 
     key_list = [
       'LinInputs',
@@ -2090,11 +2089,11 @@ class AOCAD15(BaseFile):
       'InCol_Cl',
       'InCol_Cd',
       'InCol_Cm',
-      'InCol_Cpmin'
+      'InCol_Cpmin',
       'UseBlCm',
       'ADBlFile(1)',
       'ADBlFile(2)',
-      'ADBlFile(3)'
+      'ADBlFile(3)',
       'SumPrint',
       'NBlOuts', 
       'NTwOuts' 
@@ -2110,9 +2109,11 @@ class AOCAD15(BaseFile):
     temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     new_dict.update(temp_dict)
 
+    temp_dict = self.parse_mulitple_first(self.data, 'AFNames', new_dict['NumAFfiles'], 42)
+    new_dict.update(temp_dict)
+
     temp_key_list = self.data[49+new_dict['NumAFfiles']].split()
     temp_unit_list = self.remove_parens(self.data[50+new_dict['NumAFfiles']].split())
-
     temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'NumTwrNds', sv=52+new_dict['NumAFfiles'])
     new_dict['Matrix'] = temp_dict
 
@@ -2327,7 +2328,8 @@ class AOCAD15(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string 
 
-    file_string += self.write_comma_list(self.data, 'BlOutNd')
+    temp_string = self.write_comma_list(self.data, 'BlOutNd', '- Blade nodes whose values will be output  (-)')
+    file_string += temp_string
 
     key_list = [
       'NTwOuts'
@@ -2340,7 +2342,7 @@ class AOCAD15(BaseFile):
     temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
     file_string += temp_string 
 
-    file_string += self.write_comma_list(self.data, 'TwOutNd')
+    file_string += self.write_comma_list(self.data, 'TwOutNd', '- Tower nodes whose values will be output  (-)')
     file_string += self.write_outlist(in_dict)
    
     return file_string

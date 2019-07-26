@@ -1,7 +1,13 @@
-ADBlFile(1): 'False'
-ADBlFile(2): '"../AOC/AOC_AeroDyn_blade.dat"'
-ADBlFile(3)SumPrint: '"../AOC/AOC_AeroDyn_blade.dat"'
+ADBlFile(1): '"AOC_AeroDyn_blade.inp"'
+ADBlFile(2): '"AOC_AeroDyn_blade.inp"'
+ADBlFile(3): '"AOC_AeroDyn_blade.inp"'
 AFAeroMod: 2
+AFNames:
+- '"Airfoils/S814_1.dat"'
+- '"Airfoils/S814_15.dat"'
+- '"Airfoils/S812_15.dat"'
+- '"Airfoils/S812_2.dat"'
+- '"Airfoils/S813_15.dat"'
 AIDrag: 'False'
 AirDens: 0.9526
 BlOutNd:
@@ -21,7 +27,7 @@ InCol_Alfa: 1
 InCol_Cd: 3
 InCol_Cl: 2
 InCol_Cm: 0
-InCol_CpminUseBlCm: 0
+InCol_Cpmin: 0
 IndToler: '"Default"'
 KinVisc: 1.4639e-05
 Matrix:
@@ -65,8 +71,8 @@ Matrix:
     - 24.0
     - 24.4
 MaxIter: 100
-NBlOuts: '"../AOC/AOC_AeroDyn_blade.dat"'
-NTwOuts: 'True'
+NBlOuts: 4
+NTwOuts: 0
 NumAFfiles: 5
 NumTwrNds: 10
 OutList:
@@ -105,6 +111,7 @@ Pvap: 1700
 SkewMod: 2
 SkewModFactor: '"default"'
 SpdSound: 335
+SumPrint: 'True'
 TIDrag: 'False'
 TanInd: 'true'
 TipLoss: 'True'
@@ -118,6 +125,7 @@ TwrAero: 'False'
 TwrPotent: 0
 TwrShadow: 'True'
 UAMod: 3
+UseBlCm: 'False'
 WakeMod: 1
 line1: '------- AERODYN v15 for OpenFAST INPUT FILE -----------------------------------------------'
 line2: 'AOC aerodynamic parameters for FAST Certification Test #8.'

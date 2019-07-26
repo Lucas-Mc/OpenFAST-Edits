@@ -2,8 +2,8 @@ Echo: 'False'
 FileName_u: '"wasp\Output\basic_5u.bin"'
 FileName_v: '"wasp\Output\basic_5v.bin"'
 FileName_w: '"wasp\Output\basic_5w.bin"'
-Filename: '"../AOC/Wind/Shr11_30.wnd"'
-FilenameRoot: '"../AOC/Wind/Shr11_30"'
+Filename: '"Wind/Shr11_30.wnd"'
+FilenameRoot: '"Wind/Shr11_30"'
 HWindSpeed: 11
 NWindVel: 1
 OutList:

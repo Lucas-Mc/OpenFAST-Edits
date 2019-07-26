@@ -1,5 +1,5 @@
 AbortLevel: '"FATAL"'
-AeroFile: '"AOC_YFix_WSt_AD15.ipt"'
+AeroFile: '"AOC_YFix_WSt_AD15.inp"'
 BDBldFile(1): '"unused"'
 BDBldFile(2): '"unused"'
 BDBldFile(3): '"unused"'
@@ -15,25 +15,26 @@ CompSub: 0
 DT: 0.005
 DT_Out: 0.05
 DT_UJac: 99999
-EDFile: '"AOC_YFix_WSt_ElastoDyn.dat"'
+EDFile: '"AOC_YFix_WSt_ElastoDyn.inp"'
 Echo: 'True'
 HydroFile: '"unused"'
 IceFile: '"unused"'
-InflowFile: '"AOC_YFix_WSt_InflowWind.dat"'
+InflowFile: '"AOC_YFix_WSt_InflowWind.inp"'
 InterpOrder: 2
 LinInputs: 1
 LinOutJac: 'False'
 LinOutMod: 'False'
 LinOutputs: 1
 LinTimes:
-- 2   N
+- 30
+- 60
 Linearize: 'False'
 MooringFile: '"unused"'
 NLinTimes: 2
 NumCrctn: 0
 OutFileFmt: 0
 OutFmt: '"ES10.3E2"'
-ServoFile: '"AOC_YFix_WSt_ServoDyn.dat"'
+ServoFile: '"AOC_YFix_WSt_ServoDyn.inp"'
 SttsTime: 5
 SubFile: '"unused"'
 SumPrint: 'True'

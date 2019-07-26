@@ -37,17 +37,13 @@ if (current_case == 'WSt'):
 elif (current_case == 'YFix_WSt'):
   aoc_input_files = [
     AOCAD15(case_directory, 'AOC_YFix_WSt_AD15.ipt'),
-    # AeroDataFile(case_directory, 'test_AD.yml'),
-    AOCFstFile(case_directory, 'AOC_YFix_WSt.fst'),
+    # AOCFstFile(case_directory, 'AOC_YFix_WSt.fst')#,
     AOCElastoDynFile(case_directory, 'AOC_YFix_WSt_ElastoDyn.dat'),
     AOCInflowWind(case_directory, 'AOC_YFix_WSt_InflowWind.dat'),
     AOCServoDyn(case_directory, 'AOC_YFix_WSt_ServoDyn.dat'),
-    AOCBladeADFile(case_directory, '../AOC_AeroDyn_blade.dat'),
-    AOCTowerFile(case_directory, '../AOC_Tower.dat'),
-    AOCBladeFile(case_directory, '../AOC_Blade.dat'),
-    # AeroDataFile(case_directory, 'test_AD.dat'),
-    # AirfoilsFile(case_directory, 'AOC.fst'),
-    # WindFile(case_directory, 'AOC.fst'),
+    # AOCBladeADFile(case_directory, '../AOC_AeroDyn_blade.dat'),
+    # AOCTowerFile(case_directory, '../AOC_Tower.dat'),
+    # AOCBladeFile(case_directory, '../AOC_Blade.dat'),
   ]
 
 for f in aoc_input_files:

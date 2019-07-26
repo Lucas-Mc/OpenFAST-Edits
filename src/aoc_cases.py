@@ -23,7 +23,7 @@ class AOC_WSt_Case(BaseCase):
     case_directory: Str - # TODO See example in base_case
     """
     self.openfast_directory = openfast_directory
-    driver = AOCDriver(openfast_directory + os.path.join('build','glue-codes','openfast','openfast'))
+    driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
     input_files = [
       # AeroDataFile(case_directory, 'test_AD.yml')
       AOCFstFile(case_directory, 'AOC_WSt.yml'),
@@ -247,7 +247,7 @@ class AOC_YFree_WTurb_Case(BaseCase):
     case_directory: Str - # TODO See example in base_case
     """
     self.openfast_directory = openfast_directory
-    driver = AOCDriver(openfast_directory + os.path.join('build','glue-codes','openfast','openfast'))
+    driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
     input_files = [
       # AeroDataFile(case_directory, 'test_AD.yml')
       AOCFstFile(case_directory, 'AOC_WSt.yml'),
