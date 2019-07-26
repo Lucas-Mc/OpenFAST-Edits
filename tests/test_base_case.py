@@ -22,6 +22,8 @@ class TestBaseCase(unittest.TestCase):
       os.rmdir(test_cd)
 
     with mock.patch('builtins.input', return_value='n'):
+      # This prevents an error on TravisCI when the user input is handled
+      # with return_value='n'
       with self.assertRaises(SystemExit) as cm:
         baseline_case = BaseCase(baseline_driver,test_cd,baseline_if)
       self.assertEqual(cm.exception.code, 99)
