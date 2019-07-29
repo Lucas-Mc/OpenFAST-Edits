@@ -13,6 +13,9 @@ class AOCFstFile(BaseFile):
   def read_t2y(self):
 
     new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
     
     key_list = [
       'Echo',          
@@ -51,8 +54,7 @@ class AOCFstFile(BaseFile):
       'TabDelim',    
       'OutFmt',    
       'Linearize',    
-      'NLinTimes',    
-      # 'LinTimes',    
+      'NLinTimes',      
       'LinInputs', 
       'LinOutputs', 
       'LinOutJac', 
@@ -66,7 +68,8 @@ class AOCFstFile(BaseFile):
     sec_start_list = [3,12,21,33,42,45,50]
     length_list = [7,8,11,8,2,4,4]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
 
     temp_dict = self.create_comma_dict(['LinTimes'])
     new_dict.update(temp_dict)
@@ -78,9 +81,10 @@ class AOCFstFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '------- OpenFAST example INPUT FILE -------------------------------------------\n'
-    # TODO: should this be dynamic?
-    file_string += 'FAST Certification Test #01: AWT-27CR2 with many DOFs with fixed yaw error and steady wind\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
     
     key_list = [
@@ -105,7 +109,7 @@ class AOCFstFile(BaseFile):
       '- Scaling factor used in Jacobians (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- FEATURE SWITCHES AND FLAGS ------------------------------\n'
@@ -132,7 +136,7 @@ class AOCFstFile(BaseFile):
       '- Compute ice loads (switch) {0=None; 1=IceFloe; 2=IceDyn}'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- INPUT FILES ---------------------------------------------\n'
@@ -165,7 +169,7 @@ class AOCFstFile(BaseFile):
       '- Name of file containing ice input parameters (quoted string)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- OUTPUT --------------------------------------------------\n'
@@ -192,7 +196,7 @@ class AOCFstFile(BaseFile):
       '- Format used for text tabular output, excluding the time channel.  Resulting field should be 10 characters. (quoted string)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- LINEARIZATION -------------------------------------------\n'
@@ -207,7 +211,7 @@ class AOCFstFile(BaseFile):
       '- Number of times to linearize (-) [>=1] [unused if Linearize=False]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     temp_string = self.write_comma_list(self.data, 'LinTimes', '- List of times at which to linearize (s) [1 to NLinTimes] [unused if Linearize=False]')
@@ -227,7 +231,7 @@ class AOCFstFile(BaseFile):
       '- Write module-level linearization output files in addition to output for full system? (flag) [unused if Linearize=False]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- VISUALIZATION ------------------------------------------\n'
@@ -246,7 +250,7 @@ class AOCFstFile(BaseFile):
       '- Frame rate for VTK output (frames per second){will use closest integer multiple of DT} [used only if WrVTK=2]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     return file_string
@@ -262,6 +266,9 @@ class AOCElastoDynFile(BaseFile):
   def read_t2y(self):
 
     new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
     
     key_list = [
       'Echo',  
@@ -372,12 +379,11 @@ class AOCElastoDynFile(BaseFile):
       'NBlGages'  
     ] 
 
-    # matching = list(filter(lambda x: 'NTwInpSt' in x, self.data))
-    # data_length = self.convert_value(matching[0].split()[0])
     sec_start_list = [3,7,9,27,45,72,86,91,100,105,108,111]
     length_list = [2,1,17,17,26,13,4,8,4,2,2,9]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
 
     temp_ln = self.data[120].split('BldGagNd')[0].split(',')
     final_ln = [self.convert_value(ln.strip()) for ln in temp_ln]
@@ -393,9 +399,10 @@ class AOCElastoDynFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '------- ELASTODYN v1.03.* INPUT FILE -------------------------------------------\n'
-    # TODO: should this be dynamic?
-    file_string += 'FAST certification Test #06: AOC 15/50 with many DOFs with gen start loss of grid and tip-brake shutdown. Many parameters are pure fiction.\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
     
     key_list = [
@@ -410,7 +417,7 @@ class AOCElastoDynFile(BaseFile):
       '- Integration time step (s)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- ENVIRONMENTAL CONDITION ---------------------------------\n'
@@ -423,7 +430,7 @@ class AOCElastoDynFile(BaseFile):
       '- Gravitational acceleration (m/s^2)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- DEGREES OF FREEDOM --------------------------------------\n'
@@ -468,7 +475,7 @@ class AOCElastoDynFile(BaseFile):
       '- Platform yaw rotation DOF (flag)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- INITIAL CONDITIONS --------------------------------------\n'
@@ -513,7 +520,7 @@ class AOCElastoDynFile(BaseFile):
       '- Initial or fixed yaw rotational displacement of platform (degrees)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- TURBINE CONFIGURATION -----------------------------------\n'
@@ -576,7 +583,7 @@ class AOCElastoDynFile(BaseFile):
       '- Vertical distance from the ground level [onshore] or MSL [offshore] to the platform reference point (meters)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- MASS AND INERTIA ----------------------------------------\n'
@@ -613,7 +620,7 @@ class AOCElastoDynFile(BaseFile):
       '- Platform inertia for yaw rotation about the platform CM (kg m^2)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- BLADE ---------------------------------------------------\n'
@@ -632,7 +639,7 @@ class AOCElastoDynFile(BaseFile):
       '- Name of file containing properties for blade 3 (quoted string) [unused for 2 blades]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- ROTOR-TEETER --------------------------------------------\n'
@@ -659,7 +666,7 @@ class AOCElastoDynFile(BaseFile):
       '- Rotor-teeter hard-stop linear-spring constant (N-m/rad) [used only for 2 blades and when TeetMod=1]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- DRIVETRAIN ----------------------------------------------\n'
@@ -678,7 +685,7 @@ class AOCElastoDynFile(BaseFile):
       '- Drivetrain torsional damper (N-m/(rad/s))'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- FURLING -------------------------------------------------\n'
@@ -693,7 +700,7 @@ class AOCElastoDynFile(BaseFile):
       '- Name of file containing furling properties (quoted string) [unused when Furling=False]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- TOWER ---------------------------------------------------\n'
@@ -708,7 +715,7 @@ class AOCElastoDynFile(BaseFile):
       '- Name of file containing tower properties (quoted string)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- OUTPUT --------------------------------------------------\n'
@@ -737,7 +744,7 @@ class AOCElastoDynFile(BaseFile):
       '- Number of blade nodes that have strain gages for output [0 to 9] (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     for i,num in enumerate(in_dict['BldGagNd']):
@@ -767,6 +774,9 @@ class AOCTowerFile(BaseFile):
   def read_t2y(self):
 
     new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
     
     key_list = [
       'NTwInpSt',
@@ -808,7 +818,8 @@ class AOCTowerFile(BaseFile):
     sec_start_list = [3,9,data_length+20,data_length+31]
     length_list = [4,7,10,10]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
 
     temp_key_list = self.data[17].split()
     temp_unit_list = self.remove_parens(self.data[18].split())
@@ -823,9 +834,10 @@ class AOCTowerFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '------- ELASTODYN V1.00.* TOWER INPUT FILE -------------------------------------\n'
-    # TODO: should this be dynamic?
-    file_string += 'AOC tower data.  This is pure fiction.\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- TOWER PARAMETERS ----------------------------------------\n'
     
     key_list = [
@@ -844,7 +856,7 @@ class AOCTowerFile(BaseFile):
       '- Tower 2nd side-to-side mode structural damping ratio (%)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- TOWER ADJUSTMUNT FACTORS --------------------------------\n'
@@ -869,7 +881,7 @@ class AOCTowerFile(BaseFile):
       '- Factor to adjust tower side-to-side stiffness (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- DISTRIBUTED TOWER PROPERTIES ----------------------------\n'
@@ -913,7 +925,7 @@ class AOCTowerFile(BaseFile):
       '-       , coefficient of x^6 term'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- TOWER SIDE-TO-SIDE MODE SHAPES --------------------------\n'
@@ -944,7 +956,7 @@ class AOCTowerFile(BaseFile):
       '-       , coefficient of x^6 term'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     return file_string
@@ -961,6 +973,9 @@ class AOCBladeFile(BaseFile):
   def read_t2y(self):
 
     new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
     
     key_list = [
       'NBlInpSt',
@@ -994,7 +1009,8 @@ class AOCBladeFile(BaseFile):
     sec_start_list = [3,8,data_length+17]
     length_list = [3,5,15]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
 
     temp_key_list = self.data[14].split()
     temp_unit_list = self.remove_parens(self.data[15].split())
@@ -1009,9 +1025,10 @@ class AOCBladeFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '------- ELASTODYN V1.00.* INDIVIDUAL BLADE INPUT FILE --------------------------\n'
-    # TODO: should this be dynamic?
-    file_string += 'AOC 15/50 blade file.  GJStiff -> EdgEAof are mostly lies.\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- BLADE PARAMETERS ----------------------------------------\n'
     
     key_list = [
@@ -1028,7 +1045,7 @@ class AOCBladeFile(BaseFile):
       '- Blade edge mode #1 structural damping in percent of critical (%)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- BLADE ADJUSTMENT FACTORS --------------------------------\n'
@@ -1049,7 +1066,7 @@ class AOCBladeFile(BaseFile):
       '- Factor to adjust blade edge stiffness (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- DISTRIBUTED BLADE PROPERTIES ----------------------------\n'
@@ -1105,7 +1122,7 @@ class AOCBladeFile(BaseFile):
       '-            , coeff of x^6'
    ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     return file_string
@@ -1123,16 +1140,18 @@ class AOCBladeADFile(BaseFile):
 
     new_dict = {}
 
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+
     key_list = [
       'NumBlNds'
     ]
     
-    # matching = list(filter(lambda x: 'NumBlNds' in x, self.data))
-    # data_length = self.convert_value(matching[0].split()[0])
     sec_start_list = [3]
     length_list = [0]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
 
     temp_key_list = self.data[4].split()
     temp_unit_list = self.remove_parens(self.data[5].split())
@@ -1162,9 +1181,10 @@ class AOCBladeADFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '------- AERODYN v15.00.* BLADE DEFINITION INPUT FILE -------------------------------------\n'
-    # TODO: should this be dynamic?
-    file_string += 'AOC blade aerodynamic parameters\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '======  Blade Properties =================================================================\n'
     
     key_list = [
@@ -1175,7 +1195,7 @@ class AOCBladeADFile(BaseFile):
       '- Number of blade nodes used in the analysis (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     tt_keys = list(in_dict['Matrix'].keys())
@@ -1301,7 +1321,7 @@ class AOCInflowWind(BaseFile):
       '- List of coordinates in the inertial Z direction (m)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '================== Parameters for Steady Wind Conditions [used only for WindType = 1] =========================\n'
@@ -1318,7 +1338,7 @@ class AOCInflowWind(BaseFile):
       '- Power law exponent                              (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '================== Parameters for Uniform wind file   [used only for WindType = 2] ============================\n'
@@ -1335,7 +1355,7 @@ class AOCInflowWind(BaseFile):
       '- Reference length for linear horizontal and vertical sheer (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '================== Parameters for Binary TurbSim Full-Field files   [used only for WindType = 3] ==============\n'
@@ -1348,7 +1368,7 @@ class AOCInflowWind(BaseFile):
       '- Name of the Full field wind file to use (.bts)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '================== Parameters for Binary Bladed-style Full-Field files   [used only for WindType = 4] =========\n'
@@ -1363,7 +1383,7 @@ class AOCInflowWind(BaseFile):
       '- Have tower file (.twr) (flag)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '================== Parameters for HAWC-format binary files  [Only used with WindType = 5] =====================\n'
@@ -1394,7 +1414,7 @@ class AOCInflowWind(BaseFile):
       '- reference height; the height (in meters) of the vertical center of the grid (m)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '  -------------   Scaling parameters for turbulence   ---------------------------------------------------------\n'
@@ -1419,7 +1439,7 @@ class AOCInflowWind(BaseFile):
       '- Turbulence standard deviation to calculate scaling from in z direction (m/s)    [ScaleMethod=2]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '  -------------   Mean wind profile parameters (added to HAWC-format files)   ---------------------------------\n'
@@ -1438,7 +1458,7 @@ class AOCInflowWind(BaseFile):
       '- Surface roughness length (m) (used for LG wind profile type only)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '====================== OUTPUT ==================================================\n'
@@ -1451,7 +1471,7 @@ class AOCInflowWind(BaseFile):
       '- Print summary data to <RootName>.IfW.sum (flag)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     temp_string = self.write_outlist_kv(in_dict, '  ')
@@ -1588,7 +1608,7 @@ class AOCServoDyn(BaseFile):
       '- Communication interval for controllers (s) (or "default")'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- PITCH CONTROL -------------------------------------------\n'
@@ -1621,7 +1641,7 @@ class AOCServoDyn(BaseFile):
       '- Blade 3 final pitch for pitch maneuvers (degrees) [unused for 2 blades]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- GENERATOR AND TORQUE CONTROL ----------------------------\n'
@@ -1648,7 +1668,7 @@ class AOCServoDyn(BaseFile):
       '- Time to turn off the generator (s) [used only when GenTiStp=True]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- SIMPLE VARIABLE-SPEED TORQUE CONTROL --------------------\n'
@@ -1667,7 +1687,7 @@ class AOCServoDyn(BaseFile):
       '- Rated generator slip percentage in Region 2 1/2 for simple variable-speed generator control (%) [used only when VSContrl=1]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- SIMPLE INDUCTION GENERATOR ------------------------------\n'
@@ -1686,7 +1706,7 @@ class AOCServoDyn(BaseFile):
       '- Pull-out ratio (Tpullout/Trated) (-) [used only when VSContrl=0 and GenModel=1]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- THEVENIN-EQUIVALENT INDUCTION GENERATOR -----------------\n'
@@ -1713,7 +1733,7 @@ class AOCServoDyn(BaseFile):
       '- Magnetizing reactance (ohms) [used only when VSContrl=0 and GenModel=2]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- HIGH-SPEED SHAFT BRAKE ----------------------------------\n'
@@ -1732,7 +1752,7 @@ class AOCServoDyn(BaseFile):
       '- Fully deployed HSS-brake torque (N-m) [unused when HSSBrMode=5]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- NACELLE-YAW CONTROL -------------------------------------\n'
@@ -1759,7 +1779,7 @@ class AOCServoDyn(BaseFile):
       '- Final yaw angle for override yaw maneuvers (degrees)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- TUNED MASS DAMPER ---------------------------------------\n'
@@ -1778,7 +1798,7 @@ class AOCServoDyn(BaseFile):
       '- Name of the file for tower tuned mass damper (quoted string) [unused when CompTTMD is false]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- BLADED INTERFACE ---------------------------------------- [used only with Bladed Interface]\n'
@@ -1827,7 +1847,7 @@ class AOCServoDyn(BaseFile):
       '- Record 13: Demanded power (W) [used only with Bladed Interface]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- BLADED INTERFACE TORQUE-SPEED LOOK-UP TABLE -------------\n'
@@ -1840,7 +1860,7 @@ class AOCServoDyn(BaseFile):
       '- Record 26: No. of points in torque-speed look-up table {0 = none and use the optimal mode parameters; nonzero = ignore the optimal mode PARAMETERs by setting Record 16 to 0.0} (-) [used only with Bladed Interface]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += 'GenSpd_TLU   GenTrq_TLU\n'
@@ -1864,7 +1884,7 @@ class AOCServoDyn(BaseFile):
       '- Time to begin tabular output (s) (currently unused)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     temp_string = self.write_outlist_kv(in_dict, '  - ')
@@ -1988,7 +2008,7 @@ class AOCAD(BaseFile):
       '- Number of airfoil files (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     temp_string = self.write_multiple_first(self.data, 'FoilNm', '- Names of the airfoil files [NumFoil lines] (quoted strings)')
@@ -2002,7 +2022,7 @@ class AOCAD(BaseFile):
       '- Number of blade nodes used for analysis (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     tt_keys = list(in_dict['Matrix'].keys())
@@ -2160,7 +2180,7 @@ class AOCAD15(BaseFile):
       '- Perform cavitation check? (flag) [AFAeroMod must be 1 when CavitCheck=true]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '======  Environmental Conditions  ===================================================================\n'
@@ -2183,7 +2203,7 @@ class AOCAD15(BaseFile):
       '- Water depth above mid-hub height (m) [used only when CavitCheck=True]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '======  Blade-Element/Momentum Theory Options  ====================================================== [unused when WakeMod=0]\n'
@@ -2212,7 +2232,7 @@ class AOCAD15(BaseFile):
       '- Maximum number of iteration steps (-) [unused when WakeMod=0]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '======  Dynamic Blade-Element/Momentum Theory Options  ============================================== [used only when WakeMod=2]\n'
@@ -2227,7 +2247,7 @@ class AOCAD15(BaseFile):
       '- Time constant for DBEMT (s) [used only when WakeMod=2 and DBEMT_Mod=1]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '======  Beddoes-Leishman Unsteady Airfoil Aerodynamics Options  ===================================== [used only when AFAeroMod=2]\n'
@@ -2242,7 +2262,7 @@ class AOCAD15(BaseFile):
       "- Flag to indicate whether a lookup for f' will be calculated (TRUE) or whether best-fit exponential equations will be used (FALSE); if FALSE S1-S4 must be provided in airfoil input files (flag) [used only when AFAeroMod=2]"
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string 
 
     file_string += '======  Airfoil Information =========================================================================\n'
@@ -2265,10 +2285,10 @@ class AOCAD15(BaseFile):
       '- Number of airfoil files used (-)'     
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string 
 
-    temp_string = self.write_multiple_first(self.data, 'AFNames', '- Airfoil file names (NumAFfiles lines) (quoted strings)')
+    temp_string = self.write_multiple_first(in_dict, 'AFNames', '- Airfoil file names (NumAFfiles lines) (quoted strings)')
     file_string += temp_string
 
     file_string += '======  Rotor/Blade Properties  =====================================================================\n'
@@ -2287,7 +2307,7 @@ class AOCAD15(BaseFile):
       '- Name of file containing distributed aerodynamic properties for Blade #3 (-) [unused if NumBl < 3]'     
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string 
 
     file_string += '======  Tower Influence and Aerodynamics ============================================================= [used only when TwrPotent/=0, TwrShadow=True, or TwrAero=True]\n'
@@ -2300,7 +2320,7 @@ class AOCAD15(BaseFile):
       '- Number of tower nodes used in the analysis  (-) [used only when TwrPotent/=0, TwrShadow=True, or TwrAero=True]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string 
 
     tt_keys = list(in_dict['Matrix'].keys())
@@ -2325,10 +2345,10 @@ class AOCAD15(BaseFile):
       '- Number of blade node outputs [0 - 9] (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string 
 
-    temp_string = self.write_comma_list(self.data, 'BlOutNd', '- Blade nodes whose values will be output  (-)')
+    temp_string = self.write_comma_list(in_dict, 'BlOutNd', '- Blade nodes whose values will be output  (-)')
     file_string += temp_string
 
     key_list = [
@@ -2339,10 +2359,10 @@ class AOCAD15(BaseFile):
       '- Number of tower node outputs [0 - 9]  (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string 
 
-    file_string += self.write_comma_list(self.data, 'TwOutNd', '- Tower nodes whose values will be output  (-)')
+    file_string += self.write_comma_list(in_dict, 'TwOutNd', '- Tower nodes whose values will be output  (-)')
     file_string += self.write_outlist(in_dict)
    
     return file_string

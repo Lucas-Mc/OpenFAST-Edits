@@ -107,3 +107,5 @@ Matrix:
     - 0.73
     - 0.35
 NBlInpSt: 11
+line1: '------- ELASTODYN V1.00.* INDIVIDUAL BLADE INPUT FILE --------------------------'
+line2: AOC 15/50 blade file.  GJStiff -> EdgEAof are mostly lies.

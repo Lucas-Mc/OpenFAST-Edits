@@ -46,3 +46,6 @@ VTK_fields: 'false'
 VTK_fps: 15
 VTK_type: 2
 WrVTK: 0
+line1: '------- OpenFAST example INPUT FILE -------------------------------------------'
+line2: 'FAST Certification Test #08: AOC 15/50 with many DOFs with fixed yaw error
+  and steady wind. Many parameters are pure fiction.'

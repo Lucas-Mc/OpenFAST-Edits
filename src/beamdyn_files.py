@@ -116,7 +116,7 @@ class BeamdynPrimaryFile(BaseFile):
       '- Orient states in the rotating frame during linearization? (flag) [used only when linearizing]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- GEOMETRY PARAMETER --------------------------------------\n'
@@ -131,7 +131,7 @@ class BeamdynPrimaryFile(BaseFile):
       '- Total number of key points (-) [must be at least 3]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
     
     file_string += in_dict['NumInfo']
@@ -153,7 +153,7 @@ class BeamdynPrimaryFile(BaseFile):
       '- Order of interpolation (basis) function (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- MATERIAL PARAMETER --------------------------------------\n'
@@ -166,7 +166,7 @@ class BeamdynPrimaryFile(BaseFile):
       '- Name of file containing properties for blade (quoted string)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- PITCH ACTUATOR PARAMETERS -------------------------------\n'
@@ -185,7 +185,7 @@ class BeamdynPrimaryFile(BaseFile):
       '- Pitch actuator damping (kg-m^2/s) [used only when UsePitchAct is true]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- OUTPUTS -------------------------------------------------\n'
@@ -204,7 +204,7 @@ class BeamdynPrimaryFile(BaseFile):
       '- Nodes whose values will be output  (-)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += 'OutList        - The next line(s) contains a list of output parameters. See OutListParameters.xlsx for a listing of available output channels, (-)\n'
@@ -290,7 +290,7 @@ class BeamdynBladeFile(BaseFile):
       '- Damping type: 0: no damping; 1: damped'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,'Blade Parameters')
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list,cat_name='Blade Parameters')
     file_string += temp_string
 
     file_string += '  ---------------------- DAMPING COEFFICIENT------------------------------------\n'
@@ -433,7 +433,7 @@ class BeamdynDriverFile(BaseFile):
       '- Time increment size         (s) [used only when DynamicSolve=TRUE]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- GRAVITY PARAMETER --------------------------------------\n'
@@ -450,7 +450,7 @@ class BeamdynDriverFile(BaseFile):
       '- Component of gravity vector along Z direction (m/s^2)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- FRAME PARAMETER --------------------------------------\n'
@@ -467,7 +467,7 @@ class BeamdynDriverFile(BaseFile):
       '- Component of position vector of the reference blade frame along Z direction (m)'
     ]    
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---The following 3 by 3 matrix is the direction cosine matirx ,GlbDCM(3,3),\n'
@@ -490,7 +490,7 @@ class BeamdynDriverFile(BaseFile):
       '- Reference orientation for BeamDyn calculations is aligned with initial blade root'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- ROOT VELOCITY PARAMETER ----------------------------------\n'
@@ -507,7 +507,7 @@ class BeamdynDriverFile(BaseFile):
       '- Component of angular velocity vector of the beam root about Z axis (rad/s)'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '---------------------- APPLIED FORCE ----------------------------------\n'
@@ -544,7 +544,7 @@ class BeamdynDriverFile(BaseFile):
       '- Number of point loads along blade'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += 'Non-dim blade-span eta   Fx          Fy            Fz           Mx           My           Mz\n'
@@ -559,7 +559,7 @@ class BeamdynDriverFile(BaseFile):
       '- Name of the primary BeamDyn input file'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     return file_string

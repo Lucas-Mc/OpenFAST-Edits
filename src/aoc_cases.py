@@ -154,6 +154,7 @@ class AOC_YFix_WSt_Case(BaseCase):
     Convert all yaml files to openfast files
     """
     for f in self.input_files:
+      print(f)
       f.to_text(f.read_y2t())
   
   def convert_output(self):

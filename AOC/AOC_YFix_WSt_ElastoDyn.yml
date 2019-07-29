@@ -134,3 +134,6 @@ TwrNodes: 11
 UndSling: 0
 YawBrMass: 0
 YawDOF: 'False'
+line1: '------- ELASTODYN v1.03.* INPUT FILE -------------------------------------------'
+line2: 'FAST certification Test #08: AOC 15/50 with many DOFs with fixed yaw error
+  and steady wind. Many parameters are pure fiction.'

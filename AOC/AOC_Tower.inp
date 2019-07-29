@@ -17,6 +17,9 @@ AOC tower data.  This is pure fiction.
 ---------------------- DISTRIBUTED TOWER PROPERTIES ----------------------------
   HtFract  TMassDen  TwFAStif  TwSSStif
   (-)  (kg/m)  (Nm^2)  (Nm^2)
+----------------------  DISTRIBUTED  TOWER  PROPERTIES  
+HtFract  TMassDen  TwFAStif  TwSSStif  
+(-)  (kg/m)  (Nm^2)  (Nm^2)  
 0.0  151.1  2350000000.0  2350000000.0  
 0.1  141.7  2120000000.0  2120000000.0  
 0.2  135.6  1880000000.0  1880000000.0  
@@ -25,9 +28,6 @@ AOC tower data.  This is pure fiction.
 0.5  130.3  1190000000.0  1190000000.0  
 0.6  130.3  957000000.0  957000000.0  
 0.7  129.8  726000000.0  726000000.0  
-0.8  128.2  494000000.0  494000000.0  
-0.9  124.6  262000000.0  262000000.0  
-1.0  118.4  30000000.0  30000000.0  
 ---------------------- TOWER FORE-AFT MODE SHAPES ------------------------------
 1.0495  TwFAM1Sh(2)  - Mode 1, coefficient of x^2 term
 0.0694  TwFAM1Sh(3)  -       , coefficient of x^3 term

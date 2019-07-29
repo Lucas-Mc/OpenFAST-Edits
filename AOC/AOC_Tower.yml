@@ -7,6 +7,9 @@ Matrix:
   HtFract:
     Unit: '-'
     Value:
+    - '----------------------'
+    - HtFract
+    - (-)
     - 0.0
     - 0.1
     - 0.2
@@ -15,12 +18,12 @@ Matrix:
     - 0.5
     - 0.6
     - 0.7
-    - 0.8
-    - 0.9
-    - 1.0
   TMassDen:
     Unit: kg/m
     Value:
+    - DISTRIBUTED
+    - TMassDen
+    - (kg/m)
     - 151.1
     - 141.7
     - 135.6
@@ -29,12 +32,12 @@ Matrix:
     - 130.3
     - 130.3
     - 129.8
-    - 128.2
-    - 124.6
-    - 118.4
   TwFAStif:
     Unit: Nm^2
     Value:
+    - TOWER
+    - TwFAStif
+    - (Nm^2)
     - 2350000000.0
     - 2120000000.0
     - 1880000000.0
@@ -43,12 +46,12 @@ Matrix:
     - 1190000000.0
     - 957000000.0
     - 726000000.0
-    - 494000000.0
-    - 262000000.0
-    - 30000000.0
   TwSSStif:
     Unit: Nm^2
     Value:
+    - PROPERTIES
+    - TwSSStif
+    - (Nm^2)
     - 2350000000.0
     - 2120000000.0
     - 1880000000.0
@@ -57,9 +60,6 @@ Matrix:
     - 1190000000.0
     - 957000000.0
     - 726000000.0
-    - 494000000.0
-    - 262000000.0
-    - 30000000.0
 NTwInpSt: 11
 SSStTunr(1): 1
 SSStTunr(2): 1
@@ -87,3 +87,5 @@ TwrFADmp(1): 3
 TwrFADmp(2): 3
 TwrSSDmp(1): 3
 TwrSSDmp(2): 3
+line1: '------- ELASTODYN V1.00.* TOWER INPUT FILE -------------------------------------'
+line2: AOC tower data.  This is pure fiction.

@@ -137,7 +137,7 @@ class TurbsimInputFile(TurbsimFile):
       '- Scale IEC turbulence models to exact target standard deviation? [0=no additional scaling; 1=use hub scale uniformly; 2=use individual scales]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '--------Turbine/Model Specifications-----------------------\n'
@@ -168,7 +168,7 @@ class TurbsimInputFile(TurbsimFile):
       '- Horizontal mean flow (skew) angle [degrees]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '--------Meteorological Boundary Conditions-------------------\n'
@@ -201,7 +201,7 @@ class TurbsimInputFile(TurbsimFile):
       '- Surface roughness length [m] (or "default")'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '--------Non-IEC Meteorological Boundary Conditions------------\n'
@@ -235,7 +235,7 @@ class TurbsimInputFile(TurbsimFile):
 
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '--------Coherent Turbulence Scaling Parameters-------------------\n'
@@ -260,7 +260,7 @@ class TurbsimInputFile(TurbsimFile):
       '- Minimum start time for coherent structures in RootName.cts [seconds]'
     ]
 
-    temp_string = self.write_valdesc(in_dict,key_list,desc_list,None)
+    temp_string = self.write_valdesc(in_dict,key_list,desc_list)
     file_string += temp_string
 
     file_string += '==================================================\n'

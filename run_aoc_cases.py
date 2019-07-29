@@ -13,8 +13,8 @@ openfast_directory = homedir + '/openfast'
 # Build the cases
 aoc_cases = [
     # AOC_WSt_Case(openfast_directory, './AOC/'),
-    # AOC_YFix_WSt_Case(openfast_directory, './AOC/'),
-    AOC_YFree_WTurb_Case(openfast_directory, './AOC/')
+    AOC_YFix_WSt_Case(openfast_directory, './AOC/'),
+    # AOC_YFree_WTurb_Case(openfast_directory, './AOC/')
 ]
 
 # Run each case

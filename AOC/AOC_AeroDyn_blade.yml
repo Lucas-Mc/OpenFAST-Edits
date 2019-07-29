@@ -105,3 +105,5 @@ Matrix:
     - 0.35
     - 0.35
 NumBlNds: 12
+line1: '------- AERODYN v15.00.* BLADE DEFINITION INPUT FILE -------------------------------------'
+line2: AOC blade aerodynamic parameters

@@ -12,11 +12,11 @@ from src.aoc_files import AOCAD15
 #from src.all_files import WindFile
 import os
 
-# this script converts the input files for a AOC driver case
+# This script converts the input files for a AOC driver case
 # into yaml files for use with this Python wrapper
 
 parent_directory = os.path.expanduser('~')
-current_case = 'YFree_WTurb'
+current_case = 'YFix_WSt'
 case_directory = os.path.join(parent_directory,'OpenFAST_Edits','AOC','initial_input_files',current_case)
 
 if (current_case == 'WSt'):
@@ -32,14 +32,14 @@ if (current_case == 'WSt'):
   ]
 elif (current_case == 'YFix_WSt'):
   aoc_input_files = [
-    AOCFstFile(case_directory, 'AOC_YFix_WSt.fst'),
-    AOCAD15(case_directory, 'AOC_YFix_WSt_AD15.ipt'),
-    AOCElastoDynFile(case_directory, 'AOC_YFix_WSt_ElastoDyn.dat'),
-    AOCInflowWind(case_directory, 'AOC_YFix_WSt_InflowWind.dat'),
-    AOCServoDyn(case_directory, 'AOC_YFix_WSt_ServoDyn.dat'),
-    # AOCBladeADFile(case_directory, '../AOC_AeroDyn_blade.dat'),
-    # AOCTowerFile(case_directory, '../AOC_Tower.dat'),
-    # AOCBladeFile(case_directory, '../AOC_Blade.dat'),
+    # AOCFstFile(case_directory, 'AOC_YFix_WSt.fst'),
+    # AOCAD15(case_directory, 'AOC_YFix_WSt_AD15.ipt'),
+    # AOCElastoDynFile(case_directory, 'AOC_YFix_WSt_ElastoDyn.dat'),
+    # AOCInflowWind(case_directory, 'AOC_YFix_WSt_InflowWind.dat'),
+    # AOCServoDyn(case_directory, 'AOC_YFix_WSt_ServoDyn.dat'),
+    AOCBladeADFile(case_directory, '../AOC_AeroDyn_blade.dat'),
+    AOCTowerFile(case_directory, '../AOC_Tower.dat'),
+    AOCBladeFile(case_directory, '../AOC_Blade.dat'),
   ]
 elif (current_case == 'YFree_WTurb'):
   aoc_input_files = [
