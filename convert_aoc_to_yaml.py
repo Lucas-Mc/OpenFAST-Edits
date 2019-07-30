@@ -37,9 +37,9 @@ elif (current_case == 'YFix_WSt'):
     # AOCElastoDynFile(case_directory, 'AOC_YFix_WSt_ElastoDyn.dat'),
     # AOCInflowWind(case_directory, 'AOC_YFix_WSt_InflowWind.dat'),
     # AOCServoDyn(case_directory, 'AOC_YFix_WSt_ServoDyn.dat'),
-    AOCBladeADFile(case_directory, '../AOC_AeroDyn_blade.dat'),
+    # AOCBladeADFile(case_directory, '../AOC_AeroDyn_blade.dat'),
     AOCTowerFile(case_directory, '../AOC_Tower.dat'),
-    AOCBladeFile(case_directory, '../AOC_Blade.dat'),
+    # AOCBladeFile(case_directory, '../AOC_Blade.dat'),
   ]
 elif (current_case == 'YFree_WTurb'):
   aoc_input_files = [

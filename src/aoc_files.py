@@ -824,7 +824,7 @@ class AOCTowerFile(BaseFile):
     temp_key_list = self.data[17].split()
     temp_unit_list = self.remove_parens(self.data[18].split())
    
-    temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'NTwInpSt')
+    temp_dict = self.create_val_un_dict(self.data, new_dict, temp_key_list, temp_unit_list, 'NTwInpSt', sv=20)
     new_dict['Matrix'] = temp_dict
 
     return new_dict
