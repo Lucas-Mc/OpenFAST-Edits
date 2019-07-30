@@ -14,6 +14,9 @@ class BeamdynPrimaryFile(BaseFile):
   def read_t2y(self):
 
     new_dict = {}
+
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
     
     key_list = [
       'Echo',
@@ -49,13 +52,13 @@ class BeamdynPrimaryFile(BaseFile):
     sec_start_list = [3,19,data_length+25,data_length+27,data_length+29,data_length+34]
     length_list = [14,2,1,1,4,3]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
     new_dict['NumInfo'] = self.data[21].strip()
     
     temp_line = self.data[data_length+37]
-    temp_list = temp_line.split('  ')
-    temp_list = list(filter(None, temp_list))
-    beg_list = ' '.join(temp_list[0:-3])
+    temp_list = self.remove_whitespace(temp_line)
+    beg_list = self.combine_text_spaces(temp_list[0:-3])
 
     new_dict[temp_list[-3].strip()] = beg_list
 
@@ -75,9 +78,10 @@ class BeamdynPrimaryFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '--------- BEAMDYN with OpenFAST INPUT FILE -------------------------------------------\n'
-    # TODO: should this be dynamic?
-    file_string += 'NREL 5MW blade\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
     
     key_list = [
@@ -237,6 +241,9 @@ class BeamdynBladeFile(BaseFile):
 
     new_dict = {}
 
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+
     key_list = [
       'station_total',
       'damp_type'
@@ -275,9 +282,10 @@ class BeamdynBladeFile(BaseFile):
 
     file_string = ''
 
-    file_string += '   ------- BEAMDYN V1.00.* INDIVIDUAL BLADE INPUT FILE --------------------------\n'
-    # TODO: does this line change every file?
-    file_string += ' Test Format 1\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += ' ---------------------- BLADE PARAMETERS --------------------------------------\n'
 
     key_list = [     
@@ -361,6 +369,9 @@ class BeamdynDriverFile(BaseFile):
 
     new_dict = {}
 
+    new_dict['line1'] = self.data[0].strip()
+    new_dict['line2'] = self.data[1].strip()
+
     key_list = [
       'DynamicSolve',
       't_initial',
@@ -395,8 +406,9 @@ class BeamdynDriverFile(BaseFile):
     sec_start_list = [3,8,12,20,22,26,42]
     length_list = [3,3,3,1,3,13,1]
     
-    new_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
-    
+    temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
+    new_dict.update(temp_dict)
+
     matrix_rows = self.convert_value(self.data[15].split('(')[1].split(',')[0])
     # matrix_cols = self.data[15].split('(')[1].split(',')[1][0]
     temp_dict = {}
@@ -415,8 +427,10 @@ class BeamdynDriverFile(BaseFile):
     in_dict = self.data
 
     file_string = ''
-    file_string += '------- BEAMDYN Driver with OpenFAST INPUT FILE --------------------------------\n'
-    file_string += 'Static analysis of a curved beam\n'
+    file_string += in_dict['line1']
+    file_string += '\n'
+    file_string += in_dict['line2']
+    file_string += '\n'
     file_string += '---------------------- SIMULATION CONTROL --------------------------------------\n'
       
     key_list = [
@@ -473,7 +487,6 @@ class BeamdynDriverFile(BaseFile):
     file_string += '---The following 3 by 3 matrix is the direction cosine matirx ,GlbDCM(3,3),\n'
     file_string += '---relates global frame to the initial blade root frame\n'
 
-    # TODO: insert matrix here
     temp_string = ''
     for nr in in_dict['Matrix'].keys():
       for v in in_dict['Matrix'][nr]:
@@ -767,6 +780,7 @@ class BeamdynInputSummaryFile(BaseFile):
       'Gravity vector (m/s^2) (IEC coords)'
     ]
 
+    # TODO: Not finished yet
     for tk in key_list:
       for ttk in in_dict[tk].keys():
         val_list = in_dict[tk][ttk]

@@ -93,3 +93,4 @@ class BeamdynCase(BaseCase):
     file_path = self.case_directory + '/beam_props_inp.yml' 
     temp_file = BeamdynBladeFile('',file_path)
     file_string = temp_file.read_y2t()
+    temp_file.to_text(file_string)

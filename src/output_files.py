@@ -86,3 +86,5 @@ class OutputPrimaryFile(OutputFile):
       file_string += '\n'
 
     return file_string
+
+    

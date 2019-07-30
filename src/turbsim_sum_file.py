@@ -13,7 +13,6 @@ class TurbsimSumFile(BaseFile):
     new_dict = {}
     temp_dict = {}
     temp_2d_array = []
-    # output_file.write('# '+data[1])
 
     for line_num,line in enumerate(self.data[4:]):
 

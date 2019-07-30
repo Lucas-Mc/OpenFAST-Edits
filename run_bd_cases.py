@@ -23,14 +23,14 @@ beamdyn_cases = [
 for i, case in enumerate(beamdyn_cases):
   case.start()
 
-  # converts the yaml input files to openfast-style files
+  # Converts the yaml input files to openfast-style files
   case.initialize_input_files()
 
-  # executes the driver using the files generated above
+  # Executes the driver using the files generated above
   case.run()
 
-  # converts the ".out" and/or ".outb" files to yaml
-  # ignore summary files for now
+  # Converts the ".out" and/or ".outb" files to yaml
+  # and ignore summary files for now
   case.convert_output()
 
   case.end()

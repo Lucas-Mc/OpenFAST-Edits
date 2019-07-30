@@ -19,8 +19,11 @@ class AOC_WSt_Case(BaseCase):
   
   def __init__(self, openfast_directory, case_directory):
     """
-    openfast_directory: Str - # TODO See example in base_case
-    case_directory: Str - # TODO See example in base_case
+    Args:
+      openfast_directory::[string] 
+        - The location of the OpenFAST case folder
+      case_directory::[string] 
+        - The location of this case
     """
     self.openfast_directory = openfast_directory
     driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
@@ -129,8 +132,11 @@ class AOC_YFix_WSt_Case(BaseCase):
   
   def __init__(self, openfast_directory, case_directory):
     """
-    openfast_directory: Str - # TODO See example in base_case
-    case_directory: Str - # TODO See example in base_case
+    Args:
+      openfast_directory::[string] 
+        - The location of the OpenFAST case folder
+      case_directory::[string] 
+        - The location of this case
     """
     self.openfast_directory = openfast_directory
     driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))
@@ -241,8 +247,11 @@ class AOC_YFree_WTurb_Case(BaseCase):
   
   def __init__(self, openfast_directory, case_directory):
     """
-    openfast_directory: Str - # TODO See example in base_case
-    case_directory: Str - # TODO See example in base_case
+    Args:
+      openfast_directory::[string] 
+        - The location of the OpenFAST case folder
+      case_directory::[string] 
+        - The location of this case
     """
     self.openfast_directory = openfast_directory
     driver = AOCDriver(os.path.join(openfast_directory,'build','glue-codes','openfast','openfast'))

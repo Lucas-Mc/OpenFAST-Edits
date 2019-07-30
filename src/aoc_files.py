@@ -1930,7 +1930,7 @@ class AOCAD(BaseFile):
     temp_dict = self.parse_filetype_valuefirst(self.data,key_list,sec_start_list,length_list)
     new_dict.update(temp_dict)
 
-    temp_dict = self.parse_mulitple_first(self.data, 'FoilNm', 'NumFoil', 16)
+    temp_dict = self.parse_mulitple_first(self.data, 'FoilNm', new_dict['NumFoil'], 16)
     new_dict.update(temp_dict)
 
     key_list = [

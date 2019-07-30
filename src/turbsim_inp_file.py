@@ -12,7 +12,6 @@ class TurbsimInpFile(BaseFile):
 
     new_dict = {}
     temp_dict = {}
-    # output_file.write('# '+data[0])
         
     for line in self.data[2:]:
 
