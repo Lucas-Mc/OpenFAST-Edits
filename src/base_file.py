@@ -51,14 +51,23 @@ class BaseFile():
   def is_float(self, s):
     """
     INPUT:
+
+    ::
+
       2
+
     OUTPUT:
+
+    ::
+
       False
+    
     Args:
-      s::[string]
+      s (string):
         - The initial input string to be tested
+    
     Returns:
-      UN-NAMED::[bool]
+      UN-NAMED (bool):
         - The final list of values that have been converted
     """
     try:
@@ -70,14 +79,23 @@ class BaseFile():
   def is_int(self, s):
     """
     INPUT:
+
+    ::
+
       2.3
+
     OUTPUT:
+
+    ::
+
       False
+    
     Args:
-      s::[string]
+      s (string):
         - The initial input string to be tested
+    
     Returns:
-      UN-NAMED::[bool]
+      UN-NAMED (bool):
         - The final list of values that have been converted
     """
     try:
@@ -89,14 +107,23 @@ class BaseFile():
   def convert_value(self, s_list):
     """
     INPUT:
+
+    ::
+
       ['4','2.3','one']
+
     OUTPUT:
+
+    ::
+
       [4,2.3,'one']
+    
     Args:
-      s_list::[string]
+      s_list (string):
         - The initial input list of strings to be converted
+    
     Returns:
-      s_list/new_list::[list]
+      s_list/new_list (list):
         - The final list of values that have been converted
     """
     if (type(s_list) is not list):
@@ -126,17 +153,26 @@ class BaseFile():
   def combine_text(self, s_list, sep):
     """
     INPUT:
+
+    ::
+
       s_list = ['the','best','one','knows']
       sep = '+'
+
     OUTPUT:
+
+    ::
+
       the+best+one+knows
+    
     Args:
-      s_list::[string]
+      s_list (string):
         - The initial input list of strings to be parsed
-      sep::[string]
+      sep (string):
         - The character that will be used to combine the strings in s_list
+    
     Returns:
-      new_string::[string]
+      new_string (string):
         - The final string that has been joined with the custom seperator
     """
     new_string = sep.join(s_list)
@@ -145,12 +181,21 @@ class BaseFile():
   def combine_text_spaces(self, s_list):
     """
     INPUT:
+
+    ::
+
       ['the','best','one','knows']
+
     OUTPUT:
+
+    ::
+
       the best one knows
+    
     Args:
-      s_list::[string]
+      s_list (string):
         - The initial input list of strings to be parsed
+    
     Returns:
       UN-NAMED:[list]
         - The final output list of the combined text
@@ -160,17 +205,26 @@ class BaseFile():
   def remove_char(self, s, c_list):
     """
     INPUT:
+
+    ::
+
       s = 'the be$t %ne knows'
       c_list = ['$','%','k']
+
     OUTPUT:
+
+    ::
+
       new_s = 'the bet ne nows'
+    
     Args:
-      s::[string]
+      s (string):
         - The initial input string to be parsed
-      c_list::[list] 
+      c_list (list): 
         - The list of characters to be removed
+   
     Returns:
-      new_s::[string]
+      new_s (string):
         - The final output string of the filtered string
     """
     new_s = s
@@ -181,14 +235,23 @@ class BaseFile():
   def remove_parens(self, s_list):
     """
     INPUT:
+
+    ::
+
       (VAL1 is ()here)()
+
     OUTPUT:
+
+    ::
+
       VAL1 is here
+    
     Args:
-      s_list::[list] 
+      s_list (list): 
         - The initial input strings to be parsed
+    
     Returns:
-      new_list/UN-NAMED::[list]
+      new_list/UN-NAMED (list):
         - The final output list of the parsed data
     """
     if (type(s_list) is list):
@@ -206,14 +269,23 @@ class BaseFile():
   def remove_brackets(self, s_list):
     """
     INPUT:
+
+    ::
+
       [VAL1 is []here][]
+
     OUTPUT:
+
+    ::
+
       VAL1 is here
+    
     Args:
-      s_list::[list] 
+      s_list (list): 
         - The initial input strings to be parsed
+   
     Returns:
-      new_list::[list]
+      new_list (list):
         - The final output list of the parsed data
     """
     if (type(s_list) is list):
@@ -231,17 +303,26 @@ class BaseFile():
   def split_line(self, current_line, delimiter='  '):
     """
     INPUT:
+
+    ::
+
       current_line = 'VAL1  +  VAL2'
       delimiter = '+'
+
     OUTPUT:
+
+    ::
+
       [VAL1, VAL2]
+    
     Args:
-      current_line::[string] 
+      current_line (string): 
         - The initial input string
-      delimiter::[string,default='  ']
+      delimiter (string,default='  ')
         - The character that will be used to split the text
+    
     Returns:
-      temp_value_list::[list]
+      temp_value_list (list):
         - The final output list of the parsed data
     """
     temp_value_list = current_line.split(delimiter)
@@ -253,14 +334,23 @@ class BaseFile():
   def split_line_spaces(self, current_line):
     """
     INPUT:
+
+    ::
+
       VAL1  VAL2
+
     OUTPUT:
+
+    ::
+
       [VAL1, VAL2]
+    
     Args:
-      current_line::[string] 
+      current_line (string): 
         - The initial input string
+    
     Returns:
-      UN-NAMED::[list]
+      UN-NAMED (list):
         - The final output list of the split line
     """
     return self.split_line(current_line, delimiter='  ')
@@ -268,20 +358,29 @@ class BaseFile():
   def sep_string(self, s, sep):
     """
     INPUT:
+
+    ::
+
       s = 'VAL1  -  VAL2'
       sep = '-'
+
     OUTPUT:
+
+    ::
+
       value1 = VAL1
       value2 = VAL2
+    
     Args:
-      s::[string] 
+      s (string): 
         - The initial input string
-      sep::[string] 
+      sep (string): 
         - The character to be split by
+    
     Returns:
-      value1::[string]
+      value1 (string):
         - The first value parsed from the initial input string
-      value2::[string]
+      value2 (string):
         - The second value parsed from the initial input string
     """
     tl = s.split(sep)
@@ -293,26 +392,35 @@ class BaseFile():
   def sep_string_double(self, s, c1, c2):
     """
     INPUT:
+
+    ::
+
       s = 'VAL1  -  VAL2  +  VAL3'
       c1 = '-'
       c2 = '+'
+
     OUTPUT:
+
+    ::
+
       val1 = VAL1
       val2 = VAL2
       val3 = VAL3
+    
     Args:
-      s::[string] 
+      s (string): 
         - The initial input string
-      c1::[string] 
+      c1 (string): 
         - The first character to be split by
-      c2::[string] 
+      c2 (string): 
         The second character to be split by
+    
     Returns:
-      val1::[string]
+      val1 (string):
         - The first value parsed from the initial input string
-      val2::[string]
+      val2 (string):
         - The second value parsed from the initial input string
-      val3::[string]
+      val3 (string):
         - The third value parsed from the initial input string
     """
     val1, val2 = self.sep_string(s, c1)
@@ -322,14 +430,23 @@ class BaseFile():
   def capitalize_list(self, s_list):
     """
     INPUT:
+
+    ::
+
       [CONTROL, CONtrOL, ...]
+
     OUTPUT:
+
+    ::
+
       [Control, Control, ...]
+    
     Args:
-      s_list::[string]
+      s_list (string):
         - The list of strings to be capitalized
+    
     Returns:
-      UN-NAMED::[list]
+      UN-NAMED (list):
         - The final capitalized list of input strings 
     """
     return [s.capitalize() for s in s_list]
@@ -337,14 +454,23 @@ class BaseFile():
   def remove_whitespace(self, s):
     """
     INPUT:
+
+    ::
+
       VAL1  VAL2    VAL3
+
     OUTPUT:
+
+    ::
+
       ['VAL1','VAL2','VAL3]
+    
     Args:
-      s::[string]
+      s (string):
         - The input string to be parsed
+    
     Returns:
-      UN-NAMED::[list]
+      UN-NAMED (list):
         - The final ist of input strings where whitespace has been removed
     """
     return list(filter(None, s.split('  ')))
@@ -352,14 +478,23 @@ class BaseFile():
   def remove_whitespace_filter(self, s):
     """
     INPUT:
+
+    ::
+
       ['VAL1  VAL2','','VAL3']
+    
     OUTPUT:
+
+    ::
+
       ['VAL1  VAL2','VAL3']
+    
     Args:
-      s::[string]
+      s (string):
         - The input string to be parsed
+    
     Returns:
-      UN-NAMED::[list]
+      UN-NAMED (list):
         - The final ist of input strings where whitespace has been removed
     """
     return list(filter(None, s))
@@ -367,19 +502,28 @@ class BaseFile():
   def parse_type1(self, s):
     """
     INPUT:
+
+    ::
+
       VAL   KEY   - DESC
+
     OUTPUT:
+
+    ::
+
       {
         Value: VAL
         Description: DESC
       }
+    
     Args:
-      s::[string] 
+      s (string): 
         - The starting input string
+    
     Returns:
-      temp_key::[string]
+      temp_key (string):
         - The new key value which is returned to be used later
-      parsed_dict::[dict]
+      parsed_dict (dict):
         - The final output dictionary which contains the values and descriptions for each key
     """
     temp_vals = self.remove_whitespace(s)
@@ -392,14 +536,15 @@ class BaseFile():
   def parse_filename(self, s, in_type, out_type):
     """
     Args:
-      s::[string] 
+      s (string): 
         - The starting input string
-      in_type::[string] 
+      in_type (string): 
         - The file extension of input file
-      out_type::[string]
+      out_type (string):
         - The file extension of output file
+    
     Returns:
-      parsed_filename::[string]
+      parsed_filename (string):
         - The final filename to be returned
     """
     parsed_filename = s.split('/')[-1].replace(in_type,out_type)
@@ -433,6 +578,9 @@ class BaseFile():
   def parse_filetype_valuefirst(self, contents, key_list, sec_start_list, length_list, sep='  '):
     """
     INPUT:
+
+    ::
+
       sec_start_list = [2,8]  # The first value should be the real value minus 1
       length_list = [4,5]
       [Line  3]---------------------- TITLE0 ----------------------------------------
@@ -446,7 +594,11 @@ class BaseFile():
       [Line 11]            VAL6     key_list[6]    - DESC6
       [Line 12]            VAL7     key_list[7]    - DESC7
       [Line 13]            VAL8     key_list[8]    - DESC8
+    
     OUTPUT:
+
+    ::
+
       {
         key_list[0]: VAL0
         key_list[1]: VAL1
@@ -458,19 +610,21 @@ class BaseFile():
         key_list[7]: VAL7
         key_list[8]: VAL8
       }
+    
     Args:
-      contents::[list]
+      contents (list):
         - The starting list of text lines to be parsed
-      key_list::[list]
+      key_list (list):
         - The list of key values to search for in contents to be parsed
-      sec_start_list::[list]
+      sec_start_list (list):
         - The starting line of the section with valuable content
-      length_list::[list]
+      length_list (list):
         - The total length of the section with valuable content
-      sep::[string,default='  ']
+      sep (string,default='  ')
         - The seperator to be used to split the sections
+    
     Returns:
-      new_dict::[dict]
+      new_dict (dict):
         - The final converted dictionary
     """
     new_dict = {}
@@ -494,6 +648,9 @@ class BaseFile():
   def parse_xyz(self, s, d, i, n, k, ok=None):
     """
     INPUT:
+
+    ::
+
       Element number:    1
         k  Global node         ok[0]             ok[1]             ok[2]        
       ---- -----------  ----------------- ----------------- -----------------
@@ -503,7 +660,11 @@ class BaseFile():
        n-2      4               a41               a42               a43
        n-1      5               a51               a52               a53
         n       6               a61               a62               a63
+    
     OUTPUT:
+
+    ::
+
       {
         k 0:
           ok[0]: a11
@@ -530,19 +691,21 @@ class BaseFile():
           ok[1]: a62
           ok[2]: a63
       }
+    
     Args:
-      s::[string] 
+      s (string): 
         - The input string to be parsed
-      d::[int] 
+      d (int): 
         - The starting index of the data group
-      i::[int] 
+      i (int): 
         - The starting index to begin parsing the data in the group
-      n::[int] 
+      n (int): 
         - The total number of loops to be parsed 
-      k::[string] 
+      k (string): 
         - The new key to be created for the dictionary
+    
     Returns:
-      temp_dict::[dict]
+      temp_dict (dict):
         - The final converted dictionary
     """
     temp_dict = {}
@@ -563,25 +726,34 @@ class BaseFile():
   def write_valdesc(self,inp_d,k_list,d_list,cat_name=None):
     """
     INPUT:
+
+    ::
+
       A bunch of different variables
+    
     OUTPUT:
+
+    ::
+
       inp_d[k_list[0]]  k_list[0]  - d_list[0]
       inp_d[k_list[1]]  k_list[1]  - d_list[1]
       inp_d[k_list[2]]  k_list[2]  - d_list[2]
       .
       .
       .
+    
     Args:
-      inp_d::[dict]
+      inp_d (dict):
         - The starting dictionary to be used to get data values
-      k_list::[list] 
+      k_list (list): 
         - The list of keys to be used in the creation of the final strings
-      d_list::[list]
+      d_list (list):
         - The list of descriptions to be used in the creation of the final strings 
-      cat_name::[string,default=None] 
+      cat_name (string,default=None)
         - The name of main dictionary category (if applicable)
+    
     Returns:
-      file_string::[string]
+      file_string (string):
         - The final string that is generated by the given data
     """
     file_string = ''
@@ -600,6 +772,9 @@ class BaseFile():
   def create_val_un_dict(self, contents, new_dict, temp_key_list, temp_unit_list, key_val, sv = 17):
     """
     INPUT:
+
+    ::
+
       temp_key_list[0]   temp_key_list[1]   temp_key_list[2]   temp_key_list[3]
       temp_unit_list[0]  temp_unit_list[1]  temp_unit_list[2]  temp_unit_list[3]
             a11                 a12                a13                a14  
@@ -610,7 +785,11 @@ class BaseFile():
             a61                 ...                ...                ...  
             a71                 ...                ...                ...  
             a81                 ...                ...                ...  
+    
     OUTPUT:
+
+    ::
+
       {
         Matrix:
           temp_key_list[0]: 
@@ -658,21 +837,23 @@ class BaseFile():
             - ...
             - ...
       }
+    
     Args:
-      contents::[list]
+      contents (list):
         - The starting list of text lines to be parsed
-      new_dict::[dict]
+      new_dict (dict):
         - The current created dictionary to be added to
-      temp_key_list::[list]
+      temp_key_list (list):
         - The list of key values to be used for the final output dictionary
-      temp_unit_list::[list]
+      temp_unit_list (list):
         - The list of unit values to be used for the final output dictionary
-      key_val::[string]
+      key_val (string):
         - The key value to be used to determine how many iterations should be used
-      sv::[int]
+      sv (int):
         - The starting line value of the data
+    
     Returns:
-      temp_dict::[dict]
+      temp_dict (dict):
         - The final dictionary containing all the parsed content
     """
     temp_dict = {}
@@ -696,6 +877,9 @@ class BaseFile():
   def write_val_un_table(self, in_dict, tt_keys, ord_keys, key_val, has_un=True):
     """
     INPUT:
+
+    ::
+
       {
         Matrix:
           tt_keys[0]: 
@@ -743,7 +927,11 @@ class BaseFile():
             - ...
             - ...
       }
+
     OUTPUT:
+
+    ::
+
       ord_keys[0]   ord_keys[1]   ord_keys[2]   ord_keys[3]
         UNIT0         UNIT1         UNIT2         UNIT3
          a11           a12           a13           a14  
@@ -754,19 +942,21 @@ class BaseFile():
          a61           ...           ...           ...  
          a71           ...           ...           ...  
          a81           ...           ...           ...  
+    
     Args:
-      in_dict::[dict]
+      in_dict (dict):
         - The starting dictionary with which to read the values and their respective units
-      tt_keys::[list]
+      tt_keys (list):
         - The current un-ordered list of keys 
-      ord_keys::[list]
+      ord_keys (list):
         - The ordered list of keys to be used as a reference
-      key_val::[string]
+      key_val (string):
         - The final key value to be used for the output dictionary
-      has_un::[bool,default=True]
+      has_un (bool,default=True)
         - Determines whether or not the input data contains a unit description line or not
+    
     Returns:
-      end_string::[string]
+      end_string (string):
         - The final string to be returned including the output list
     """
     rearrange_list = [0]*len(tt_keys)
@@ -814,24 +1004,33 @@ class BaseFile():
   def create_outlist(self, contents, start_ind):
     """
     INPUT:
+
+    ::
+
                     OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)
       "VAL0"                 - DESC0
       "VAL1"                 - DESC1
       "VAL2"                 - DESC2
+    
     OUTPUT:
+
+    ::
+
       {
         OutList:
           '"VAL0"': DESC0
           '"VAL1"': DESC1
           '"VAL2"': DESC2
       }
+    
     Args:
-      contents::[string]
+      contents (string):
         - The input list of strings to be parsed
-      start_ind::[int]
+      start_ind (int):
         - The line in the file contents where the outlist begins
+    
     Returns:
-      temp_dict::[dict]
+      temp_dict (dict):
         - The final converted dictionary
     """
     end_ind = len(contents)-2
@@ -846,6 +1045,9 @@ class BaseFile():
   def write_outlist(self, in_dict):
     """
     INPUT:
+
+    ::
+
       {
         OutList:
         - KEY0
@@ -853,7 +1055,11 @@ class BaseFile():
         - ...
         - ...
       }
+
     OUTPUT:
+
+    ::
+
       OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)'
       "in_dict['OutList'][KEY0]"
       "in_dict['OutList'][KEY1]"
@@ -861,11 +1067,13 @@ class BaseFile():
       ...
       END of input file (the word "END" must appear in the first 3 columns of this last OutList line)'
       ---------------------------------------------------------------------------------------'
+   
     Args:
-      in_dict::[dict]
+      in_dict (dict):
         - The starting dictionary with which to read in the values for the output list
+    
     Returns:
-      end_string::[string]
+      end_string (string):
         - The final string to be returned including the output list
     """
     end_string = ''
@@ -884,6 +1092,9 @@ class BaseFile():
   def write_outlist_kv(self, in_dict, delim):
     """
     INPUT:
+
+    ::
+
       {
         OutList:
           '"KEY0"': in_dict['OutList'][KEY0]
@@ -891,7 +1102,11 @@ class BaseFile():
           '"..."' : ...
           '"..."' : ...
       }
+    
     OUTPUT:
+
+    ::
+
       OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)'
       KEY0 {delim} in_dict['OutList'][KEY0]
       KEY1 {delim} in_dict['OutList'][KEY1]
@@ -899,13 +1114,15 @@ class BaseFile():
       ...
       END of input file (the word "END" must appear in the first 3 columns of this last OutList line)'
       ---------------------------------------------------------------------------------------'
+    
     Args:
-      in_dict::[dict]
+      in_dict (dict):
         - The starting dictionary with which to read in the values for the output list
-      delim::[string]
+      delim (string):
         - The string of characters to be added in between each value in the output list
+    
     Returns:
-      end_string::[string]
+      end_string (string):
         - The final string to be returned including the output list
     """
     end_string = ''
@@ -924,6 +1141,9 @@ class BaseFile():
   def create_node_dict(self, new_dict, node_section_start, current_element, temp_dict, num_nodes):
     """
     INPUT:
+
+    ::
+
       Initial position vectors (IEC coordinate system)
         Element number:    1
         Node Global node          X                 Y                 Z        
@@ -934,7 +1154,11 @@ class BaseFile():
           4         4             x4                y4                z4
           5         5             x5                y5                z5
           6         6             x6                y6                z6
+    
     OUTPUT:
+
+    ::
+
       {
         Initial position vectors (IEC coordinate system):
           Element Number: 1
@@ -964,23 +1188,25 @@ class BaseFile():
               Y: y6
               Z: z6
       }
+
     Args:
-      new_dict::[dict]
+      new_dict (dict):
         - The current already established dictionary to be added to
-      node_section_start::[int]
+      node_section_start (int):
         - The line number where the node section begins
-      current_element::[int]
+      current_element (int):
         - The current element number of the group of nodes to be parsed
-      temp_dict::[dict]
+      temp_dict (dict):
         - An already created dictionary for storing the nodes and their values
-      num_nodes::[int]
+      num_nodes (int):
         - The total number of nodes per element to be parsed
+    
     Returns:
-      new_dict::[dict]
+      new_dict (dict):
         - The updated dictionary after parsing which is to be updated to the input new_dict
-      current_element::[int]
+      current_element (int):
         - The most recent element which was parsed to be used in further code
-      node_section_start::[int]
+      node_section_start (int):
         - The line number where the final node section begins to be used in further code
     """
     new_dict[self.data[node_section_start].strip()] = {'Element Number':current_element,'Node Values':temp_dict}
@@ -994,6 +1220,9 @@ class BaseFile():
   def convert_double_matrix(self, contents, line_start, line_interval, type, num_intervals=0, num_elems=0):
     """
     INPUT:
+
+    ::
+
       *** type == "station" ***
       VAL1
        a11  a12  a13  a14  a15  a16
@@ -1025,7 +1254,7 @@ class BaseFile():
        b51  ...  ...  ...  ...  ...
        b61  ...  ...  ...  ...  ...
 
-    *** type == "point" ***
+      *** type == "point" ***
       Quadrature point number:    1
           a11  a12  a13  a14  a15  a16
           a21  ...  ...  ...  ...  ...
@@ -1055,7 +1284,11 @@ class BaseFile():
           b41  ...  ...  ...  ...  ...
           b51  ...  ...  ...  ...  ...
           b61  ...  ...  ...  ...  ...
+    
     OUTPUT:
+
+    ::
+
       {
         VAL1:
           Stiffness Matrix:
@@ -1231,23 +1464,25 @@ class BaseFile():
             - ...
             - ...
       }
+
     Args:
-      contents::[list]
+      contents (list):
         - The file contents to be parsed
-      line_start::[int]
+      line_start (int):
         - The line number to begin parsing
-      line_interval::[int]
+      line_interval (int):
         - The space between groups of data
-      type::[string]
+      type (string):
         - The type of double matrix being parsed (represent two slightly different styles)
-      num_intervals::[int,default=0]
+      num_intervals (int,default=0)
         - The number of spaces between groups of data
-      num_elems::[int,default=0]
+      num_elems (int,default=0)
         - The total number of extra groups of data per group
+    
     Returns:
-      temp_dict::[dict]
+      temp_dict (dict):
         - The final converted dictionary
-      line_num::[int]
+      line_num (int):
         - The new line number to resume parsing the data
     """
     temp_dict = {}
@@ -1299,6 +1534,9 @@ class BaseFile():
   def parse_mulitple_first(self, contents, key_val, num_entry, line_start):
     """
     INPUT: 
+
+    ::
+
       ...
       "VAL1"    key_val      - DESC
       "VAL2"
@@ -1306,7 +1544,11 @@ class BaseFile():
       "VAL4"
       "VAL5"
       ...
+
     OUTPUT: 
+
+    ::
+
       {
         key_val:
           - 'VAL1'
@@ -1315,17 +1557,19 @@ class BaseFile():
           - 'VAL4'
           - 'VAL5'
       }
+
     Args:
-      contents::[list]
+      contents (list):
         - The file contents to be parsed
-      key_val::[string]
+      key_val (string):
         - The current key value to be used (the one with multiple values)
-      num_entry::[int]
+      num_entry (int):
         - The number of total values to be added to the relative key in the dictionary
-      line_start::[int]
+      line_start (int):
         - The line number where the data to be parsed occurs
+    
     Returns:
-      final_string::[string]
+      final_string (string):
         - The final string to be outputted 
     """
     temp_dict = {}
@@ -1342,6 +1586,9 @@ class BaseFile():
   def write_multiple_first(self, contents, key_val, desc_val):
     """
     INPUT: 
+
+    ::
+
       {
         key_val:
           - 'VAL1'
@@ -1350,21 +1597,27 @@ class BaseFile():
           - 'VAL4'
           - 'VAL5'
       }
+
     OUTPUT: 
+
+    ::
+
       "VAL1"    key_val      - desc_val
       "VAL2"
       "VAL3"
       "VAL4"
       "VAL5"
+
     Args:
-      contents::[list]
+      contents (list):
         - The file contents to be parsed
-      key_val::[string]
+      key_val (string):
         - The current key value to be used (the one with multiple values)
-      desc_val::[string]
+      desc_val (string):
         - The description associated with the current key value
+    
     Returns:
-      final_string::[string]
+      final_string (string):
         - The final string to be outputted 
     """
     temp_string = ''
@@ -1381,16 +1634,25 @@ class BaseFile():
   def create_comma_dict(self, matching_list):
     """
     INPUT: 
+
+    ::
+
       VAL1, VAL2, VAL3, VAL4    KEY_VALUE        - DESC
-    OUTPUT: 
+    
+    OUTPUT:
+
+    ::
+
       {
         KEY_VALUE: [VAL1, VAL2, VAL3, VAL4]
       }
+
     Args:
-      matching_list::[list]
+      matching_list (list):
         - A list of lines to be converted
+    
     Returns:
-      temp_dict::[dict]
+      temp_dict (dict):
         - The final converted dictionary 
     """
     temp_dict = {}
@@ -1409,23 +1671,32 @@ class BaseFile():
   def create_outlist_multiple(self, contents, current_ind):
     """
     INPUT: 
+
+    ::
+
       ...
               OutList        - DESC
       "VAL1, VAL2"                             
       "VAL3, VAL4, VAL5"  
       "VAL6"
       ...
+
     OUTPUT: 
+
+    ::
+
       {
         OutList: [VAL1, VAL2, VAL3, VAL4, VAL5, VAL6]
       }
+
     Args:
-      contents::[list]
+      contents (list):
         - The file contents to be parsed
-      current_ind::[int]
+      current_ind (int):
         - The current line of the file contents to be parsed
+    
     Returns:
-      temp_dict::[dict]
+      temp_dict (dict):
         - The final converted dictionary 
     """
     temp_dict = {}
@@ -1451,22 +1722,31 @@ class BaseFile():
   def write_comma_list(self, contents, key_val, desc_val):
     """
     INPUT: 
+
+    ::
+
       {
         ...
         key_val: [VAL1, VAL2, VAL3, VAL4]
         ...
       }
-    OUTPUT: 
+
+    OUTPUT:
+
+    ::
+
       VAL1, VAL2, VAL3, VAL4    key_val        - desc_val
+    
     Args:
-      contents::[list]
+      contents (list):
         - The file contents to be parsed
-      key_val::[string]
+      key_val (string):
         - The current key value to be used (the one with multiple values)
-      desc_val::[string]
+      desc_val (string):
         - The description associated with the current key value
+    
     Returns:
-      final_string::[string]
+      final_string (string):
         - The final string to be outputted 
     """
     final_string = ''

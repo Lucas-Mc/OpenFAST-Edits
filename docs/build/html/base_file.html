@@ -1,0 +1,1869 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>base_file module &#8212; OpenFAST-Edits 2019 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-base_file">
+<span id="base-file-module"></span><h1>base_file module<a class="headerlink" href="#module-base_file" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="base_file.BaseFile">
+<em class="property">class </em><code class="sig-prename descclassname">base_file.</code><code class="sig-name descname">BaseFile</code><span class="sig-paren">(</span><em class="sig-param">parent_directory</em>, <em class="sig-param">filename</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="base_file.BaseFile.capitalize_list">
+<code class="sig-name descname">capitalize_list</code><span class="sig-paren">(</span><em class="sig-param">s_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.capitalize_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">CONTROL</span><span class="p">,</span> <span class="n">CONtrOL</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Control</span><span class="p">,</span> <span class="n">Control</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s_list</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The list of strings to be capitalized</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final capitalized list of input strings</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.combine_text">
+<code class="sig-name descname">combine_text</code><span class="sig-paren">(</span><em class="sig-param">s_list</em>, <em class="sig-param">sep</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.combine_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;the&#39;</span><span class="p">,</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="s1">&#39;one&#39;</span><span class="p">,</span><span class="s1">&#39;knows&#39;</span><span class="p">]</span>
+<span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">the</span><span class="o">+</span><span class="n">best</span><span class="o">+</span><span class="n">one</span><span class="o">+</span><span class="n">knows</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s_list</strong> (<em>string</em>) – <ul>
+<li><p>The initial input list of strings to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>sep</strong> (<em>string</em>) – <ul>
+<li><p>The character that will be used to combine the strings in s_list</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string that has been joined with the custom seperator</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.combine_text_spaces">
+<code class="sig-name descname">combine_text_spaces</code><span class="sig-paren">(</span><em class="sig-param">s_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.combine_text_spaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;the&#39;</span><span class="p">,</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="s1">&#39;one&#39;</span><span class="p">,</span><span class="s1">&#39;knows&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">the</span> <span class="n">best</span> <span class="n">one</span> <span class="n">knows</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s_list</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The initial input list of strings to be parsed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>[list]</dt><dd><ul class="simple">
+<li><p>The final output list of the combined text</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.convert_double_matrix">
+<code class="sig-name descname">convert_double_matrix</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">line_start</em>, <em class="sig-param">line_interval</em>, <em class="sig-param">type</em>, <em class="sig-param">num_intervals=0</em>, <em class="sig-param">num_elems=0</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.convert_double_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;station&quot;</span> <span class="o">***</span>
+<span class="n">VAL1</span>
+ <span class="n">a11</span>  <span class="n">a12</span>  <span class="n">a13</span>  <span class="n">a14</span>  <span class="n">a15</span>  <span class="n">a16</span>
+ <span class="n">a21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+ <span class="n">b11</span>  <span class="n">b12</span>  <span class="n">b13</span>  <span class="n">b14</span>  <span class="n">b15</span>  <span class="n">b16</span>
+ <span class="n">b21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+<span class="n">VAL2</span>
+ <span class="n">a11</span>  <span class="n">a12</span>  <span class="n">a13</span>  <span class="n">a14</span>  <span class="n">a15</span>  <span class="n">a16</span>
+ <span class="n">a21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">a61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+ <span class="n">b11</span>  <span class="n">b12</span>  <span class="n">b13</span>  <span class="n">b14</span>  <span class="n">b15</span>  <span class="n">b16</span>
+ <span class="n">b21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+ <span class="n">b61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+<span class="o">***</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;point&quot;</span> <span class="o">***</span>
+<span class="n">Quadrature</span> <span class="n">point</span> <span class="n">number</span><span class="p">:</span>    <span class="mi">1</span>
+    <span class="n">a11</span>  <span class="n">a12</span>  <span class="n">a13</span>  <span class="n">a14</span>  <span class="n">a15</span>  <span class="n">a16</span>
+    <span class="n">a21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+    <span class="n">b11</span>  <span class="n">b12</span>  <span class="n">b13</span>  <span class="n">b14</span>  <span class="n">b15</span>  <span class="n">b16</span>
+    <span class="n">b21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+<span class="n">Quadrature</span> <span class="n">point</span> <span class="n">number</span><span class="p">:</span>    <span class="mi">2</span>
+    <span class="n">a11</span>  <span class="n">a12</span>  <span class="n">a13</span>  <span class="n">a14</span>  <span class="n">a15</span>  <span class="n">a16</span>
+    <span class="n">a21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">a61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+
+    <span class="n">b11</span>  <span class="n">b12</span>  <span class="n">b13</span>  <span class="n">b14</span>  <span class="n">b15</span>  <span class="n">b16</span>
+    <span class="n">b21</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b31</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b41</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b51</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+    <span class="n">b61</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">VAL1</span><span class="p">:</span>
+    <span class="n">Stiffness</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">matrix1_row1</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a11</span>
+      <span class="o">-</span> <span class="n">a12</span>
+      <span class="o">-</span> <span class="n">a13</span>
+      <span class="o">-</span> <span class="n">a14</span>
+      <span class="o">-</span> <span class="n">a15</span>
+      <span class="o">-</span> <span class="n">a16</span>
+    <span class="o">-</span> <span class="n">matrix1_row2</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a21</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row3</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a31</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row4</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a41</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row5</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a51</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row6</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a61</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row1</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b11</span>
+      <span class="o">-</span> <span class="n">b12</span>
+      <span class="o">-</span> <span class="n">b13</span>
+      <span class="o">-</span> <span class="n">b14</span>
+      <span class="o">-</span> <span class="n">b15</span>
+      <span class="o">-</span> <span class="n">b16</span>
+    <span class="o">-</span> <span class="n">matrix2_row2</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b21</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row3</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b31</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row4</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b41</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row5</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b51</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row6</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b61</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+
+  <span class="n">VAL2</span><span class="p">:</span>
+    <span class="n">Stiffness</span> <span class="n">Matrix</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">matrix1_row1</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a11</span>
+      <span class="o">-</span> <span class="n">a12</span>
+      <span class="o">-</span> <span class="n">a13</span>
+      <span class="o">-</span> <span class="n">a14</span>
+      <span class="o">-</span> <span class="n">a15</span>
+      <span class="o">-</span> <span class="n">a16</span>
+    <span class="o">-</span> <span class="n">matrix1_row2</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a21</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row3</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a31</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row4</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a41</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row5</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a51</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix1_row6</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a61</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row1</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b11</span>
+      <span class="o">-</span> <span class="n">b12</span>
+      <span class="o">-</span> <span class="n">b13</span>
+      <span class="o">-</span> <span class="n">b14</span>
+      <span class="o">-</span> <span class="n">b15</span>
+      <span class="o">-</span> <span class="n">b16</span>
+    <span class="o">-</span> <span class="n">matrix2_row2</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b21</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row3</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b31</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row4</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b41</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row5</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b51</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="o">-</span> <span class="n">matrix2_row6</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">b61</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The file contents to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>line_start</strong> (<em>int</em>) – <ul>
+<li><p>The line number to begin parsing</p></li>
+</ul>
+</p></li>
+<li><p><strong>line_interval</strong> (<em>int</em>) – <ul>
+<li><p>The space between groups of data</p></li>
+</ul>
+</p></li>
+<li><p><strong>type</strong> (<em>string</em>) – <ul>
+<li><p>The type of double matrix being parsed (represent two slightly different styles)</p></li>
+</ul>
+</p></li>
+<li><p><strong>num_intervals</strong> (<em>int</em><em>,</em><em>default=0</em>) – <ul>
+<li><p>The number of spaces between groups of data</p></li>
+</ul>
+</p></li>
+<li><p><strong>num_elems</strong> (<em>int</em><em>,</em><em>default=0</em>) – <ul>
+<li><p>The total number of extra groups of data per group</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final converted dictionary</p></li>
+</ul>
+<dl class="simple">
+<dt>line_num (int):</dt><dd><ul class="simple">
+<li><p>The new line number to resume parsing the data</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.convert_value">
+<code class="sig-name descname">convert_value</code><span class="sig-paren">(</span><em class="sig-param">s_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.convert_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;2.3&#39;</span><span class="p">,</span><span class="s1">&#39;one&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mf">2.3</span><span class="p">,</span><span class="s1">&#39;one&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s_list</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The initial input list of strings to be converted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final list of values that have been converted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>s_list/new_list (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.create_comma_dict">
+<code class="sig-name descname">create_comma_dict</code><span class="sig-paren">(</span><em class="sig-param">matching_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.create_comma_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">,</span> <span class="n">VAL3</span><span class="p">,</span> <span class="n">VAL4</span>    <span class="n">KEY_VALUE</span>        <span class="o">-</span> <span class="n">DESC</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">KEY_VALUE</span><span class="p">:</span> <span class="p">[</span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">,</span> <span class="n">VAL3</span><span class="p">,</span> <span class="n">VAL4</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>matching_list</strong> (<em>list</em>) – <ul class="simple">
+<li><p>A list of lines to be converted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final converted dictionary</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.create_node_dict">
+<code class="sig-name descname">create_node_dict</code><span class="sig-paren">(</span><em class="sig-param">new_dict</em>, <em class="sig-param">node_section_start</em>, <em class="sig-param">current_element</em>, <em class="sig-param">temp_dict</em>, <em class="sig-param">num_nodes</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.create_node_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Initial</span> <span class="n">position</span> <span class="n">vectors</span> <span class="p">(</span><span class="n">IEC</span> <span class="n">coordinate</span> <span class="n">system</span><span class="p">)</span>
+  <span class="n">Element</span> <span class="n">number</span><span class="p">:</span>    <span class="mi">1</span>
+  <span class="n">Node</span> <span class="n">Global</span> <span class="n">node</span>          <span class="n">X</span>                 <span class="n">Y</span>                 <span class="n">Z</span>
+  <span class="o">----</span> <span class="o">-----------</span>  <span class="o">-----------------</span> <span class="o">-----------------</span> <span class="o">-----------------</span>
+    <span class="mi">1</span>         <span class="mi">1</span>             <span class="n">x1</span>                <span class="n">y1</span>                <span class="n">z1</span>
+    <span class="mi">2</span>         <span class="mi">2</span>             <span class="n">x2</span>                <span class="n">y2</span>                <span class="n">z2</span>
+    <span class="mi">3</span>         <span class="mi">3</span>             <span class="n">x3</span>                <span class="n">y3</span>                <span class="n">z3</span>
+    <span class="mi">4</span>         <span class="mi">4</span>             <span class="n">x4</span>                <span class="n">y4</span>                <span class="n">z4</span>
+    <span class="mi">5</span>         <span class="mi">5</span>             <span class="n">x5</span>                <span class="n">y5</span>                <span class="n">z5</span>
+    <span class="mi">6</span>         <span class="mi">6</span>             <span class="n">x6</span>                <span class="n">y6</span>                <span class="n">z6</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">Initial</span> <span class="n">position</span> <span class="n">vectors</span> <span class="p">(</span><span class="n">IEC</span> <span class="n">coordinate</span> <span class="n">system</span><span class="p">):</span>
+    <span class="n">Element</span> <span class="n">Number</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">Node</span> <span class="n">Values</span><span class="p">:</span>
+      <span class="n">Node</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">x1</span>
+        <span class="n">Y</span><span class="p">:</span> <span class="n">y1</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">z1</span>
+      <span class="n">Node</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">x2</span>
+        <span class="n">Y</span><span class="p">:</span> <span class="n">y2</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">z2</span>
+      <span class="n">Node</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">x3</span>
+        <span class="n">Y</span><span class="p">:</span> <span class="n">y3</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">z3</span>
+      <span class="n">Node</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">x4</span>
+        <span class="n">Y</span><span class="p">:</span> <span class="n">y4</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">z4</span>
+      <span class="n">Node</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">x5</span>
+        <span class="n">Y</span><span class="p">:</span> <span class="n">y5</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">z5</span>
+      <span class="n">Node</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">x6</span>
+        <span class="n">Y</span><span class="p">:</span> <span class="n">y6</span>
+        <span class="n">Z</span><span class="p">:</span> <span class="n">z6</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_dict</strong> (<em>dict</em>) – <ul>
+<li><p>The current already established dictionary to be added to</p></li>
+</ul>
+</p></li>
+<li><p><strong>node_section_start</strong> (<em>int</em>) – <ul>
+<li><p>The line number where the node section begins</p></li>
+</ul>
+</p></li>
+<li><p><strong>current_element</strong> (<em>int</em>) – <ul>
+<li><p>The current element number of the group of nodes to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>temp_dict</strong> (<em>dict</em>) – <ul>
+<li><p>An already created dictionary for storing the nodes and their values</p></li>
+</ul>
+</p></li>
+<li><p><strong>num_nodes</strong> (<em>int</em>) – <ul>
+<li><p>The total number of nodes per element to be parsed</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The updated dictionary after parsing which is to be updated to the input new_dict</p></li>
+</ul>
+<dl class="simple">
+<dt>current_element (int):</dt><dd><ul class="simple">
+<li><p>The most recent element which was parsed to be used in further code</p></li>
+</ul>
+</dd>
+<dt>node_section_start (int):</dt><dd><ul class="simple">
+<li><p>The line number where the final node section begins to be used in further code</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.create_outlist">
+<code class="sig-name descname">create_outlist</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">start_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.create_outlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              <span class="n">OutList</span>     <span class="o">-</span> <span class="n">The</span> <span class="nb">next</span> <span class="n">line</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">contains</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">output</span> <span class="n">parameters</span><span class="o">.</span>  <span class="n">See</span> <span class="n">OutListParameters</span><span class="o">.</span><span class="n">xlsx</span> <span class="k">for</span> <span class="n">a</span> <span class="n">listing</span> <span class="n">of</span> <span class="n">available</span> <span class="n">output</span> <span class="n">channels</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="p">)</span>
+<span class="s2">&quot;VAL0&quot;</span>                 <span class="o">-</span> <span class="n">DESC0</span>
+<span class="s2">&quot;VAL1&quot;</span>                 <span class="o">-</span> <span class="n">DESC1</span>
+<span class="s2">&quot;VAL2&quot;</span>                 <span class="o">-</span> <span class="n">DESC2</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">OutList</span><span class="p">:</span>
+    <span class="s1">&#39;&quot;VAL0&quot;&#39;</span><span class="p">:</span> <span class="n">DESC0</span>
+    <span class="s1">&#39;&quot;VAL1&quot;&#39;</span><span class="p">:</span> <span class="n">DESC1</span>
+    <span class="s1">&#39;&quot;VAL2&quot;&#39;</span><span class="p">:</span> <span class="n">DESC2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>string</em>) – <ul>
+<li><p>The input list of strings to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>start_ind</strong> (<em>int</em>) – <ul>
+<li><p>The line in the file contents where the outlist begins</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final converted dictionary</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.create_outlist_multiple">
+<code class="sig-name descname">create_outlist_multiple</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">current_ind</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.create_outlist_multiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+        <span class="n">OutList</span>        <span class="o">-</span> <span class="n">DESC</span>
+<span class="s2">&quot;VAL1, VAL2&quot;</span>
+<span class="s2">&quot;VAL3, VAL4, VAL5&quot;</span>
+<span class="s2">&quot;VAL6&quot;</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">OutList</span><span class="p">:</span> <span class="p">[</span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">,</span> <span class="n">VAL3</span><span class="p">,</span> <span class="n">VAL4</span><span class="p">,</span> <span class="n">VAL5</span><span class="p">,</span> <span class="n">VAL6</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The file contents to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>current_ind</strong> (<em>int</em>) – <ul>
+<li><p>The current line of the file contents to be parsed</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final converted dictionary</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.create_val_un_dict">
+<code class="sig-name descname">create_val_un_dict</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">new_dict</em>, <em class="sig-param">temp_key_list</em>, <em class="sig-param">temp_unit_list</em>, <em class="sig-param">key_val</em>, <em class="sig-param">sv=17</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.create_val_un_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">temp_key_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+      <span class="n">a11</span>                 <span class="n">a12</span>                <span class="n">a13</span>                <span class="n">a14</span>
+      <span class="n">a21</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+      <span class="n">a31</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+      <span class="n">a41</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+      <span class="n">a51</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+      <span class="n">a61</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+      <span class="n">a71</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+      <span class="n">a81</span>                 <span class="o">...</span>                <span class="o">...</span>                <span class="o">...</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">Matrix</span><span class="p">:</span>
+    <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a11</span>
+      <span class="o">-</span> <span class="n">a21</span>
+      <span class="o">-</span> <span class="n">a31</span>
+      <span class="o">-</span> <span class="n">a41</span>
+      <span class="o">-</span> <span class="n">a51</span>
+      <span class="o">-</span> <span class="n">a61</span>
+      <span class="o">-</span> <span class="n">a71</span>
+      <span class="o">-</span> <span class="n">a81</span>
+    <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a12</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a13</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="n">temp_key_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">temp_unit_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a14</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The starting list of text lines to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>new_dict</strong> (<em>dict</em>) – <ul>
+<li><p>The current created dictionary to be added to</p></li>
+</ul>
+</p></li>
+<li><p><strong>temp_key_list</strong> (<em>list</em>) – <ul>
+<li><p>The list of key values to be used for the final output dictionary</p></li>
+</ul>
+</p></li>
+<li><p><strong>temp_unit_list</strong> (<em>list</em>) – <ul>
+<li><p>The list of unit values to be used for the final output dictionary</p></li>
+</ul>
+</p></li>
+<li><p><strong>key_val</strong> (<em>string</em>) – <ul>
+<li><p>The key value to be used to determine how many iterations should be used</p></li>
+</ul>
+</p></li>
+<li><p><strong>sv</strong> (<em>int</em>) – <ul>
+<li><p>The starting line value of the data</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final dictionary containing all the parsed content</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.is_float">
+<code class="sig-name descname">is_float</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.is_float" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">False</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The initial input string to be tested</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final list of values that have been converted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.is_int">
+<code class="sig-name descname">is_int</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.is_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">2.3</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kc">False</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The initial input string to be tested</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final list of values that have been converted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.load_openfast">
+<code class="sig-name descname">load_openfast</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.load_openfast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.load_yaml">
+<code class="sig-name descname">load_yaml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.load_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.open_file">
+<code class="sig-name descname">open_file</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.open_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.parse_filename">
+<code class="sig-name descname">parse_filename</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">in_type</em>, <em class="sig-param">out_type</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.parse_filename" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>string</em>) – <ul>
+<li><p>The starting input string</p></li>
+</ul>
+</p></li>
+<li><p><strong>in_type</strong> (<em>string</em>) – <ul>
+<li><p>The file extension of input file</p></li>
+</ul>
+</p></li>
+<li><p><strong>out_type</strong> (<em>string</em>) – <ul>
+<li><p>The file extension of output file</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final filename to be returned</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>parsed_filename (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.parse_filetype_valuefirst">
+<code class="sig-name descname">parse_filetype_valuefirst</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">key_list</em>, <em class="sig-param">sec_start_list</em>, <em class="sig-param">length_list</em>, <em class="sig-param">sep='  '</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.parse_filetype_valuefirst" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sec_start_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>  <span class="c1"># The first value should be the real value minus 1</span>
+<span class="n">length_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">3</span><span class="p">]</span><span class="o">----------------------</span> <span class="n">TITLE0</span> <span class="o">----------------------------------------</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">4</span><span class="p">]</span>            <span class="n">VAL0</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC0</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">5</span><span class="p">]</span>            <span class="n">VAL1</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC1</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">6</span><span class="p">]</span>            <span class="n">VAL2</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC2</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">7</span><span class="p">]</span>            <span class="n">VAL3</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC3</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">8</span><span class="p">]</span><span class="o">----------------------</span> <span class="n">TITLE1</span> <span class="o">----------------------------------------</span>
+<span class="p">[</span><span class="n">Line</span>  <span class="mi">9</span><span class="p">]</span>            <span class="n">VAL4</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC4</span>
+<span class="p">[</span><span class="n">Line</span> <span class="mi">10</span><span class="p">]</span>            <span class="n">VAL5</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC5</span>
+<span class="p">[</span><span class="n">Line</span> <span class="mi">11</span><span class="p">]</span>            <span class="n">VAL6</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC6</span>
+<span class="p">[</span><span class="n">Line</span> <span class="mi">12</span><span class="p">]</span>            <span class="n">VAL7</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC7</span>
+<span class="p">[</span><span class="n">Line</span> <span class="mi">13</span><span class="p">]</span>            <span class="n">VAL8</span>     <span class="n">key_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>    <span class="o">-</span> <span class="n">DESC8</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">VAL0</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">VAL1</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">VAL2</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">VAL3</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">VAL4</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">VAL5</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">VAL6</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">VAL7</span>
+  <span class="n">key_list</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">VAL8</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The starting list of text lines to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>key_list</strong> (<em>list</em>) – <ul>
+<li><p>The list of key values to search for in contents to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>sec_start_list</strong> (<em>list</em>) – <ul>
+<li><p>The starting line of the section with valuable content</p></li>
+</ul>
+</p></li>
+<li><p><strong>length_list</strong> (<em>list</em>) – <ul>
+<li><p>The total length of the section with valuable content</p></li>
+</ul>
+</p></li>
+<li><p><strong>sep</strong> (<em>string</em><em>,</em><em>default='  '</em>) – <ul>
+<li><p>The seperator to be used to split the sections</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final converted dictionary</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.parse_mulitple_first">
+<code class="sig-name descname">parse_mulitple_first</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">key_val</em>, <em class="sig-param">num_entry</em>, <em class="sig-param">line_start</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.parse_mulitple_first" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="s2">&quot;VAL1&quot;</span>    <span class="n">key_val</span>      <span class="o">-</span> <span class="n">DESC</span>
+<span class="s2">&quot;VAL2&quot;</span>
+<span class="s2">&quot;VAL3&quot;</span>
+<span class="s2">&quot;VAL4&quot;</span>
+<span class="s2">&quot;VAL5&quot;</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">key_val</span><span class="p">:</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL1&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL2&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL3&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL4&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL5&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The file contents to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>key_val</strong> (<em>string</em>) – <ul>
+<li><p>The current key value to be used (the one with multiple values)</p></li>
+</ul>
+</p></li>
+<li><p><strong>num_entry</strong> (<em>int</em>) – <ul>
+<li><p>The number of total values to be added to the relative key in the dictionary</p></li>
+</ul>
+</p></li>
+<li><p><strong>line_start</strong> (<em>int</em>) – <ul>
+<li><p>The line number where the data to be parsed occurs</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string to be outputted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>final_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.parse_type1">
+<code class="sig-name descname">parse_type1</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.parse_type1" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL</span>   <span class="n">KEY</span>   <span class="o">-</span> <span class="n">DESC</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">Value</span><span class="p">:</span> <span class="n">VAL</span>
+  <span class="n">Description</span><span class="p">:</span> <span class="n">DESC</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The starting input string</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The new key value which is returned to be used later</p></li>
+</ul>
+<dl class="simple">
+<dt>parsed_dict (dict):</dt><dd><ul class="simple">
+<li><p>The final output dictionary which contains the values and descriptions for each key</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_key (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.parse_xyz">
+<code class="sig-name descname">parse_xyz</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">d</em>, <em class="sig-param">i</em>, <em class="sig-param">n</em>, <em class="sig-param">k</em>, <em class="sig-param">ok=None</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.parse_xyz" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Element</span> <span class="n">number</span><span class="p">:</span>    <span class="mi">1</span>
+  <span class="n">k</span>  <span class="n">Global</span> <span class="n">node</span>         <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>             <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>             <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="o">----</span> <span class="o">-----------</span>  <span class="o">-----------------</span> <span class="o">-----------------</span> <span class="o">-----------------</span>
+ <span class="n">n</span><span class="o">-</span><span class="mi">5</span>      <span class="mi">1</span>               <span class="n">a11</span>               <span class="n">a12</span>               <span class="n">a13</span>
+ <span class="n">n</span><span class="o">-</span><span class="mi">4</span>      <span class="mi">2</span>               <span class="n">a21</span>               <span class="n">a22</span>               <span class="n">a23</span>
+ <span class="n">n</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">3</span>               <span class="n">a31</span>               <span class="n">a32</span>               <span class="n">a33</span>
+ <span class="n">n</span><span class="o">-</span><span class="mi">2</span>      <span class="mi">4</span>               <span class="n">a41</span>               <span class="n">a42</span>               <span class="n">a43</span>
+ <span class="n">n</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">5</span>               <span class="n">a51</span>               <span class="n">a52</span>               <span class="n">a53</span>
+  <span class="n">n</span>       <span class="mi">6</span>               <span class="n">a61</span>               <span class="n">a62</span>               <span class="n">a63</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">k</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">a11</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">a12</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a13</span>
+  <span class="n">k</span> <span class="n">n</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">a21</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">a22</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a23</span>
+  <span class="n">k</span> <span class="n">n</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">a31</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">a32</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a33</span>
+  <span class="n">k</span> <span class="n">n</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">a41</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">a42</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a43</span>
+  <span class="n">k</span> <span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">a51</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">a52</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a53</span>
+  <span class="n">k</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">a61</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">a62</span>
+    <span class="n">ok</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a63</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>string</em>) – <ul>
+<li><p>The input string to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>d</strong> (<em>int</em>) – <ul>
+<li><p>The starting index of the data group</p></li>
+</ul>
+</p></li>
+<li><p><strong>i</strong> (<em>int</em>) – <ul>
+<li><p>The starting index to begin parsing the data in the group</p></li>
+</ul>
+</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – <ul>
+<li><p>The total number of loops to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>k</strong> (<em>string</em>) – <ul>
+<li><p>The new key to be created for the dictionary</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final converted dictionary</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.remove_brackets">
+<code class="sig-name descname">remove_brackets</code><span class="sig-paren">(</span><em class="sig-param">s_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.remove_brackets" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">VAL1</span> <span class="ow">is</span> <span class="p">[]</span><span class="n">here</span><span class="p">][]</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL1</span> <span class="ow">is</span> <span class="n">here</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s_list</strong> (<em>list</em>) – <ul class="simple">
+<li><p>The initial input strings to be parsed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final output list of the parsed data</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_list (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.remove_char">
+<code class="sig-name descname">remove_char</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">c_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.remove_char" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;the be$t %ne knows&#39;</span>
+<span class="n">c_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;$&#39;</span><span class="p">,</span><span class="s1">&#39;%&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_s</span> <span class="o">=</span> <span class="s1">&#39;the bet ne nows&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>string</em>) – <ul>
+<li><p>The initial input string to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>c_list</strong> (<em>list</em>) – <ul>
+<li><p>The list of characters to be removed</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final output string of the filtered string</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_s (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.remove_parens">
+<code class="sig-name descname">remove_parens</code><span class="sig-paren">(</span><em class="sig-param">s_list</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.remove_parens" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">VAL1</span> <span class="ow">is</span> <span class="p">()</span><span class="n">here</span><span class="p">)()</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL1</span> <span class="ow">is</span> <span class="n">here</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s_list</strong> (<em>list</em>) – <ul class="simple">
+<li><p>The initial input strings to be parsed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final output list of the parsed data</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_list/UN-NAMED (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.remove_whitespace">
+<code class="sig-name descname">remove_whitespace</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.remove_whitespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL1</span>  <span class="n">VAL2</span>    <span class="n">VAL3</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;VAL1&#39;</span><span class="p">,</span><span class="s1">&#39;VAL2&#39;</span><span class="p">,</span><span class="s1">&#39;VAL3]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The input string to be parsed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final ist of input strings where whitespace has been removed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.remove_whitespace_filter">
+<code class="sig-name descname">remove_whitespace_filter</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.remove_whitespace_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;VAL1  VAL2&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;VAL3&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;VAL1  VAL2&#39;</span><span class="p">,</span><span class="s1">&#39;VAL3&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The input string to be parsed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final ist of input strings where whitespace has been removed</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.sep_string">
+<code class="sig-name descname">sep_string</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">sep</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.sep_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;VAL1  -  VAL2&#39;</span>
+<span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">value1</span> <span class="o">=</span> <span class="n">VAL1</span>
+<span class="n">value2</span> <span class="o">=</span> <span class="n">VAL2</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>string</em>) – <ul>
+<li><p>The initial input string</p></li>
+</ul>
+</p></li>
+<li><p><strong>sep</strong> (<em>string</em>) – <ul>
+<li><p>The character to be split by</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The first value parsed from the initial input string</p></li>
+</ul>
+<dl class="simple">
+<dt>value2 (string):</dt><dd><ul class="simple">
+<li><p>The second value parsed from the initial input string</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>value1 (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.sep_string_double">
+<code class="sig-name descname">sep_string_double</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">c1</em>, <em class="sig-param">c2</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.sep_string_double" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;VAL1  -  VAL2  +  VAL3&#39;</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">val1</span> <span class="o">=</span> <span class="n">VAL1</span>
+<span class="n">val2</span> <span class="o">=</span> <span class="n">VAL2</span>
+<span class="n">val3</span> <span class="o">=</span> <span class="n">VAL3</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>string</em>) – <ul>
+<li><p>The initial input string</p></li>
+</ul>
+</p></li>
+<li><p><strong>c1</strong> (<em>string</em>) – <ul>
+<li><p>The first character to be split by</p></li>
+</ul>
+</p></li>
+<li><p><strong>c2</strong> (<em>string</em>) – The second character to be split by</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The first value parsed from the initial input string</p></li>
+</ul>
+<dl class="simple">
+<dt>val2 (string):</dt><dd><ul class="simple">
+<li><p>The second value parsed from the initial input string</p></li>
+</ul>
+</dd>
+<dt>val3 (string):</dt><dd><ul class="simple">
+<li><p>The third value parsed from the initial input string</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>val1 (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.split_line">
+<code class="sig-name descname">split_line</code><span class="sig-paren">(</span><em class="sig-param">current_line</em>, <em class="sig-param">delimiter='  '</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.split_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">current_line</span> <span class="o">=</span> <span class="s1">&#39;VAL1  +  VAL2&#39;</span>
+<span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_line</strong> (<em>string</em>) – <ul>
+<li><p>The initial input string</p></li>
+</ul>
+</p></li>
+<li><p><strong>delimiter</strong> (<em>string</em><em>,</em><em>default='  '</em>) – <ul>
+<li><p>The character that will be used to split the text</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final output list of the parsed data</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>temp_value_list (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.split_line_spaces">
+<code class="sig-name descname">split_line_spaces</code><span class="sig-paren">(</span><em class="sig-param">current_line</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.split_line_spaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL1</span>  <span class="n">VAL2</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>current_line</strong> (<em>string</em>) – <ul class="simple">
+<li><p>The initial input string</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final output list of the split line</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>UN-NAMED (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.to_text">
+<code class="sig-name descname">to_text</code><span class="sig-paren">(</span><em class="sig-param">file_string</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.to_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.to_yaml">
+<code class="sig-name descname">to_yaml</code><span class="sig-paren">(</span><em class="sig-param">new_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.to_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.write_comma_list">
+<code class="sig-name descname">write_comma_list</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">key_val</em>, <em class="sig-param">desc_val</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.write_comma_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="o">...</span>
+  <span class="n">key_val</span><span class="p">:</span> <span class="p">[</span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">,</span> <span class="n">VAL3</span><span class="p">,</span> <span class="n">VAL4</span><span class="p">]</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">VAL1</span><span class="p">,</span> <span class="n">VAL2</span><span class="p">,</span> <span class="n">VAL3</span><span class="p">,</span> <span class="n">VAL4</span>    <span class="n">key_val</span>        <span class="o">-</span> <span class="n">desc_val</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The file contents to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>key_val</strong> (<em>string</em>) – <ul>
+<li><p>The current key value to be used (the one with multiple values)</p></li>
+</ul>
+</p></li>
+<li><p><strong>desc_val</strong> (<em>string</em>) – <ul>
+<li><p>The description associated with the current key value</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string to be outputted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>final_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.write_multiple_first">
+<code class="sig-name descname">write_multiple_first</code><span class="sig-paren">(</span><em class="sig-param">contents</em>, <em class="sig-param">key_val</em>, <em class="sig-param">desc_val</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.write_multiple_first" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">key_val</span><span class="p">:</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL1&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL2&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL3&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL4&#39;</span>
+    <span class="o">-</span> <span class="s1">&#39;VAL5&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;VAL1&quot;</span>    <span class="n">key_val</span>      <span class="o">-</span> <span class="n">desc_val</span>
+<span class="s2">&quot;VAL2&quot;</span>
+<span class="s2">&quot;VAL3&quot;</span>
+<span class="s2">&quot;VAL4&quot;</span>
+<span class="s2">&quot;VAL5&quot;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contents</strong> (<em>list</em>) – <ul>
+<li><p>The file contents to be parsed</p></li>
+</ul>
+</p></li>
+<li><p><strong>key_val</strong> (<em>string</em>) – <ul>
+<li><p>The current key value to be used (the one with multiple values)</p></li>
+</ul>
+</p></li>
+<li><p><strong>desc_val</strong> (<em>string</em>) – <ul>
+<li><p>The description associated with the current key value</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string to be outputted</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>final_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.write_outlist">
+<code class="sig-name descname">write_outlist</code><span class="sig-paren">(</span><em class="sig-param">in_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.write_outlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">OutList</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">KEY0</span>
+  <span class="o">-</span> <span class="n">KEY1</span>
+  <span class="o">-</span> <span class="o">...</span>
+  <span class="o">-</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OutList</span>     <span class="o">-</span> <span class="n">The</span> <span class="nb">next</span> <span class="n">line</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">contains</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">output</span> <span class="n">parameters</span><span class="o">.</span>  <span class="n">See</span> <span class="n">OutListParameters</span><span class="o">.</span><span class="n">xlsx</span> <span class="k">for</span> <span class="n">a</span> <span class="n">listing</span> <span class="n">of</span> <span class="n">available</span> <span class="n">output</span> <span class="n">channels</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="p">)</span><span class="s1">&#39;</span>
+<span class="s2">&quot;in_dict[&#39;OutList&#39;][KEY0]&quot;</span>
+<span class="s2">&quot;in_dict[&#39;OutList&#39;][KEY1]&quot;</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="n">END</span> <span class="n">of</span> <span class="nb">input</span> <span class="n">file</span> <span class="p">(</span><span class="n">the</span> <span class="n">word</span> <span class="s2">&quot;END&quot;</span> <span class="n">must</span> <span class="n">appear</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">3</span> <span class="n">columns</span> <span class="n">of</span> <span class="n">this</span> <span class="n">last</span> <span class="n">OutList</span> <span class="n">line</span><span class="p">)</span><span class="s1">&#39;</span>
+<span class="o">---------------------------------------------------------------------------------------</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>in_dict</strong> (<em>dict</em>) – <ul class="simple">
+<li><p>The starting dictionary with which to read in the values for the output list</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string to be returned including the output list</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>end_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.write_outlist_kv">
+<code class="sig-name descname">write_outlist_kv</code><span class="sig-paren">(</span><em class="sig-param">in_dict</em>, <em class="sig-param">delim</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.write_outlist_kv" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">OutList</span><span class="p">:</span>
+    <span class="s1">&#39;&quot;KEY0&quot;&#39;</span><span class="p">:</span> <span class="n">in_dict</span><span class="p">[</span><span class="s1">&#39;OutList&#39;</span><span class="p">][</span><span class="n">KEY0</span><span class="p">]</span>
+    <span class="s1">&#39;&quot;KEY1&quot;&#39;</span><span class="p">:</span> <span class="n">in_dict</span><span class="p">[</span><span class="s1">&#39;OutList&#39;</span><span class="p">][</span><span class="n">KEY1</span><span class="p">]</span>
+    <span class="s1">&#39;&quot;...&quot;&#39;</span> <span class="p">:</span> <span class="o">...</span>
+    <span class="s1">&#39;&quot;...&quot;&#39;</span> <span class="p">:</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OutList</span>     <span class="o">-</span> <span class="n">The</span> <span class="nb">next</span> <span class="n">line</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">contains</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">output</span> <span class="n">parameters</span><span class="o">.</span>  <span class="n">See</span> <span class="n">OutListParameters</span><span class="o">.</span><span class="n">xlsx</span> <span class="k">for</span> <span class="n">a</span> <span class="n">listing</span> <span class="n">of</span> <span class="n">available</span> <span class="n">output</span> <span class="n">channels</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="p">)</span><span class="s1">&#39;</span>
+<span class="n">KEY0</span> <span class="p">{</span><span class="n">delim</span><span class="p">}</span> <span class="n">in_dict</span><span class="p">[</span><span class="s1">&#39;OutList&#39;</span><span class="p">][</span><span class="n">KEY0</span><span class="p">]</span>
+<span class="n">KEY1</span> <span class="p">{</span><span class="n">delim</span><span class="p">}</span> <span class="n">in_dict</span><span class="p">[</span><span class="s1">&#39;OutList&#39;</span><span class="p">][</span><span class="n">KEY1</span><span class="p">]</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="n">END</span> <span class="n">of</span> <span class="nb">input</span> <span class="n">file</span> <span class="p">(</span><span class="n">the</span> <span class="n">word</span> <span class="s2">&quot;END&quot;</span> <span class="n">must</span> <span class="n">appear</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="mi">3</span> <span class="n">columns</span> <span class="n">of</span> <span class="n">this</span> <span class="n">last</span> <span class="n">OutList</span> <span class="n">line</span><span class="p">)</span><span class="s1">&#39;</span>
+<span class="o">---------------------------------------------------------------------------------------</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dict</strong> (<em>dict</em>) – <ul>
+<li><p>The starting dictionary with which to read in the values for the output list</p></li>
+</ul>
+</p></li>
+<li><p><strong>delim</strong> (<em>string</em>) – <ul>
+<li><p>The string of characters to be added in between each value in the output list</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string to be returned including the output list</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>end_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.write_val_un_table">
+<code class="sig-name descname">write_val_un_table</code><span class="sig-paren">(</span><em class="sig-param">in_dict</em>, <em class="sig-param">tt_keys</em>, <em class="sig-param">ord_keys</em>, <em class="sig-param">key_val</em>, <em class="sig-param">has_un=True</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.write_val_un_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="n">Matrix</span><span class="p">:</span>
+    <span class="n">tt_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">UNIT0</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a11</span>
+      <span class="o">-</span> <span class="n">a21</span>
+      <span class="o">-</span> <span class="n">a31</span>
+      <span class="o">-</span> <span class="n">a41</span>
+      <span class="o">-</span> <span class="n">a51</span>
+      <span class="o">-</span> <span class="n">a61</span>
+      <span class="o">-</span> <span class="n">a71</span>
+      <span class="o">-</span> <span class="n">a81</span>
+    <span class="n">tt_keys</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">UNIT1</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a12</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="n">tt_keys</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">UNIT2</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a13</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+    <span class="n">tt_keys</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+      <span class="n">Unit</span><span class="p">:</span> <span class="n">UNIT3</span>
+      <span class="n">Value</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">a14</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+      <span class="o">-</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ord_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>   <span class="n">ord_keys</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>   <span class="n">ord_keys</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>   <span class="n">ord_keys</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+  <span class="n">UNIT0</span>         <span class="n">UNIT1</span>         <span class="n">UNIT2</span>         <span class="n">UNIT3</span>
+   <span class="n">a11</span>           <span class="n">a12</span>           <span class="n">a13</span>           <span class="n">a14</span>
+   <span class="n">a21</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+   <span class="n">a31</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+   <span class="n">a41</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+   <span class="n">a51</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+   <span class="n">a61</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+   <span class="n">a71</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+   <span class="n">a81</span>           <span class="o">...</span>           <span class="o">...</span>           <span class="o">...</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>in_dict</strong> (<em>dict</em>) – <ul>
+<li><p>The starting dictionary with which to read the values and their respective units</p></li>
+</ul>
+</p></li>
+<li><p><strong>tt_keys</strong> (<em>list</em>) – <ul>
+<li><p>The current un-ordered list of keys</p></li>
+</ul>
+</p></li>
+<li><p><strong>ord_keys</strong> (<em>list</em>) – <ul>
+<li><p>The ordered list of keys to be used as a reference</p></li>
+</ul>
+</p></li>
+<li><p><strong>key_val</strong> (<em>string</em>) – <ul>
+<li><p>The final key value to be used for the output dictionary</p></li>
+</ul>
+</p></li>
+<li><p><strong>has_un</strong> (<em>bool</em><em>,</em><em>default=True</em>) – <ul>
+<li><p>Determines whether or not the input data contains a unit description line or not</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string to be returned including the output list</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>end_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="base_file.BaseFile.write_valdesc">
+<code class="sig-name descname">write_valdesc</code><span class="sig-paren">(</span><em class="sig-param">inp_d</em>, <em class="sig-param">k_list</em>, <em class="sig-param">d_list</em>, <em class="sig-param">cat_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#base_file.BaseFile.write_valdesc" title="Permalink to this definition">¶</a></dt>
+<dd><p>INPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="n">bunch</span> <span class="n">of</span> <span class="n">different</span> <span class="n">variables</span>
+</pre></div>
+</div>
+<p>OUTPUT:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inp_d</span><span class="p">[</span><span class="n">k_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>  <span class="n">k_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="o">-</span> <span class="n">d_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">inp_d</span><span class="p">[</span><span class="n">k_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>  <span class="n">k_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">-</span> <span class="n">d_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">inp_d</span><span class="p">[</span><span class="n">k_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>  <span class="n">k_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>  <span class="o">-</span> <span class="n">d_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inp_d</strong> (<em>dict</em>) – <ul>
+<li><p>The starting dictionary to be used to get data values</p></li>
+</ul>
+</p></li>
+<li><p><strong>k_list</strong> (<em>list</em>) – <ul>
+<li><p>The list of keys to be used in the creation of the final strings</p></li>
+</ul>
+</p></li>
+<li><p><strong>d_list</strong> (<em>list</em>) – <ul>
+<li><p>The list of descriptions to be used in the creation of the final strings</p></li>
+</ul>
+</p></li>
+<li><p><strong>cat_name</strong> (<em>string</em><em>,</em><em>default=None</em>) – <ul>
+<li><p>The name of main dictionary category (if applicable)</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>The final string that is generated by the given data</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>file_string (string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">OpenFAST-Edits</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Lucas-Mc.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/base_file.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

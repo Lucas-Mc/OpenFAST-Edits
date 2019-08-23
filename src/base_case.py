@@ -18,6 +18,7 @@ class BaseCase():
     Returns:
       None
     """
+
     self.driver = driver
 
     # The case directory should be of this form: <path_to>/<case_name>
@@ -49,6 +50,7 @@ class BaseCase():
   def run(self, verbose=True):
     """
     Create the shell command which will run the driver
+    
     Args:
       verbose::[bool]
         - Determines whether or not excess output should be printed
