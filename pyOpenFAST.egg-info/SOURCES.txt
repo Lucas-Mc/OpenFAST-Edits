@@ -1,0 +1,6 @@
+setup.py
+pyOpenFAST.egg-info/PKG-INFO
+pyOpenFAST.egg-info/SOURCES.txt
+pyOpenFAST.egg-info/dependency_links.txt
+pyOpenFAST.egg-info/requires.txt
+pyOpenFAST.egg-info/top_level.txt
