@@ -1,10 +1,10 @@
-from src.base_case import BaseCase
-from src.beamdyn_driver import BeamdynDriver
-from src.beamdyn_files import BeamdynPrimaryFile
-from src.beamdyn_files import BeamdynBladeFile
-from src.beamdyn_files import BeamdynDriverFile
-from src.beamdyn_files import BeamdynInputSummaryFile
-from src.output_files import OutputPrimaryFile
+from .base_case import BaseCase
+from .beamdyn_driver import BeamdynDriver
+from .beamdyn_files import BeamdynPrimaryFile
+from .beamdyn_files import BeamdynBladeFile
+from .beamdyn_files import BeamdynDriverFile
+from .beamdyn_files import BeamdynInputSummaryFile
+from .output_files import OutputPrimaryFile
 
 
 class BeamdynCase(BaseCase):

@@ -1,16 +1,16 @@
-from src.base_case import BaseCase
-from src.aoc_driver import AOCDriver
-from src.aoc_files import AOCTowerFile
-from src.aoc_files import AOCBladeFile
-from src.aoc_files import AOCBladeADFile
-from src.aoc_files import AOCFstFile
-from src.aoc_files import AOCElastoDynFile
-from src.aoc_files import AOCServoDyn
-from src.aoc_files import AOCInflowWind
-from src.aoc_files import AOCAD
-from src.aoc_files import AOCAD15
-from src.all_files import AeroDataFile
-from src.output_files import OutputPrimaryFile
+from .base_case import BaseCase
+from .aoc_driver import AOCDriver
+from .aoc_files import AOCTowerFile
+from .aoc_files import AOCBladeFile
+from .aoc_files import AOCBladeADFile
+from .aoc_files import AOCFstFile
+from .aoc_files import AOCElastoDynFile
+from .aoc_files import AOCServoDyn
+from .aoc_files import AOCInflowWind
+from .aoc_files import AOCAD
+from .aoc_files import AOCAD15
+from .all_files import AeroDataFile
+from .output_files import OutputPrimaryFile
 import os
 
 # Fix the repetitive code in here

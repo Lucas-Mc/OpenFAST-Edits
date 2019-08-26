@@ -1,6 +1,6 @@
 import sys
 import yaml
-from src.base_file import BaseFile
+from .base_file import BaseFile
 
 class AOCFstFile(BaseFile):
   """

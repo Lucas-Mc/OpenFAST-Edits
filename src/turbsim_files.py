@@ -1,5 +1,5 @@
 import sys
-from src.base_file import BaseFile
+from .base_file import BaseFile
 
 
 class TurbsimFile(BaseFile):
