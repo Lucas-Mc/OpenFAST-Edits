@@ -9,4 +9,4 @@ sphinx:
 python:
    version: 3.7
    install:
-     - requirements: pyOpenFAST.egg-info/requires.txt
+     - requirements: requirements.txt
