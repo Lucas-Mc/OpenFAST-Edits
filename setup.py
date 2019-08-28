@@ -15,8 +15,8 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'pyOpenFAST'
 DESCRIPTION = 'A Python wrapper for OpenFAST.'
-URL = 'https://github.com/rafmudaf/pyOpenFAST'
-EMAIL = 'rafael.mudafort@nrel.gov'
+URL = 'https://github.com/lucas-mc/OpenFAST_Edits'
+EMAIL = 'lucas.mccullum@nrel.gov'
 AUTHOR = 'NREL National Wind Technology Center'
 REQUIRES_PYTHON = '>=3.3.0'
 VERSION = '0.1.0'
