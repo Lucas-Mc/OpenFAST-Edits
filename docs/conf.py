@@ -13,7 +13,7 @@ extensions = [
     # 'sphinx.ext.mathjax',
     # 'sphinx.ext.viewcode',
     # 'sphinx.ext.githubpages',
-    # 'sphinx.ext.autodoc',
+    'sphinx.ext.autodoc',
     # 'readthedocs_ext.readthedocs',
     # 'sphinx.ext.napoleon',
     # 'sphinx.ext.autosummary',
