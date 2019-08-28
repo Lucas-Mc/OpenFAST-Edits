@@ -3,7 +3,6 @@ import os
 import sys
 cwd = os.getcwd()
 projpath = os.path.dirname(cwd)
-projpath = os.path.join(projpath,'src')
 sys.path.insert(0, projpath)
 import subprocess
 # -- General configuration ------------------------------------------------
